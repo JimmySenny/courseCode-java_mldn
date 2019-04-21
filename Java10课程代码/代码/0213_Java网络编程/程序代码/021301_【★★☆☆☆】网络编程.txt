@@ -1,0 +1,173 @@
+1、
+package cn.mldn.demo.server;
+
+import java.io.PrintStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Scanner;
+
+public class EchoServer {
+	public static void main(String[] args) throws Exception {
+		ServerSocket server = new ServerSocket(9999) ; // 设置服务器端的监听端口
+		System.out.println("等待客户端连接.............");
+		Socket client = server.accept() ; // 有客户端连接
+		// 首先需要先接收客户端发送来的信息，而后才可以将信息处理之后发送回客户端
+		Scanner scan = new Scanner(client.getInputStream()) ; 	// 客户端输入流
+		scan.useDelimiter("\n") ; // 设置分隔符
+		PrintStream out = new PrintStream(client.getOutputStream()) ; // 客户端输出流
+		boolean flag = true ; // 循环标记
+		while (flag) {
+			if(scan.hasNext()) {	// 现在有数据发送
+				String val = scan.next().trim() ; // 接收发送的数据
+				if ("byebye".equalsIgnoreCase(val)) {
+					out.println("ByeByeBye....");
+					flag = false ; // 结束循环
+				} else {
+					out.println("【ECHO】" + val);
+				}
+			}
+		}
+		scan.close();
+		out.close();
+		client.close();
+		server.close();
+	}
+}
+
+
+2、
+package cn.mldn.demo.client;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.net.Socket;
+import java.util.Scanner;
+
+public class EchoClient {
+	private static final BufferedReader KEYBOARD_INPUT = new BufferedReader(new InputStreamReader(System.in)) ;
+	public static void main(String[] args) throws Exception {
+		Socket client = new Socket("localhost",9999) ; // 定义服务端的连接信息
+		// 现在的客户端需要有输入与输出的操作支持，所以依然要准备出Scanner与PrintWriter 
+		Scanner scan = new Scanner(client.getInputStream()) ; // 接收服务器端的输入内容
+		scan.useDelimiter("\n") ;
+		PrintStream out = new PrintStream(client.getOutputStream()) ; // 向服务器端发送内容
+		boolean flag = true ;
+		while(flag) {
+			String input = getString("请输入要发送的内容：").trim() ;
+			out.println(input); // 加换行
+			if (scan.hasNext()) {	// 服务器端有回应了
+				System.out.println(scan.next());
+			}
+			if ("byebye".equalsIgnoreCase(input)) {
+				flag = false ;
+			}
+		}
+		scan.close();
+		out.close();
+		client.close(); 
+	}
+	public static String getString(String prompt) throws Exception {
+		System.out.print(prompt);
+		String str = KEYBOARD_INPUT.readLine() ;
+		return str ;
+	}
+}
+
+
+3、
+package cn.mldn.demo.server;
+
+import java.io.IOException;
+import java.io.PrintStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Scanner;
+
+public class EchoServer {
+	private static class ClientThread implements Runnable {
+		private Socket client = null ; // 描述每一个不同的客户端
+		private Scanner scan = null ; 
+		private PrintStream out = null ;
+		private boolean flag = true ; // 循环标记
+		public ClientThread(Socket client) throws Exception {
+			this.client = client ;
+			this.scan = new Scanner(client.getInputStream()) ; 	// 客户端输入流
+			this.scan.useDelimiter("\n") ; // 设置分隔符
+			this.out = new PrintStream(client.getOutputStream()) ; // 客户端输出流
+		}
+		@Override
+		public void run() {
+			while (this.flag) {
+				if(scan.hasNext()) {	// 现在有数据发送
+					String val = scan.next().trim() ; // 接收发送的数据
+					if ("byebye".equalsIgnoreCase(val)) {
+						out.println("ByeByeBye....");
+						this.flag = false ; // 结束循环
+					} else {
+						out.println("【ECHO】" + val);
+					}
+				}
+			}
+			try {
+				scan.close();
+				out.close();
+				client.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	} 
+	public static void main(String[] args) throws Exception {
+		ServerSocket server = new ServerSocket(9999) ; // 设置服务器端的监听端口
+		System.out.println("等待客户端连接.............");
+		// 首先需要先接收客户端发送来的信息，而后才可以将信息处理之后发送回客户端
+		boolean flag = true ; // 循环标记
+		while (flag) {
+			Socket client = server.accept() ; // 有客户端连接
+			new Thread(new ClientThread(client)).start();
+		}
+		server.close(); 
+	}
+}
+
+
+4、
+
+package cn.mldn.demo.client;
+
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+ 
+public class UDPClient {
+	public static void main(String[] args) throws Exception { // 接收数据信息
+		DatagramSocket client = new DatagramSocket(9999); // 连接到9999端口
+		byte data[] = new byte[1024]; // 接收消息
+		DatagramPacket packet = new DatagramPacket(data, data.length);// 接收数据
+		System.out.println("客户端等待接收发送的消息........");
+		client.receive(packet); // 接收消息，所有的消息都在data字节数组之中
+		System.out.println("接收到的消息内容为：" + new String(data, 0, packet.getLength()));
+		client.close(); 
+	}
+}
+
+
+5、
+
+package cn.mldn.demo.server;
+
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+
+public class UDPServer {
+	public static void main(String[] args) throws Exception {
+		DatagramSocket server = new DatagramSocket(9000); // 连接到9999端口
+		String str = "www.mldn.cn"; // 要发送的消息的内容
+		DatagramPacket packet = new DatagramPacket(str.getBytes(), 0, str.length(), InetAddress.getByName("localhost"),
+				9999);// 发送数据
+		server.send(packet); // 发送消息
+		System.out.println("消息发送完毕.....");
+		server.close();
+	}
+}

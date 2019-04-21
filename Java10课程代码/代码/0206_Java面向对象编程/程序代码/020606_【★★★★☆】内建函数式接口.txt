@@ -1,0 +1,38 @@
+1、
+import java.util.function.* ;
+public class JavaDemo {
+	public static void main(String args[]) {
+		Function<String,Boolean> fun = "**Hello" :: startsWith ;
+		System.out.println(fun.apply("**")) ;
+	}
+} 
+
+2、
+import java.util.function.* ;
+public class JavaDemo {
+	public static void main(String args[]) {
+		Consumer<String> con = System.out :: println ;
+		con.accept("www.mldn.cn") ;	
+	}
+}
+
+
+3、
+
+import java.util.function.* ;
+public class JavaDemo {
+	public static void main(String args[]) {
+		Supplier<String> sup = "www.MLDNJAVA.cn" :: toLowerCase ;
+		System.out.println(sup.get()) ;
+	}
+} 
+
+4、
+
+import java.util.function.* ;
+public class JavaDemo {
+	public static void main(String args[]) {
+		Predicate<String> pre = "mldn" :: equalsIgnoreCase ;
+		System.out.println(pre.test("MLDN")) ;
+	}
+} 

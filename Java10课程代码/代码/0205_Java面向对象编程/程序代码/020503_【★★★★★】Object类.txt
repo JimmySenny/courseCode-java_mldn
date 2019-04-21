@@ -1,0 +1,117 @@
+1、
+
+class Person {}	// 一个类
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		Object obj = new Person() ;	// 向上转型
+		if (obj instanceof Person) {
+			Person per = (Person) obj ;
+			System.out.println("Person对象向下转型执行完毕。") ;
+		}
+	}
+} 
+
+
+2、
+public class JavaDemo {
+	public static void main(String args[]) {
+		Object obj = new int [] {1,2,3} ;	// 向上转型
+		if (obj instanceof int[]) { // 是否为整型数组
+			int data [] = (int []) obj ;  // 向下转型
+			for (int temp : data) {
+				System.out.print(temp + "、") ;
+			}
+		}
+	}
+} 
+
+3、
+class Person {
+	private String name ;
+	private int age ;
+	public Person(String name,int age) {
+		this.name = name ;
+		this.age = age ;
+	}
+	public String toString() {
+		return "姓名：" + this.name + "、年龄：" + this.age ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Person per = new Person("张三",20) ;
+		System.out.println(per) ;
+	}
+} 
+
+
+4、
+class Person {
+	private String name ;
+	private int age ;
+	public Person(String name,int age) {
+		this.name = name ;
+		this.age = age ;
+	}
+	public String toString() {
+		return "姓名：" + this.name + "、年龄：" + this.age ;
+	}
+	public String getName() {
+		return this.name ;
+	}
+	public int getAge() {
+		return this.age ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Person perA = new Person("张三",20) ;
+		Person perB = new Person("张三",20) ;
+		if (perA.getName().equals(perB.getName()) &&
+			perA.getAge() == perB.getAge()) {
+			System.out.println("是同一个对象。") ;
+		} else {
+			System.out.println("不是同一个对象。") ;
+		}
+	}
+} 
+
+
+5、
+
+class Person {
+	private String name ;
+	private int age ;
+	public Person(String name,int age) {
+		this.name = name ;
+		this.age = age ;
+	}
+	public String toString() {
+		return "姓名：" + this.name + "、年龄：" + this.age ;
+	}
+	// equals()方法这个时候会有两个对象：当前对象this、传入的Object
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Person)) {
+			return false ;
+		}
+		if (obj == null) {	// 不关心null的比较
+			return false ;
+		}
+		if (this == obj) {	// 同一个地址
+			return true ;
+		}
+		Person per = (Person) obj ; // 目的是为了获取类中的属性
+		return this.name.equals(per.name) &&  this.age == per.age ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Person perA = new Person("张三",20) ;
+		Person perB = new Person("张三",20) ;
+		System.out.println(perA.equals(perB)) ;
+	}
+} 
+
+
+6、

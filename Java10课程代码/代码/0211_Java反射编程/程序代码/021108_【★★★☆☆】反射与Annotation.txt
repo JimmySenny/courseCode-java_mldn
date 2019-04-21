@@ -1,0 +1,232 @@
+1、
+
+package cn.mldn.demo;
+
+import java.io.Serializable;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		{	// 获取接口上的Annotation信息
+			Annotation annotations [] = IMessage.class.getAnnotations() ; // 获取接口上的全部Annotation
+			for (Annotation temp : annotations) {
+				System.out.println(temp);
+			}
+		}
+		System.out.println("-----------------------------------");
+		{	// 获取MessageImpl子类上的Annotation
+			Annotation annotations [] = MessageImpl.class.getAnnotations() ; // 获取接口上的全部Annotation
+			for (Annotation temp : annotations) {
+				System.out.println(temp);
+			}
+		}
+		System.out.println("-----------------------------------");
+		{	// 获取MessageImpl.toString()方法上的Annotation
+			Method method = MessageImpl.class.getDeclaredMethod("send", String.class) ;
+			Annotation annotations [] = method.getAnnotations() ; // 获取接口上的全部Annotation
+			for (Annotation temp : annotations) {
+				System.out.println(temp);
+			}
+		}
+	} 
+}
+@FunctionalInterface
+@Deprecated(since="1.0") 
+interface IMessage {	// 有两个Annotation
+	public void send(String msg) ;
+}
+@SuppressWarnings("serial")	// 无法在程序执行的时候获取
+class MessageImpl implements IMessage, Serializable {
+	@Override		// 无法在程序执行的时候获取
+	public void send(String msg) {
+		System.out.println("【消息发送】" + msg);
+	}
+}
+
+
+
+2、
+package cn.mldn.demo;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.reflect.Method;
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Method method = Message.class.getMethod("send", String.class) ; // 获取指定方法
+		DefaultAnnotation anno = method.getAnnotation(DefaultAnnotation.class) ; // 获取指定的Annotation
+		String msg = anno.title() + "（" + anno.url() + "）";	// 消息内容
+		method.invoke(Message.class.getDeclaredConstructor().newInstance(), msg) ;
+	} 
+}
+@Retention(RetentionPolicy.RUNTIME)	// 定义Annotation的运行策略
+@interface DefaultAnnotation {	// 自定义的Annotation
+	public String title() ; // 获取数据
+	public String url() default "www.mldn.cn" ;	// 获取数据，默认值
+}
+class Message {
+	@DefaultAnnotation(title="MLDN") 
+	public void send(String msg) {
+		System.out.println("【消息发送】" + msg);
+	}
+}
+
+
+
+
+3、
+
+package cn.mldn.demo;
+
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		MessageService messageService = new MessageService() ;
+		messageService.send("www.mldn.cn"); 
+	} 
+}
+class MessageService {
+	private IMessage message ;
+	public MessageService() {
+		this.message = Factory.getInstance(MessageImpl.class) ;
+	}
+	public void send(String msg) {
+		this.message.send(msg);
+	}
+}
+class Factory {
+	private Factory() {}
+	public static <T> T getInstance(Class<T> clazz) {	// 直接返回一个实例化对象
+		try {
+			return (T) new MessageProxy().bind(clazz.getDeclaredConstructor().newInstance()) ;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null ;
+		}
+	}
+}
+class MessageProxy implements InvocationHandler {
+	private Object target ;
+	public Object bind(Object target) {
+		this.target = target ;
+		return Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(), this) ;
+	}
+	public boolean connect() {
+		System.out.println("〖代理操作〗进行消息发送通道的连接。");
+		return true ;
+	}
+	public void close() {
+		System.out.println("〖代理操作〗关闭连接通道。");
+	}
+
+	@Override
+	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+		try {
+			if (this.connect()) {
+				return method.invoke(this.target, args);
+			} else {
+				throw new Exception("【ERROR】消息无法进行发送！");
+			}
+		} finally {
+			this.close();
+		}
+	}
+}
+interface IMessage {
+	public void send(String msg) ;
+}
+class MessageImpl implements IMessage {
+	@Override
+	public void send(String msg) {
+		System.out.println("【消息发送】" + msg);
+	}
+}
+
+
+
+4、
+package cn.mldn.demo;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		MessageService messageService = new MessageService() ;
+		messageService.send("www.mldn.cn"); 
+	} 
+}
+@Retention(RetentionPolicy.RUNTIME)
+@interface UseMessage {
+	public Class<?> clazz() ;
+}
+@UseMessage(clazz=NetMessageImpl.class)	// 利用Annotation实现了类的使用
+class MessageService {
+	private IMessage message ;
+	public MessageService() {
+		UseMessage use = MessageService.class.getAnnotation(UseMessage.class) ;
+		this.message = (IMessage) Factory.getInstance(use.clazz()) ; // 直接通过Annotation获取
+	}
+	public void send(String msg) {
+		this.message.send(msg);
+	}
+}
+class Factory {
+	private Factory() {}
+	public static <T> T getInstance(Class<T> clazz) {	// 直接返回一个实例化对象
+		try {
+			return (T) new MessageProxy().bind(clazz.getDeclaredConstructor().newInstance()) ;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null ;
+		}
+	}
+}
+class MessageProxy implements InvocationHandler {
+	private Object target ;
+	public Object bind(Object target) {
+		this.target = target ;
+		return Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(), this) ;
+	}
+	public boolean connect() {
+		System.out.println("〖代理操作〗进行消息发送通道的连接。");
+		return true ;
+	}
+	public void close() {
+		System.out.println("〖代理操作〗关闭连接通道。");
+	}
+
+	@Override
+	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+		try {
+			if (this.connect()) {
+				return method.invoke(this.target, args);
+			} else {
+				throw new Exception("【ERROR】消息无法进行发送！");
+			}
+		} finally {
+			this.close();
+		}
+	}
+}
+interface IMessage {
+	public void send(String msg) ;
+}
+class MessageImpl implements IMessage {
+	@Override
+	public void send(String msg) {
+		System.out.println("【消息发送】" + msg);
+	}
+}
+class NetMessageImpl implements IMessage {
+	@Override
+	public void send(String msg) {
+		System.out.println("【网络消息发送】" + msg);
+	}
+}

@@ -1,0 +1,528 @@
+1、
+public class ArrayDemo {
+	public static void main(String args[]) {
+		// 使用数组的动态初始化实现了数组的定义
+		int data [] = new int [3] ;
+		data [0] = 11 ;	// 为数组设置内容
+		data [1] = 23 ;	// 为数组设置内容
+		data [2] = 56 ;	// 为数组设置内容
+		for (int x = 0 ; x < data.length ; x ++) {
+			System.out.println(data[x]) ;
+		}
+	}
+}
+
+2、
+public class ArrayDemo {
+	public static void main(String args[]) {
+		// 使用数组的静态初始化
+		int data [] = new int [] {11,23,56} ;
+		for (int x = 0 ; x < data.length ; x ++) {
+			System.out.println(data[x]) ;
+		}
+	}
+}
+
+3、
+public class ArrayDemo {
+	public static void main(String args[]) {
+		// 使用数组的静态初始化
+		int data [] = new int [3] ;
+		data [0] = 10 ;	// 为数组设置内容
+		data [1] = 20 ;	// 为数组设置内容
+		data [2] = 30 ;	// 为数组设置内容
+		for (int x = 0 ; x < data.length ; x ++) {
+			System.out.println(data[x]) ;
+		}
+	}
+}
+
+4、
+public class ArrayDemo {
+	public static void main(String args[]) {
+		int data [] = new int [] {10,20,30} ;	// 静态初始化
+		int temp [] = data ;	// 引用传递
+		temp [0] = 99 ;
+		for (int x = 0 ; x < data.length ; x ++) {
+			System.out.println(data[x]) ;
+		}
+	}
+}
+
+5、
+
+public class ArrayDemo {
+	public static void main(String args[]) {
+		int data [] = null ;
+		System.out.println(data[0]) ;
+	}
+}
+
+6、
+public class ArrayDemo {
+	public static void main(String args[]) {
+		int data [] = new int [] {1,2,3,4,5} ;
+		for (int x = 0 ; x < data.length ; x ++) {
+			System.out.println(data[x]) ;
+		}
+	}
+}
+
+7、
+
+for (数据类型 变量 : 数组 | 集合) {}
+
+public class ArrayDemo {
+	public static void main(String args[]) {
+		int data [] = new int [] {1,2,3,4,5} ;
+		for (int temp : data) {	// 自动循环，将data数组每一个内容交给temp
+			System.out.println(temp) ;
+		}
+	}
+}
+
+8、
+
+public class ArrayDemo {
+	public static void main(String args[]) {
+		int data [][] = new int [][] {
+			{1,2,3,4,5} , {1,2,3} , {5,6,7,8}} ;
+		for (int x = 0 ; x < data.length ; x ++) {
+			for (int y = 0 ; y < data[x].length ; y ++) {
+				System.out.println("data["+x+"]["+y+"] = " + data[x][y]) ;
+			}
+			System.out.println() ;	// 换行
+		}
+	}
+}
+
+9、
+
+public class ArrayDemo {
+	public static void main(String args[]) {
+		int data [][] = new int [][] {
+			{1,2,3,4,5} , {1,2,3} , {5,6,7,8}} ;
+		for (int temp [] : data) {
+			for (int num : temp) {
+				System.out.print(num + "、") ;
+			}
+			System.out.println() ;
+		}
+	}
+}
+
+10、
+
+public class ArrayDemo {
+	public static void main(String args[]) {
+		int data [] = new int [] {1,2,3,4,5} ;
+		printArray(data) ;	// 传递数组
+	}
+	// 要求接收一个int型的数组
+	public static void printArray(int temp []) {
+		for (int x = 0 ; x < temp.length ; x ++) {
+			System.out.println(temp[x]) ;
+		}
+	}
+}
+
+11、
+public class ArrayDemo {
+	public static void main(String args[]) {
+		int data [] = initArray() ;	// 通过方法可以获得数组内容
+		printArray(data) ;	// 传递数组
+	}
+	public static int [] initArray() {
+		int arr [] = new int [] {1,2,3,4,5} ;
+		return arr ;	// 返回一个数组
+	}
+	// 要求接收一个int型的数组
+	public static void printArray(int temp []) {
+		for (int x = 0 ; x < temp.length ; x ++) {
+			System.out.println(temp[x]) ;
+		}
+	}
+}
+
+12、
+
+public class ArrayDemo {
+	public static void main(String args[]) {
+		int data [] = new int [] {1,2,3,4,5} ;
+		changeArray(data) ;	// 修改数组内容
+		printArray(data) ;	// 传递数组
+	}
+	public static void changeArray(int arr[]) {
+		for (int x = 0 ; x < arr.length ; x ++) {
+			arr[x] *= 2 ;	// 每个元素的内容乘2保存
+		}
+	}
+	// 要求接收一个int型的数组
+	public static void printArray(int temp []) {
+		for (int x = 0 ; x < temp.length ; x ++) {
+			System.out.println(temp[x]) ;
+		}
+	}
+}
+
+13、
+public class ArrayDemo {
+	public static void main(String args[]) {
+		int data [] = new int [] {1,2,3,4,5} ;
+		int sum = 0 ; ;
+		double avg = 0.0 ;
+		int max = data[0] ; // 假设第一个是最大值
+		int min = data[0] ;	// 假设第一个是最小值
+		for (int x = 0 ; x < data.length ; x ++) {
+			if (data[x] > max) {	// max地位改变了
+				max = data[x] ;
+			}
+			if (data[x] < min) {
+				min = data[x] ;
+			}
+			sum += data[x] ;
+		}
+		avg = sum / data.length ;
+		System.out.println("数组内容总和：" + sum) ;
+		System.out.println("数组内容平均值：" + avg) ;
+		System.out.println("数组内容最大值：" + max) ;
+		System.out.println("数组内容最小值：" + min) ;
+	}
+	public static void printArray(int temp []) {
+		for (int x = 0 ; x < temp.length ; x ++) {
+			System.out.println(temp[x]) ;
+		}
+	}
+}
+
+14、
+
+class ArrayUtil {	// 是一个操作工具的类
+	private int sum ; // 保存总和
+	private double avg ; // 保存平均值
+	private int max ; // 保存最大值
+	private int min ; // 保存最小值
+	public ArrayUtil(int data[]) {	// 进行数组计算
+		this.max = data[0] ; // 假设第一个是最大值
+		this.min = data[0] ;	// 假设第一个是最小值
+		for (int x = 0 ; x < data.length ; x ++) {
+			if (data[x] > max) {	// max地位改变了
+				this.max = data[x] ;
+			}
+			if (data[x] < min) {
+				this.min = data[x] ;
+			}
+			this.sum += data[x] ;
+		}
+		this.avg = this.sum / data.length ;
+	}
+	public int getSum() {
+		return this.sum ;
+	}
+	public double getAvg() {
+		return this.avg ;
+	}
+	public int getMax() {
+		return this.max ;
+	}
+	public int getMin() {
+		return this.min ;
+	}
+}
+public class ArrayDemo {
+	public static void main(String args[]) {
+		int data [] = new int [] {1,2,3,4,5} ;
+		ArrayUtil util = new ArrayUtil(data) ;	// 数据计算
+		System.out.println("数组内容总和：" + util.getSum()) ;
+		System.out.println("数组内容平均值：" + util.getAvg()) ;
+		System.out.println("数组内容最大值：" + util.getMax()) ;
+		System.out.println("数组内容最小值：" + util.getMin()) ;
+	}
+}
+
+15、
+
+public class ArrayDemo {
+	public static void main(String args[]) {
+		int data [] = new int [] {8,9,0,2,3,5,10,7,6,1} ;
+		for (int x = 0 ; x < data.length ; x ++) {
+			for (int y = 0 ; y < data.length - x - 1 ; y ++) {
+				if (data[y] > data[y + 1]) {	// 交换数据
+					int temp = data[y] ;
+					data[y] = data[y + 1] ;
+					data[y + 1] = temp ;
+				}
+			}
+		}
+		printArray(data) ;
+	}
+	public static void printArray(int temp []) {
+		for (int x = 0 ; x < temp.length ; x ++) {
+			System.out.print(temp[x] + "、") ;
+		}
+		System.out.println() ;
+	}
+}
+、
+16、
+
+class ArrayUtil {
+	public static void sort(int data[]) {	// 进行数组的排序处理
+		for (int x = 0 ; x < data.length ; x ++) {
+			for (int y = 0 ; y < data.length - x - 1 ; y ++) {
+				if (data[y] > data[y + 1]) {	// 交换数据
+					int temp = data[y] ;
+					data[y] = data[y + 1] ;
+					data[y + 1] = temp ;
+				}
+			}
+		}
+	}
+	public static void printArray(int temp []) {
+		for (int x = 0 ; x < temp.length ; x ++) {
+			System.out.print(temp[x] + "、") ;
+		}
+		System.out.println() ;
+	}
+}
+public class ArrayDemo {
+	public static void main(String args[]) {
+		int data [] = new int [] {8,9,0,2,3,5,10,7,6,1} ;
+		ArrayUtil.sort(data) ;	// 排序
+		ArrayUtil.printArray(data) ;
+	}
+	
+}
+
+17、
+
+class ArrayUtil {
+	public static void printArray(int temp []) {
+		for (int x = 0 ; x < temp.length ; x ++) {
+			System.out.print(temp[x] + "、") ;
+		}
+		System.out.println() ;
+	}
+}
+public class ArrayDemo {
+	public static void main(String args[]) {
+		int data [] = new int [] {1,2,3,4,5,6,7,8,9} ;
+		int temp [] = new int [data.length] ;	// 第二个数组
+		int foot = temp.length - 1; // 第二个数组的脚标
+		for (int x = 0 ; x < data.length ; x ++) {
+			temp[foot --] = data[x] ;
+		}
+		data = temp ; 
+		ArrayUtil.printArray(data) ;
+	}
+	
+}
+
+18、
+
+class ArrayUtil {
+	public static void printArray(int temp []) {
+		for (int x = 0 ; x < temp.length ; x ++) {
+			System.out.print(temp[x] + "、") ;
+		}
+		System.out.println() ;
+	}
+}
+public class ArrayDemo {
+	public static void main(String args[]) {
+		int data [] = new int [] {1,2,3,4,5,6,7,8,9} ;
+		int center = data.length / 2 ; // 确定转换的次数
+		int head = 0 ;	// 操作脚标
+		int tail = data.length - 1 ; // 操作脚标
+		for (int x = 0 ; x < center ; x ++) {
+			int temp = data [head] ;
+			data [head] = data [tail] ;
+			data [tail] = temp ;
+			head ++ ;
+			tail -- ;
+		}
+		ArrayUtil.printArray(data) ;
+	}
+	
+}
+
+19、
+class ArrayUtil {
+	public static void reverse(int data[]) {
+		int center = data.length / 2 ; // 确定转换的次数
+		int head = 0 ;	// 操作脚标
+		int tail = data.length - 1 ; // 操作脚标
+		for (int x = 0 ; x < center ; x ++) {
+			int temp = data [head] ;
+			data [head] = data [tail] ;
+			data [tail] = temp ;
+			head ++ ;
+			tail -- ;
+		}
+	}
+	public static void printArray(int temp []) {
+		for (int x = 0 ; x < temp.length ; x ++) {
+			System.out.print(temp[x] + "、") ;
+		}
+		System.out.println() ;
+	}
+}
+public class ArrayDemo {
+	public static void main(String args[]) {
+		int data [] = new int [] {1,2,3,4,5,6,7,8,9} ;
+		ArrayUtil.reverse(data) ;	// 转置处理
+		ArrayUtil.printArray(data) ;
+	}
+}
+
+20、
+class ArrayUtil {
+	public static void printArray(int temp []) {
+		for (int x = 0 ; x < temp.length ; x ++) {
+			System.out.print(temp[x] + "、") ;
+		}
+		System.out.println() ;
+	}
+}
+public class ArrayDemo {
+	public static void main(String args[]) {
+		int data [] = new int [] {23,12,1,234,2,6,12,34,56} ;
+		java.util.Arrays.sort(data) ;	// 排序
+		ArrayUtil.printArray(data) ;
+	}
+}
+
+21、
+
+class ArrayUtil {
+	public static void printArray(int temp []) {
+		for (int x = 0 ; x < temp.length ; x ++) {
+			System.out.print(temp[x] + "、") ;
+		}
+		System.out.println() ;
+	}
+}
+public class ArrayDemo {
+	public static void main(String args[]) {
+		int dataA [] = new int [] {1,2,3,4,5,6,7,8,9} ;
+		int dataB [] = new int [] {11,22,33,44,55,66,77,88,99} ;
+		System.arraycopy(dataA,5,dataB,3,3) ;
+		ArrayUtil.printArray(dataB) ;
+	}
+}
+
+22、
+class ArrayUtil {
+	public static void printArray(int temp []) {
+		for (int x = 0 ; x < temp.length ; x ++) {
+			System.out.print(temp[x] + "、") ;
+		}
+		System.out.println() ;
+	}
+	public static void arraycopy(int [] src,int sindex,int dsc[] ,int dindex,int len) {
+		for (int x = 0 ; x < len ; x ++) {
+			dsc [dindex ++] = src[sindex ++] ;
+		}
+	}
+}
+public class ArrayDemo {
+	public static void main(String args[]) {
+		int dataA [] = new int [] {1,2,3,4,5,6,7,8,9} ;
+		int dataB [] = new int [] {11,22,33,44,55,66,77,88,99} ;
+		ArrayUtil.arraycopy(dataA,5,dataB,3,3) ;
+		ArrayUtil.printArray(dataB) ;
+	}
+}
+
+23、
+class ArrayUtil {
+	public static int sum(int [] data) {
+		int sum = 0 ; 
+		for (int temp : data) {
+			sum += temp ;
+		}
+		return sum ;
+	}
+}
+public class ArrayDemo {
+	public static void main(String args[]) {
+		System.out.println(ArrayUtil.sum(new int [] {1,2,3})) ;
+	}
+}
+
+
+24、
+
+class ArrayUtil {
+	public static int sum(int ... data) {	// 变种数组
+		int sum = 0 ; 
+		for (int temp : data) {
+			sum += temp ;
+		}
+		return sum ;
+	}
+}
+public class ArrayDemo {
+	public static void main(String args[]) {
+		System.out.println(ArrayUtil.sum(1,2,3)) ;
+		System.out.println(ArrayUtil.sum(new int [] {1,2,3})) ;
+	}
+}
+
+25、
+
+class Person {
+	private String name ;
+	private int age ;
+	public Person(String name,int age) {
+		this.name = name ;
+		this.age = age ;
+	}
+	public String getInfo() {
+		return "姓名：" + this.name + "、年龄：" + this.age ;
+	}
+	// setter、getter略
+}
+public class ArrayDemo {
+	public static void main(String args[]) {
+		Person per [] = new Person[3] ; // 对象数组
+		per[0] = new Person("张三",20) ;
+		per[1] = new Person("李四",20) ;
+		per[2] = new Person("王五",20) ;
+		for (int x = 0 ; x < per.length ; x ++) {
+			System.out.println(per[x].getInfo()) ;
+		}
+	}
+}
+
+
+
+26、
+
+class Person {
+	private String name ;
+	private int age ;
+	public Person(String name,int age) {
+		this.name = name ;
+		this.age = age ;
+	}
+	public String getInfo() {
+		return "姓名：" + this.name + "、年龄：" + this.age ;
+	}
+	// setter、getter略
+}
+public class ArrayDemo {
+	public static void main(String args[]) {
+		Person per [] = new Person[] {
+			new Person("张三",20) ,
+			new Person("李四",20) ,
+			new Person("王五",20)} ; // 对象数组
+		for (int x = 0 ; x < per.length ; x ++) {
+			System.out.println(per[x].getInfo()) ;
+		}
+	}
+}
+
+
+
+

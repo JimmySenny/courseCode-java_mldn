@@ -1,0 +1,88 @@
+1、
+
+package cn.mldn.demo;
+
+import java.util.Locale;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Locale loc = new Locale("zh", "CN");	// 中文环境
+		System.out.println(loc);
+	}
+}
+
+2、
+package cn.mldn.demo;
+
+import java.util.Locale;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Locale loc = Locale.getDefault() ;	// 获取默认环境
+		System.out.println(loc); 
+	}
+}
+
+3、
+package cn.mldn.demo;
+
+import java.util.Locale;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Locale loc = Locale.CHINA ;
+		System.out.println(loc); 
+	}
+}
+
+4、
+package cn.mldn.demo;
+
+import java.util.ResourceBundle;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		ResourceBundle resource = ResourceBundle.getBundle("cn.mldn.message.Messages") ;
+		String val = resource.getString("info") ;
+		System.out.println(val);
+	}
+
+}
+
+
+
+5、
+package cn.mldn.demo;
+
+import java.util.Locale;
+import java.util.ResourceBundle;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Locale loc = new Locale("en", "US");
+		ResourceBundle resource = ResourceBundle.getBundle("cn.mldn.message.Messages", loc);
+		String val = resource.getString("info");
+		System.out.println(val);
+	}
+
+}
+
+
+6、
+package cn.mldn.demo;
+
+import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Locale loc = new Locale("en", "US");
+		ResourceBundle resource = ResourceBundle.getBundle("cn.mldn.message.Messages", loc);
+		String val = resource.getString("info");
+		System.out.println(MessageFormat.format(val, "mldn", new SimpleDateFormat("yyyy-MM-dd").format(new Date())));
+	}
+
+}

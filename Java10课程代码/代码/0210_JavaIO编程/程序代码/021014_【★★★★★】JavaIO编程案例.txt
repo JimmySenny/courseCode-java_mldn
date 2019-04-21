@@ -1,0 +1,807 @@
+1．编写Java程序，输入3个整数，并求出3个整数的最大值和最小值。
+
+package cn.mldn.demo.util;
+
+import java.util.Scanner;
+
+public class InputUtil {
+	private InputUtil () {}
+	/**
+	 * 实现键盘接收数字的操作
+	 * @param prompt 提示信息
+	 * @return 一个可以使用的数字
+	 */
+	public static int getInt(String prompt) { 
+		int num = 0 ;
+		boolean flag = true ;
+		while (flag) {
+			Scanner input = new Scanner(System.in) ;
+			System.out.print(prompt); // 打印提示信息
+			if (input.hasNext("\\d+")) {
+				num = Integer.parseInt(input.next("\\d+")) ;
+				flag = false ;
+			} else {
+				System.out.println("输入的内容不是数字！");
+			}
+		}
+		return num ;
+	}
+}
+
+
+package cn.mldn.demo.util;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+public class InputUtil {
+	private InputUtil () {}
+	/**
+	 * 实现键盘接收数字的操作
+	 * @param prompt 提示信息
+	 * @return 一个可以使用的数字
+	 */
+	public static int getInt(String prompt) { 
+		BufferedReader buf = new BufferedReader(new InputStreamReader(System.in)) ;
+		int num = 0 ;
+		boolean flag = true ;
+		while (flag) {
+			System.out.print(prompt); // 打印提示信息
+			String str = null ; 
+			try {
+				str = buf.readLine() ;
+				if (str.matches("\\d+")) {
+					num = Integer.parseInt(str) ;
+					flag = false ;
+				} else {
+					System.out.println("输入的内容不是数字！");
+				}
+			} catch (IOException e) {
+				System.out.println("输入的内容不是数字！");
+			}
+		}
+		return num ;
+	}
+}
+
+
+package cn.mldn.demo.service;
+
+public interface INumberService {
+	/**
+	 * 输入数据并且返回输入数据的最大值与最小值
+	 * @param count 表示要输入数据的个数
+	 * @return 包含有两个内容，第一个是最大值，第二个是最小值
+	 */
+	public int[] stat(int count) ;
+}
+
+
+package cn.mldn.demo.service.impl;
+
+import cn.mldn.demo.service.INumberService;
+import cn.mldn.demo.util.InputUtil;
+
+public class NumberServiceImpl implements INumberService {
+
+	@Override
+	public int[] stat(int count) {
+		int result [] = new int [2] ; // 定义返回的结果
+		int data [] = new int [count] ; // 开辟一个数组
+		for (int x = 0 ; x < data.length ; x ++) {	// 数字的循环输入
+			data[x] = InputUtil.getInt("请输入第“" + (x + 1) + "”个数字：");
+		}
+		result[0] = data[0] ;	// 最大值
+		result[1] = data[0] ;	// 最小值
+		for (int x = 0 ; x < data.length ; x ++) {
+			if (data[x] > result[0]) {
+				result[0] = data[x] ;
+			}
+			if (data[x] < result[1]) {
+				result[1] = data[x] ;
+			}
+		}
+		return result ;
+	}
+
+}
+
+
+package cn.mldn.demo.factory;
+
+import cn.mldn.demo.service.INumberService;
+import cn.mldn.demo.service.impl.NumberServiceImpl;
+
+public class Factory {
+	private Factory() {}
+	public static INumberService getInstance() {
+		return new NumberServiceImpl() ;  
+	}
+}
+
+
+package cn.mldn.demo;
+
+import cn.mldn.demo.factory.Factory;
+import cn.mldn.demo.service.INumberService;
+
+public class IOCaseDemo {
+	public static void main(String[] args) {
+		INumberService numberService = Factory.getInstance() ;
+		int result [] = numberService.stat(5) ;
+		System.out.println("最大值：" + result[0] + "、最小值：" + result[1]);
+	}
+}
+
+
+2．从键盘输入文件的内容和要保存的文件名称，然后根据输入的名称创建文件，并将内容保存到文件中。
+
+package cn.mldn.demo.util;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class InputUtil {
+	private static final BufferedReader INPUT = new BufferedReader(new InputStreamReader(System.in)) ; 
+	private InputUtil () {}
+	public static String getString(String prompt) {
+		String str = null ;
+		boolean flag = true ;
+		while(flag) {
+			System.out.print(prompt);
+			try {
+				str = INPUT.readLine() ;
+				if (!"".equals(str)) {
+					flag = false ;
+				} else {
+					System.out.println("输入的内容不允许为空！");
+				}
+			} catch (IOException e) {
+				System.out.println("输入的内容不允许为空！");
+			}
+		}
+		return str ;
+	}
+	/**
+	 * 实现键盘接收数字的操作
+	 * @param prompt 提示信息
+	 * @return 一个可以使用的数字
+	 */
+	public static int getInt(String prompt) { 
+		int num = 0 ;
+		boolean flag = true ;
+		while (flag) {
+			System.out.print(prompt); // 打印提示信息
+			String str = null ; 
+			try {
+				str = INPUT.readLine() ;
+				if (str.matches("\\d+")) {
+					num = Integer.parseInt(str) ;
+					flag = false ;
+				} else {
+					System.out.println("输入的内容不是数字！");
+				}
+			} catch (IOException e) {
+				System.out.println("输入的内容不是数字！");
+			}
+		}
+		return num ;
+	}	
+}
+
+
+package cn.mldn.demo.service;
+
+import java.io.File;
+
+public interface IFileService {
+	public static final String SAVE_DIR = "D:" + File.separator + "mldndata" + File.separator ;
+	/**
+	 * 定义文件的保存处理方法
+	 * @return 保存成功返回true，否则返回false
+	 */
+	public boolean save();
+} 
+
+
+
+package cn.mldn.demo.service.impl;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+
+import cn.mldn.demo.service.IFileService;
+import cn.mldn.demo.util.InputUtil;
+
+public class FileServiceImpl implements IFileService {
+	private String name ;
+	private String content ;
+	public FileServiceImpl() {
+		this.name = InputUtil.getString("请输入保存文件名称：") ;
+		this.content = InputUtil.getString("请输入保存文件的内容：") ;
+	}
+	@Override
+	public boolean save() {
+		File file = new File(IFileService.SAVE_DIR + this.name) ;
+		PrintWriter out = null ;
+		try {
+			out = new PrintWriter(new FileOutputStream(file));
+			out.print(this.content);
+		} catch (FileNotFoundException e) {
+			return false ;
+		} finally {
+			if (out != null) {
+				out.close();  
+			}
+		}
+		return true;
+	}
+
+}
+
+
+package cn.mldn.demo.factory;
+
+import cn.mldn.demo.service.IFileService;
+import cn.mldn.demo.service.impl.FileServiceImpl;
+
+public class Factory {
+	private Factory() {}
+	public static IFileService getInstance() {
+		return new FileServiceImpl() ;
+	}
+}
+
+
+package cn.mldn.demo;
+
+import java.io.File;
+
+import cn.mldn.demo.factory.Factory;
+import cn.mldn.demo.service.IFileService;
+
+public class IOCaseDemo {
+	static {	// 项目启动的时候该路径应该首先创建
+		File file = new File(IFileService.SAVE_DIR) ;	// 路径，但是这个文件目录有可能不存在
+		if (!file.exists()) {	// 文件目录不存在
+			file.mkdirs() ; // 创建目录
+		}
+	}
+	public static void main(String[] args) {
+		IFileService fileService = Factory.getInstance() ;
+		System.out.println(fileService.save());
+	}
+}
+
+
+
+3．从键盘传入多个字符串到程序中，并将它们按逆序输出在屏幕上。
+
+package cn.mldn.demo.service;
+
+public interface IStringService {
+	public void append(String str) ; // 追加数据
+	public String[] reverse() ; // 反转处理 
+} 
+
+
+package cn.mldn.demo.service.impl;
+
+import cn.mldn.demo.service.IStringService;
+
+public class StringServiceImpl implements IStringService {
+	private StringBuffer data = new StringBuffer() ;
+	@Override
+	public void append(String str) {
+		this.data.append(str).append("|") ;
+	}
+
+	@Override
+	public String[] reverse() {
+		String result [] = this.data.toString().split("\\|") ;
+		int center = result.length / 2 ;
+		int head = 0 ;
+		int tail = result.length - 1 ;
+		for (int x = 0 ; x < center ; x ++) {
+			String temp = result[head] ;
+			result[head] = result[tail] ;
+			result[tail] = temp ;
+		}
+		return result ; 
+	} 
+	
+}
+
+
+package cn.mldn.demo.menu;
+
+import java.util.Arrays;
+
+import cn.mldn.demo.factory.Factory;
+import cn.mldn.demo.service.IStringService;
+import cn.mldn.demo.util.InputUtil;
+
+public class Menu {
+	private IStringService stringService ;
+	public Menu() {
+		this.stringService = Factory.getInstance() ; 
+		this.choose(); 
+	}
+	public void choose() {
+		this.show() ;
+		String choose = InputUtil.getString("请进行选择：") ;
+		switch(choose) {
+		case "1" : {	// 接收输入数据
+			String str = InputUtil.getString("请输入字符串数据：") ;
+			this.stringService.append(str); // 进行数据的保存
+			choose() ;	// 重复出现
+		}
+		case "2" : {	// 逆序显示数据
+			String result [] = this.stringService.reverse() ;
+			System.out.println(Arrays.toString(result)); // 输出
+			choose() ;	// 重复出现
+		}
+		case "0" : {
+			System.out.println("下次再见，拜拜！");
+			System.exit(1); 
+		}
+		default : {
+			System.out.println("您输入了非法的选项，无法进行处理，请确认后再次执行程序！");
+			choose() ;
+		}
+		}
+	}
+	public void show() {
+		System.out.println("【1】追加字符串数据\n");
+		System.out.println("【2】逆序显示所有的字符串数据\n");
+		System.out.println("【0】结束程序执行。");
+		System.out.println("\n\n\n");
+	}
+}
+
+
+package cn.mldn.demo;
+
+import cn.mldn.demo.menu.Menu;
+
+public class IOCaseDemo {
+	public static void main(String[] args) {
+		new Menu() ;	// 启动程序界面
+	}
+}
+
+
+4．从键盘输入以下的数据：“TOM：89 | JERRY : 90 | TONY:95”，数据格式为“姓名 : 成绩 | 姓名 : 成绩 | 姓名 : 成绩”，对输入的内容按成绩进行排序，并将排序结果按照成绩由高到低排序。
+
+package cn.mldn.demo.vo;
+
+public class Student implements Comparable<Student> {
+	private String name;
+	private double score;
+	public Student(String name,double score) {
+		this.name = name ;
+		this.score = score ;
+	}
+	public String toString() { 
+		return "姓名：" + this.name + "、成绩：" + this.score ;
+	}
+	@Override
+	public int compareTo(Student obj) {
+		if (this.score > obj.score) {
+			return -1 ;
+		} else if (this.score < obj.score) {
+			return 1 ;
+		} else {
+			return 0 ;
+		}  
+	}
+}
+
+
+
+package cn.mldn.demo.service;
+
+import cn.mldn.demo.vo.Student;
+
+public interface IStudentService {
+	public Student[] getData() ; // 获取排序数据 
+} 
+
+
+package cn.mldn.demo.factory;
+
+import cn.mldn.demo.service.IStudentService;
+import cn.mldn.demo.service.impl.StudentServiceImpl;
+import cn.mldn.demo.util.InputUtil;
+
+public class Factory {
+	private Factory() {}
+	public static IStudentService getInstance() {
+		return new StudentServiceImpl(InputUtil.getString("请输入数据信息：")) ; 
+	}
+}
+ 
+
+package cn.mldn.demo;
+
+import java.util.Arrays;
+
+import cn.mldn.demo.factory.Factory;
+
+public class IOCaseDemo {
+	public static void main(String[] args) {
+		System.out.println(Arrays.toString(Factory.getInstance().getData())); 
+	}
+}
+
+
+Tom:89.1|Jerry:90.01|qiangqiang:59.9
+
+
+5．将第4题中的内容进行扩展，可以将全部输入的信息保存在文件中，还可以添加信息，并可以显示全部的数据。
+
+
+package cn.mldn.demo.util;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
+import java.util.Scanner;
+
+public class FileUtil {
+	public static String load(File file) {
+		Scanner scan = null;
+		try {
+			scan = new Scanner(file) ; // 文件加载
+			if (scan.hasNext()) {
+				String str = scan.next(); // 获取数据
+				return str ;
+			}
+			return null ;
+		} catch (Exception e) {
+			return null ;  
+		} finally {
+			if (scan != null) {
+				scan.close();
+			}
+		}
+	}
+	public static boolean append(File file,String content) {
+		PrintStream out = null ;
+		try {
+			out = new PrintStream(new FileOutputStream(file,true)) ;
+			out.print(content); // 内容追加
+			return true ;
+		} catch (Exception e) {
+			return false ;
+		} finally {
+			if (out != null) {
+				out.close(); 
+			}
+		}
+	}
+}
+
+
+package cn.mldn.demo.service;
+
+import cn.mldn.demo.vo.Student;
+
+public interface IStudentService {
+	public void append(String str) ;	// 追加数据并且保存到文件
+	public Student[] getData() ; // 获取排序数据 
+} 
+
+
+package cn.mldn.demo.menu;
+
+import java.util.Arrays;
+
+import cn.mldn.demo.factory.Factory;
+import cn.mldn.demo.service.IStudentService;
+import cn.mldn.demo.util.InputUtil;
+
+public class Menu {
+	public Menu() {
+		this.choose(); 
+	}
+	public void choose() {
+		this.show() ;
+		String choose = InputUtil.getString("请进行选择：") ;
+		switch(choose) {
+		case "1" : {	// 接收输入数据
+			String str = InputUtil.getString("请输入要追加的数据：") ;
+			IStudentService studentService = Factory.getInstance() ;
+			studentService.append(str); // 追加数据
+			choose() ;	// 重复出现
+		}
+		case "2" : {	// 显示数据
+			IStudentService studentService = Factory.getInstance() ;
+			System.out.println(Arrays.toString(studentService.getData()));
+			choose() ;	// 重复出现
+		}
+		case "0" : {
+			System.out.println("下次再见，拜拜！");
+			System.exit(1); 
+		}
+		default : {
+			System.out.println("您输入了非法的选项，无法进行处理，请确认后再次执行程序！");
+			choose() ;
+		}
+		}
+	}
+	public void show() {
+		System.out.println("【1】追加字符串数据\n");
+		System.out.println("【2】显示所有的学生数据\n");
+		System.out.println("【0】结束程序执行。");
+		System.out.println("\n\n\n");
+	}
+}
+
+
+package cn.mldn.demo;
+
+import cn.mldn.demo.menu.Menu;
+
+public class IOCaseDemo {
+	public static void main(String[] args) {
+		new Menu();
+	}
+}
+
+
+6．编写程序，当程序运行后，根据屏幕提示输入一个数字字符串，输入后统计有多少个偶数数字和奇数数字。
+
+package cn.mldn.demo.service;
+
+public interface INumberService {
+	public int[] stat() ;
+}
+
+package cn.mldn.demo.service.impl;
+
+import cn.mldn.demo.service.INumberService;
+import cn.mldn.demo.util.InputUtil;
+
+public class NumberServiceImpl implements INumberService {
+
+	@Override
+	public int[] stat() {
+		int stat[] = new int [] {0,0} ;	// 第一个为偶数，第二个为奇数
+		String str = InputUtil.getString("请输入数字信息：") ;
+		String result [] = str.split("") ; // 按照每个字符拆分
+		for (int x = 0 ; x < result.length ; x ++) {
+			if (Integer.parseInt(result[x]) % 2 == 0) {
+				stat [0] ++ ;
+			} else {
+				stat [1] ++ ;
+			}
+		}
+		return stat ;
+	}
+
+}
+
+
+package cn.mldn.demo.factory;
+
+import cn.mldn.demo.service.INumberService;
+import cn.mldn.demo.service.impl.NumberServiceImpl;
+
+public class Factory {
+	private Factory() {}
+	public static INumberService getInstance() {
+		return new NumberServiceImpl() ;   
+	}
+}
+ 
+
+ package cn.mldn.demo;
+
+import java.util.Arrays;
+
+import cn.mldn.demo.factory.Factory;
+
+public class IOCaseDemo {
+	public static void main(String[] args) {
+		System.out.println(Arrays.toString(Factory.getInstance().stat()));
+	}
+}
+
+
+
+7．完成系统登录程序，从命令行输入用户名和密码，如果没有输入用户名和密码，则提示输入用户名和密码；如果输入了用户名但是没有输入密码，则提示用户输入密码，然后判断用户名是否是mldn，密码是否是hello，如果正确，则提示登录成功；如果错误，显示登录失败的信息，用户再次输入用户名和密码，连续3次输入错误后系统退出。
+
+package cn.mldn.demo.service;
+
+public interface IUserService {
+	public boolean isExit();
+
+	public boolean login(String name, String password);
+}
+
+
+package cn.mldn.demo.service.impl;
+
+import cn.mldn.demo.service.IUserService;
+
+public class UserServiceImpl implements IUserService {
+	private int count = 0 ; // 作为登录统计
+	@Override
+	public boolean isExit() {
+		return this.count >= 3; // 执行登录退出的条件
+	}
+
+	@Override
+	public boolean login(String name, String password) {
+		this.count ++ ;
+		return "mldn".equals(name) && "hello".equals(password);
+	}
+ 
+}
+
+
+
+package cn.mldn.demo.service.proxy;
+
+import cn.mldn.demo.service.IUserService;
+import cn.mldn.demo.util.InputUtil;
+
+public class UserServiceProxy implements IUserService {
+	private IUserService userService ;
+	public UserServiceProxy(IUserService userService) {
+		this.userService = userService ;
+	}
+	@Override
+	public boolean login(String name, String password) {
+		while(!this.isExit()) {	// 不进行退出
+			String inputData = InputUtil.getString("请输入登录信息：") ;
+			if (inputData.contains("/")) {	// 输入了用户名和密码
+				String temp [] = inputData.split("/") ;	// 数据拆分
+				if (this.userService.login(temp[0], temp[1])) {	// 登录认证
+					return true ;	// 循环结束了
+				} else {
+					System.out.println("登录失败，错误的用户名或密码！");
+				}
+			} else {	// 现在只有用户名
+				String pwd = InputUtil.getString("请输入密码：") ;
+				if (this.userService.login(inputData, pwd)) {	// 登录认证
+					return true ;	// 循环结束了
+				} else {
+					System.out.println("登录失败，错误的用户名或密码！");
+				}
+			}
+		}
+		return false;
+	}
+	@Override
+	public boolean isExit() {
+		return this.userService.isExit();
+	}
+
+
+}
+
+
+package cn.mldn.demo;
+
+import cn.mldn.demo.factory.Factory;
+
+public class IOCaseDemo {
+	public static void main(String[] args) {
+		System.out.println(Factory.getInstance().login(null, null));
+	}
+}
+
+
+8．编写一个投票程序，具体如下。
+（1）功能描述
+有一个班采用民主投票方法推选班长，班长候选人共4位，每个人姓名及代号分别为“张三  1；李四  2；王五  3；赵六  4”。程序操作员将每张选票上所填的代号（1、2、3或4）循环输入电脑，输入数字0结束输入，然后将所有候选人的得票情况显示出来，并显示最终当选者的信息。
+（2）具体要求
+① 要求用面向对象方法，编写学生类Student，将候选人姓名、代号和票数保存到类Student中，并实现相应的getXXX 和 setXXX方法。
+② 输入数据前，显示出各位候选人的代号及姓名（提示，建立一个候选人类型数组）。
+③ 循环执行接收键盘输入的班长候选人代号，直到输入的数字为0，结束选票的输入工作。
+④ 在接收每次输入的选票后要求验证该选票是否有效，即如果输入的数不是0、1、2、3、4这5个数字之一，或者输入的是一串字母，应显示出错误提示信息“此选票无效，请输入正确的候选人代号！”，并继续等待输入。
+⑤ 输入结束后显示所有候选人的得票情况，如参考样例所示。
+⑥ 输出最终当选者的相关信息，如参考样例所示。
+（3）参考样例
+1：张三【0票】
+2：李四【0票】
+3：王五【0票】
+4：赵六【0票】
+请输入班长候选人代号（数字0结束）：1
+请输入班长候选人代号（数字0结束）：1
+请输入班长候选人代号（数字0结束）：1
+请输入班长候选人代号（数字0结束）：2
+请输入班长候选人代号（数字0结束）：3
+请输入班长候选人代号（数字0结束）：4
+请输入班长候选人代号（数字0结束）：5
+此选票无效，请输入正确的候选人代号！
+请输入班长候选人代号（数字0结束）：hello
+此选票无效，请输入正确的候选人代号！
+请输入班长候选人代号（数字0结束）：0
+1：张三【4票】
+2：李四【1票】
+3：王五【1票】
+4：赵六【1票】
+投票最终结果：张三同学，最后以4票当选班长！
+
+
+package cn.mldn.demo.vo;
+
+public class Student implements Comparable<Student> {
+	private long sid ;
+	private String name ;
+	private int vote ;
+	public Student(long sid,String name,int vote) {
+		this.sid = sid ;
+		this.name = name ;
+		this.vote = vote ;
+	}
+	@Override
+	public String toString() {
+		return "【"+this.sid+"】姓名：" + this.name + "、票数：" + this.vote ; 
+	}
+	@Override
+	public int compareTo(Student stu) {
+		return stu.vote - this.vote ;
+	}
+
+}
+
+
+package cn.mldn.demo.service;
+
+import cn.mldn.demo.vo.Student;
+
+public interface IVoteService {
+	public boolean inc(long sid) ;	// 根据编号进行增长
+	public Student[] result() ; // 获取投票的结果
+	public Student[] getData() ; // 获取全部数据
+}
+
+
+package cn.mldn.demo.service;
+import java.util.Arrays;
+import cn.mldn.demo.vo.Student;
+public class VoteServiceImpl implements IVoteService {
+	private Student [] students = new Student[] {
+			new Student(1,"张三",0) , new Student(2,"李四",0) ,
+			new Student(3,"王五",0) , new Student(4,"赵六",0)} ;
+	@Override
+	public boolean inc(long sid) {
+		for (int x = 0 ; x < students.length ; x ++) {
+			if (this.students[x].getSid() == sid) {	// 获取了指定的编号
+				this.students[x].setVote(this.students[x].getVote() + 1); // 票数增长
+				return true ;
+			}
+		}
+		return false ;
+	}
+	@Override
+	public Student[] getData() {
+		return this.students ;
+	}
+	@Override
+	public Student[] result() {
+		Arrays.sort(this.students);
+		return this.students ;
+	}
+}
+
+
+
+package cn.mldn.demo.factory;
+
+import cn.mldn.demo.service.IVoteService;
+import cn.mldn.demo.service.VoteServiceImpl;
+
+public class Factory {
+	private Factory() {}
+	public static IVoteService getInstance() {
+		return new VoteServiceImpl() ;    
+	}
+}
+

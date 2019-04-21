@@ -1,0 +1,286 @@
+if (布尔表达式) {
+	条件满足时执行 ;
+} else if (布尔表达式) {
+	条件满足时执行 ;
+} else if (布尔表达式) {
+	条件满足时执行 ;
+} [else {
+	条件不满足时执行 ;
+}]
+
+1、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		int age = 22 ;
+		if (age >= 18 && age <= 20) {
+			System.out.println("光荣的参与为人民服务的志愿活动！") ;
+		}
+		System.out.println("回到正常的生活轨迹！") ;
+	}
+}
+
+2、
+public class JavaDemo {
+	public static void main(String args[]) {
+		double money = 20.00 ;
+		if (money >= 19.8) {
+			System.out.println("很牛X走到售卖出，很霸气的拿出20元，说不用找了。") ;
+		} else {
+			System.out.println("在灰暗的角落等待着别人剩下的东西。") ;
+		}
+		System.out.println("好好吃饭，好好的喝！") ;
+	}
+}
+
+3、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		double score = 90.00 ;
+		if (score >= 90.00 && score <=100) {
+			System.out.println("优等生。") ;
+		} else if(score >=60 && score < 90) {
+			System.out.println("良等生。") ;
+		} else {
+			System.out.println("差等生。") ;
+		}
+	}
+}
+
+
+
+
+4、
+
+switch(数据) {
+	case 数值 : {
+		数值满足时执行 ;
+		[break ;]
+	} 
+	case 数值 : 
+		数值满足时执行 ;
+		[break ;]
+	[default:
+		所有判断数值不满足时的执行 ;
+		[break ;]
+	]
+}
+
+
+5、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		int ch = 2 ;
+		switch (ch) {
+			case 2 :
+				System.out.println("设置的内容是2。") ;
+			case 1 : {
+				System.out.println("设置的内容是1。") ;
+			}
+			default : {
+				System.out.println("没有内容满足。") ;
+			}
+		}
+	}
+}
+
+
+6、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		int ch = 2 ;
+		switch (ch) {
+			case 2 :
+				System.out.println("设置的内容是2。") ;
+				break ;
+			case 1 : {
+				System.out.println("设置的内容是1。") ;
+				break ;
+			}
+			default : {
+				System.out.println("没有内容满足。") ;
+				break ;
+			}
+		}
+	}
+}
+
+
+7、
+public class JavaDemo {
+	public static void main(String args[]) {
+		String str = "hello" ;
+		switch(str) {
+			case "Hello":{
+				System.out.println("Hello") ;
+				break ;
+			}
+			case "hello": {
+				System.out.println("hello") ;
+				break ;
+			}
+			default: {
+				System.out.println("NoMatch") ;
+			}
+		}
+	}
+}
+
+8、
+
+while (布尔表达式) {
+	条件满足时执行 ;
+	修改循环条件 ;
+}
+
+do {
+	条件满足时执行 ;
+	修改循环条件 ;	
+} while (布尔表达式) ;
+
+9、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		int sum = 0 ;	// 保存最终的计算总和
+		int num = 1 ; // 进行循环控制
+		while (num <= 100) {	// 循环的执行条件
+			sum += num ;	// 累加
+			num ++ ;	// 修改循环条件
+		}
+		System.out.println(sum) ;
+	}
+}
+
+10、
+public class JavaDemo {
+	public static void main(String args[]) {
+		int sum = 0 ;	// 保存最终的计算总和
+		int num = 1 ; // 进行循环控制
+		do {	// 循环的执行条件
+			sum += num ;	// 累加
+			num ++ ;	// 修改循环条件
+		} while (num <= 100) ;
+		System.out.println(sum) ;
+	}
+}
+
+
+11、
+for (定义循环的初始化数值 ; 循环判断 ;  修改循环数据) {
+	循环语句的执行 ;
+}
+
+12、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		int sum = 0 ;	// 保存最终的计算总和
+		for (int x = 1 ; x <= 100 ; x ++) {
+			sum += x ;	// 累加
+		}
+		System.out.println(sum) ;
+	}
+}
+
+
+13、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		int sum = 0 ;	// 保存最终的计算总和
+		int x = 1 ;	// 循环条件初始化
+		for ( ; x <= 100 ; ) {
+			sum += x ;	// 累加
+			x ++ ; // 修改循环条件
+		}
+		System.out.println(sum) ;
+	}
+}
+
+14、
+public class JavaDemo {
+	public static void main(String args[]) {
+		for (int x = 0 ; x < 10 ; x ++) {
+			if (x == 3) {
+				break ;	// 循环结束
+			}
+			System.out.print(x + "、") ;
+		}
+	}
+}
+
+
+15、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		for (int x = 0 ; x < 10 ; x ++) {
+			if (x == 3) {
+				continue ;	// 循环结束
+			}
+			System.out.print(x + "、") ;
+		}
+	}
+}
+
+
+16、
+public class JavaDemo {
+	public static void main(String args[]) {
+		point: for (int x = 0 ; x < 10 ; x ++) {
+			for (int y = 0 ; y < 3 ; y ++) {
+				if (x == y) {
+					continue point ;	// 循环结束
+				}
+				System.out.print(x + "、") ;
+			}
+			System.out.println() ;
+		}
+	}
+}
+
+
+17、
+1*1=1
+1*2=2 	2*2=4
+1*3=3  	2*3=6 	3*3=9
+
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		for (int x = 1 ; x <= 9 ; x ++) {	// 口诀表最多9行
+			for (int y = 1 ; y <= x ; y ++) {
+				System.out.print(y + "*" + x + "=" + (x * y) + "\t") ;
+			}
+			System.out.println() ;// 换行
+		}
+	}
+}
+
+
+18、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		int line = 5 ; // 总体行数
+		for (int x = 0 ; x < line ; x ++) {
+			for (int y = 0 ; y < line - x ; y ++) {
+				System.out.print(" ") ;
+			}
+			for (int y = 0 ; y <= x ; y ++) {
+				System.out.print("* ") ;
+			}
+			System.out.println() ;
+		}
+	}
+}
+ 
+
+
+
+
+

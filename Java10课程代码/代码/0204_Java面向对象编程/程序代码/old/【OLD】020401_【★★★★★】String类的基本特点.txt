@@ -1,0 +1,159 @@
+1、
+
+public class StringDemo {
+	public static void main(String args[]) {
+		String str = "www.mldn.cn" ;	// 字符串
+		System.out.println(str) ;
+	}
+}
+
+2、
+class Book {
+	public Book (String title) {}
+}
+class String {
+	public String(String str) {}
+}
+
+
+3、
+
+
+public class StringDemo {
+	public static void main(String args[]) {
+		String str = new String("www.mldn.cn") ;
+		System.out.println(str) ;
+	}
+}
+
+
+4、
+
+public class StringDemo {
+	public static void main(String args[]) {
+		int x = 10 ;
+		int y = 10 ;
+		System.out.println(x == y) ;
+	}
+}
+
+5、
+
+public class StringDemo {
+	public static void main(String args[]) {
+		String strA = "mldn" ;
+		String strB = new String("mldn") ;
+		System.out.println(strA == strB) ;	// false
+	}
+}
+
+6、
+
+public class StringDemo {
+	public static void main(String args[]) {
+		String strA = "mldn" ;
+		String strB = new String("mldn") ;
+		System.out.println(strA.equals(strB)) ;	// true
+	}
+}
+
+7、
+
+
+public class StringDemo {
+	public static void main(String args[]) {
+		String str = "mldn" ;
+		System.out.println("mldn".equals(str)) ;	// true
+	}
+}
+
+8、
+
+public class StringDemo {
+	public static void main(String args[]) {
+		String strA = "mldn" ;
+		String strB = "mldn" ;
+		System.out.println(strA == strB) ;	// 地址判断
+	}
+}
+
+9、
+
+public class StringDemo {
+	public static void main(String args[]) {
+		String strA = "mldn" ;
+		String strB = "mldnjava" ;
+		String strC = "mldn" ;
+		System.out.println(strA == strB) ;	// 地址判断
+	}
+}
+
+10、
+
+public class StringDemo {
+	public static void main(String args[]) {
+		String str = new String("mldn") ;
+	}
+}
+
+11、
+
+public class StringDemo {
+	public static void main(String args[]) {
+		String strA = "mldn" ;
+		String strB = new String("mldn") ;
+	}
+}
+
+12、
+public class StringDemo {
+	public static void main(String args[]) {
+		String strA = "mldn" ;
+		String strB = new String("mldn") ;
+		System.out.println(strA == strB) ;	// false
+	}
+}
+
+13、
+
+
+public class StringDemo {
+	public static void main(String args[]) {
+		String strA = "www.mldn.cn" ;
+		String strB = "www." + "mldn" + ".cn" ;
+		System.out.println(strA == strB) ;	// true
+	}
+}
+
+14、
+
+public class StringDemo {
+	public static void main(String args[]) {
+		String str = "www." ;
+		str += "mldn." ;
+		str = str + "cn" ;
+		System.out.println(str) ;
+	}
+}
+
+15、
+
+public class StringDemo {
+	public static void main(String args[]) {
+		String str = "www." ;
+		for (int x = 0 ; x < 1000 ; x ++) {
+			str += x ;
+		}
+		System.out.println(str) ;
+	}
+}
+
+16、
+
+public class StringDemo {
+	public static void main(String args[]) {
+		for (String arg : args) {
+			System.out.println(arg) ;
+		}
+	}
+}

@@ -1,0 +1,221 @@
+1、
+
+package cn.mldn.demo;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+
+public class JDBCDemo {
+	private static final String DATABASE_DRVIER = "oracle.jdbc.driver.OracleDriver" ;
+	private static final String DATABASE_URL = "jdbc:oracle:thin:@localhost:1521:mldn" ;
+	private static final String DATABASE_USER = "scott" ;
+	private static final String DATABASE_PASSWORD = "tiger" ;
+	public static void main(String[] args) throws Exception {
+		String title = "MLDN新闻'老李写的" ;	// 问题
+		int read = 99 ;
+		double price = 99.8 ;
+		String content = "这个春天有点冷" ;
+		String pubdate = "1971-04-10" ;	// 问题一：日期使用了字符串描述
+		String sql = " INSERT INTO news(nid,title,read,price,content,pubdate) VALUES "
+				+ " (news_seq.nextval,'"+title+"',"+read+","+price+", "
+				+ " '"+content+"', TO_DATE('"+pubdate+"','yyyy-mm-dd'))" ; // 问题二：维护困难
+		System.out.println(sql);
+		Connection conn = null ;  // 每一个Connection接口对象描述的就是一个用户连接
+		Class.forName(DATABASE_DRVIER) ; // 向容器之中加载数据库驱动程序
+		conn = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD) ;
+		Statement stmt = conn.createStatement() ; // 创建数据库的操作对象
+		int count = stmt.executeUpdate(sql) ; // 返回影响的行数
+		System.out.println("更新操作影响的数据行数：" + count);
+		conn.close();  // 数据库的连接资源有限一定要关闭
+	}
+}
+
+2、
+
+package cn.mldn.demo;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.util.Date;
+
+public class JDBCDemo {
+	private static final String DATABASE_DRVIER = "oracle.jdbc.driver.OracleDriver" ;
+	private static final String DATABASE_URL = "jdbc:oracle:thin:@localhost:1521:mldn" ;
+	private static final String DATABASE_USER = "scott" ;
+	private static final String DATABASE_PASSWORD = "tiger" ;
+	public static void main(String[] args) throws Exception {
+		String title = "MLDN新闻'老李写的" ;
+		int read = 99 ;
+		double price = 99.8 ;
+		String content = "这个春天有点冷" ;
+		Date pubdate = new Date() ;
+		String sql = " INSERT INTO news(nid,title,read,price,content,pubdate) VALUES "
+				+ " (news_seq.nextval,?,?,?,?,?)" ; // 使用了“?”作为占位符
+		Connection conn = null ;  // 每一个Connection接口对象描述的就是一个用户连接
+		Class.forName(DATABASE_DRVIER) ; // 向容器之中加载数据库驱动程序
+		conn = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD) ;
+		PreparedStatement pstmt = conn.prepareStatement(sql) ; // 创建数据库的操作对象
+		// 在执行具体的数据库操作之前需要为占位符设置内容，按照顺序设置
+		pstmt.setString(1, title);
+		pstmt.setInt(2, read);
+		pstmt.setDouble(3, price);
+		pstmt.setString(4, content); 
+		pstmt.setDate(5, new java.sql.Date(pubdate.getTime())); 
+		int count = pstmt.executeUpdate() ; // 返回影响的行数
+		System.out.println("更新操作影响的数据行数：" + count);
+		conn.close();  // 数据库的连接资源有限一定要关闭
+	}
+}
+
+3、
+package cn.mldn.demo;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Date;
+
+public class JDBCDemo {
+	private static final String DATABASE_DRVIER = "oracle.jdbc.driver.OracleDriver" ;
+	private static final String DATABASE_URL = "jdbc:oracle:thin:@localhost:1521:mldn" ;
+	private static final String DATABASE_USER = "scott" ;
+	private static final String DATABASE_PASSWORD = "tiger" ;
+	public static void main(String[] args) throws Exception {
+		String sql = "SELECT nid,title,read,price,content,pubdate FROM news " ;
+		Connection conn = null ;  // 每一个Connection接口对象描述的就是一个用户连接
+		Class.forName(DATABASE_DRVIER) ; // 向容器之中加载数据库驱动程序
+		conn = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD) ;
+		PreparedStatement pstmt = conn.prepareStatement(sql) ; // 创建数据库的操作对象
+		// 在执行具体的数据库操作之前需要为占位符设置内容，按照顺序设置
+		ResultSet rs = pstmt.executeQuery() ;
+		while (rs.next()) {	// 现在如果发现还有数据行未输出
+			int nid = rs.getInt(1) ;
+			String title = rs.getString(2) ;
+			int read = rs.getInt(3) ;
+			double price = rs.getDouble(4) ;
+			String content = rs.getString(5) ;
+			Date pubdate = rs.getDate(6) ;
+			System.out.println(nid + "、" + title + "、" + read + "、" + price + "、" + content + "、" + pubdate);
+		}
+		conn.close();  // 数据库的连接资源有限一定要关闭
+	}
+}
+
+4、
+
+package cn.mldn.demo;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Date;
+
+public class JDBCDemo {
+	private static final String DATABASE_DRVIER = "oracle.jdbc.driver.OracleDriver" ;
+	private static final String DATABASE_URL = "jdbc:oracle:thin:@localhost:1521:mldn" ;
+	private static final String DATABASE_USER = "scott" ;
+	private static final String DATABASE_PASSWORD = "tiger" ;
+	public static void main(String[] args) throws Exception {
+		String sql = "SELECT nid,title,read,price,content,pubdate FROM news WHERE nid=?" ;
+		Connection conn = null ;  // 每一个Connection接口对象描述的就是一个用户连接
+		Class.forName(DATABASE_DRVIER) ; // 向容器之中加载数据库驱动程序
+		conn = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD) ;
+		PreparedStatement pstmt = conn.prepareStatement(sql) ; // 创建数据库的操作对象
+		pstmt.setInt(1, 5); // 设置nid的数据
+		// 在执行具体的数据库操作之前需要为占位符设置内容，按照顺序设置
+		ResultSet rs = pstmt.executeQuery() ;
+		while (rs.next()) {	// 现在如果发现还有数据行未输出
+			int nid = rs.getInt(1) ;
+			String title = rs.getString(2) ;
+			int read = rs.getInt(3) ;
+			double price = rs.getDouble(4) ;
+			String content = rs.getString(5) ;
+			Date pubdate = rs.getDate(6) ;
+			System.out.println(nid + "、" + title + "、" + read + "、" + price + "、" + content + "、" + pubdate);
+		}
+		conn.close();  // 数据库的连接资源有限一定要关闭
+	}
+}
+
+5、
+
+package cn.mldn.demo;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Date;
+
+public class JDBCDemo {
+	private static final String DATABASE_DRVIER = "oracle.jdbc.driver.OracleDriver" ;
+	private static final String DATABASE_URL = "jdbc:oracle:thin:@localhost:1521:mldn" ;
+	private static final String DATABASE_USER = "scott" ;
+	private static final String DATABASE_PASSWORD = "tiger" ;
+	public static void main(String[] args) throws Exception {
+		int currentPage = 2 ; // 当前页
+		int lineSize = 5 ; // 每页显示的数据行
+		String column = "title" ; // 模糊查询列
+		String keyWord = "MLDN" ; // 查询关键字
+		String sql = "SELECT * FROM ( "
+				+ " SELECT nid,title,read,price,content,pubdate,ROWNUM rn "
+				+ " FROM news WHERE " + column + " LIKE ? AND ROWNUM<=? ORDER BY nid) temp "
+				+ " WHERE temp.rn>?" ;
+		Connection conn = null ;  // 每一个Connection接口对象描述的就是一个用户连接
+		Class.forName(DATABASE_DRVIER) ; // 向容器之中加载数据库驱动程序
+		conn = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD) ;
+		PreparedStatement pstmt = conn.prepareStatement(sql) ; // 创建数据库的操作对象
+		pstmt.setString(1, "%" + keyWord + "%");
+		pstmt.setInt(2, currentPage * lineSize);
+		pstmt.setInt(3, (currentPage - 1) * lineSize);
+		// 在执行具体的数据库操作之前需要为占位符设置内容，按照顺序设置
+		ResultSet rs = pstmt.executeQuery() ;
+		while (rs.next()) {	// 现在如果发现还有数据行未输出
+			int nid = rs.getInt(1) ;
+			String title = rs.getString(2) ;
+			int read = rs.getInt(3) ;
+			double price = rs.getDouble(4) ;
+			String content = rs.getString(5) ;
+			Date pubdate = rs.getDate(6) ;
+			System.out.println(nid + "、" + title + "、" + read + "、" + price + "、" + content + "、" + pubdate);
+		}
+		conn.close();  // 数据库的连接资源有限一定要关闭
+	}
+}
+
+6、
+
+package cn.mldn.demo;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+public class JDBCDemo {
+	private static final String DATABASE_DRVIER = "oracle.jdbc.driver.OracleDriver" ;
+	private static final String DATABASE_URL = "jdbc:oracle:thin:@localhost:1521:mldn" ;
+	private static final String DATABASE_USER = "scott" ;
+	private static final String DATABASE_PASSWORD = "tiger" ;
+	public static void main(String[] args) throws Exception {
+		String column = "title" ; // 模糊查询列
+		String keyWord = "MLDN" ; // 查询关键字
+		String sql = "SELECT COUNT(*) FROM news WHERE " + column + " LIKE ?" ;
+		Connection conn = null ;  // 每一个Connection接口对象描述的就是一个用户连接
+		Class.forName(DATABASE_DRVIER) ; // 向容器之中加载数据库驱动程序
+		conn = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD) ;
+		PreparedStatement pstmt = conn.prepareStatement(sql) ; // 创建数据库的操作对象
+		pstmt.setString(1, "%" + keyWord + "%");
+		// 在执行具体的数据库操作之前需要为占位符设置内容，按照顺序设置
+		ResultSet rs = pstmt.executeQuery() ;
+		if (rs.next()) {
+			long count = rs.getLong(1) ;
+			System.out.println("复合条件的数据量：" + count);
+		}
+		conn.close();  // 数据库的连接资源有限一定要关闭
+	}
+}

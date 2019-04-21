@@ -1,0 +1,52 @@
+1、
+
+class Person {	// 定义一个类
+	String name ;	// 人员的姓名
+	int age ;		// 人的年龄
+	public void tell() {
+		System.out.println("姓名：" + name + "、年龄：" + age) ;
+	}
+}
+public class JavaDemo {	// 主类
+	public static void main(String args[]) {
+		Person per = new Person() ;	// 声明并实例化对象
+		per.name = "张三" ;	 // 在类外部修改属性
+		per.age = -18 ;		// 在类外部修改属性
+		per.tell() ;	// 进行方法的调用
+	}
+} 
+
+2、
+class Person {	// 定义一个类
+	private String name ;	// 人员的姓名
+	private int age ;		// 人的年龄
+	public void tell() {
+		System.out.println("姓名：" + name + "、年龄：" + age) ;
+	}
+	public void setName(String n) {
+		name = n ;
+	}
+	public void setAge(int a) {
+		if (a >= 0) {
+			age = a ;
+		}
+	}
+	public String getName() {
+		return name ;
+	}
+	public int getAge() {
+		return age ;
+	}
+}
+public class JavaDemo {	// 主类
+	public static void main(String args[]) {
+		Person per = new Person() ;	// 声明并实例化对象
+		per.setName("张三") ;
+		per.setAge(-18) ;		// 在类外部修改属性
+		per.tell() ;	// 进行方法的调用
+	}
+} 
+
+
+
+

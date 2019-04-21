@@ -1,0 +1,342 @@
+1、
+
+// 由于类名称与接口名称的定义要求相同，所以为了区分出接口接口名称前往往会加入字母I（interface简写）
+interface IMessage {	// 定义了一个接口
+	public static final String INFO = "www.mldn.cn" ;	// 全局常量
+	public abstract String getInfo() ; // 抽象方法
+}
+class MessageImpl implements IMessage {	// 实现了接口
+	public String getInfo() {
+		return "得到一个消息，秘密的消息，有人胖了（不是我）。" ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		IMessage msg = new MessageImpl() ;
+		System.out.println(msg.getInfo()) ;
+		System.out.println(IMessage.INFO) ;	// 直接输出全局常量
+	}
+} 
+
+
+2、
+
+
+interface IMessage {	// 定义了一个接口
+	public static final String INFO = "www.mldn.cn" ;	// 全局常量
+	public abstract String getInfo() ; // 抽象方法
+}
+interface IChannel {
+	public abstract boolean connect() ;	// 定义抽象方法
+}
+class MessageImpl implements IMessage,IChannel {	// 实现了接口
+	public String getInfo() {
+		if (this.connect()) {
+			return "得到一个消息，秘密的消息，有人胖了（不是我）。" ;
+		}
+		return "通道创建失败，无法获取消息。" ;
+	}
+	public boolean connect() {
+		System.out.println("消息发送通道已经成功建立。") ;
+		return true ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		IMessage msg = new MessageImpl() ;
+		System.out.println(msg.getInfo()) ;
+	}
+} 
+
+
+3、
+
+interface IMessage {	// 定义了一个接口
+	public static final String INFO = "www.mldn.cn" ;	// 全局常量
+	public abstract String getInfo() ; // 抽象方法
+}
+interface IChannel {
+	public abstract boolean connect() ;	// 定义抽象方法
+}
+class MessageImpl implements IMessage,IChannel {	// 实现了接口
+	public String getInfo() {
+		if (this.connect()) {
+			return "得到一个消息，秘密的消息，有人胖了（不是我）。" ;
+		}
+		return "通道创建失败，无法获取消息。" ;
+	}
+	public boolean connect() {
+		System.out.println("消息发送通道已经成功建立。") ;
+		return true ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		IMessage msg = new MessageImpl() ;
+		IChannel chl = (IChannel) msg ;
+		System.out.println(chl.connect()) ;
+	}
+} 
+
+
+4、
+
+
+interface IMessage {	// 定义了一个接口
+	public static final String INFO = "www.mldn.cn" ;	// 全局常量
+	public abstract String getInfo() ; // 抽象方法
+}
+interface IChannel {
+	public abstract boolean connect() ;	// 定义抽象方法
+}
+class MessageImpl implements IMessage,IChannel {	// 实现了接口
+	public String getInfo() {
+		if (this.connect()) {
+			return "得到一个消息，秘密的消息，有人胖了（不是我）。" ;
+		}
+		return "通道创建失败，无法获取消息。" ;
+	}
+	public boolean connect() {
+		System.out.println("消息发送通道已经成功建立。") ;
+		return true ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		IMessage msg = new MessageImpl() ;
+		Object obj = msg ; // 向上转型
+		IChannel chan = (IChannel) obj ; 
+		System.out.println(chan.connect()) ;
+	}
+} 
+
+
+5、
+
+interface IMessage {	// 定义了一个接口
+	public static final String INFO = "www.mldn.cn" ;
+	public abstract String getInfo() ;
+}
+interface IChannel {
+	public abstract boolean connect() ;	// 定义抽象方法
+}
+abstract class DatabaseAbstract {	// 定义一个抽象类
+	// 接口中的abstract可以省略，抽象类中不允许省略
+	public abstract boolean getDatabaseConnection() ;
+}
+class MessageImpl extends DatabaseAbstract implements IMessage,IChannel {	// 实现了接口
+	public String getInfo() {
+		if (this.connect()) {
+			if (this.getDatabaseConnection()) {
+				return "数据库中得到一个消息，秘密的消息，有人胖了（不是我）。" ;
+			} else {
+				return "数据库消息无法访问。" ;
+			}
+		}
+		return "通道创建失败，无法获取消息。" ;
+	}
+	public boolean connect() {
+		System.out.println("消息发送通道已经成功建立。") ;
+		return true ;
+	}
+	public boolean getDatabaseConnection() {
+		return true ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		IMessage msg = new MessageImpl() ;
+		System.out.println(msg.getInfo()) ;
+	}
+} 
+
+
+6、
+
+interface IMessage {
+	public abstract String getInfo() ;
+}
+interface IChannel {
+	public boolean connect() ;
+}
+// extends在类继承上只能够继承一个父类，但是接口上可以继承多个
+interface IService extends IMessage,IChannel {	// 接口多继承
+	public String service() ;
+}
+class MessageService implements IService {
+	public String getInfo() {
+		return null ;
+	}
+	public boolean connect() {
+		return true ;
+	}
+	public String service() {
+		return "获取消息服务。" ;
+	}
+}
+
+7、
+
+interface IMessage {
+	public String message() ;
+	public default boolean connect() {	// 方法是一个公共方法，都具备
+		System.out.println("建立消息的发送通道。") ;
+		return true ;
+	}
+}
+class MessageImpl implements IMessage {
+	public String message() {
+		return "www.mldn.cn" ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		IMessage msg = new MessageImpl() ;
+		if (msg.connect()) {
+			System.out.println(msg.message()) ;
+		}
+	}
+} 
+
+
+8、
+
+interface IMessage {
+	public String message() ;
+	public default boolean connect() {	// 方法是一个公共方法，都具备
+		System.out.println("建立消息的发送通道。") ;
+		return true ;
+	}
+	public static IMessage getInstance() {
+		return new MessageImpl() ;	// 获得子类对象
+	}
+}
+class MessageImpl implements IMessage {
+	public String message() {
+		if (this.connect()) {
+			return "www.mldn.cn" ;
+		}
+		return "没有消息发送。" ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		IMessage msg = IMessage.getInstance() ;
+		System.out.println(msg.message()) ;
+	}
+} 
+
+
+9、
+
+
+interface IFood {	// 定义一个食物标准
+	public void eat() ; // 吃
+}
+class Bread implements IFood { // 定义一种食物
+	public void eat() {
+		System.out.println("吃面包。") ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		IFood food = new Bread() ;
+		food.eat() ;// 吃面包
+	}
+} 
+
+
+10、
+
+
+interface IFood {	// 定义一个食物标准
+	public void eat() ; // 吃
+}
+class Bread implements IFood { // 定义一种食物
+	public void eat() {
+		System.out.println("吃面包。") ;
+	}
+}
+class Milk implements IFood { // 定义一种食物
+	public void eat() {
+		System.out.println("喝牛奶。") ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		IFood food = new Milk() ;
+		food.eat() ;// 吃面包
+	}
+} 
+
+
+11、
+
+interface IFood {	// 定义一个食物标准
+	public void eat() ; // 吃
+}
+class Bread implements IFood { // 定义一种食物
+	public void eat() {
+		System.out.println("吃面包。") ;
+	}
+}
+class Milk implements IFood { // 定义一种食物
+	public void eat() {
+		System.out.println("喝牛奶。") ;
+	}
+}
+class Factory {
+	public static IFood getInstance(String className) {
+		if ("bread".equals(className)) {
+			return new Bread() ;
+		} else if ("milk".equals(className)) {
+			return new Milk() ;
+		} else {
+			return null ;
+		}
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		IFood food = Factory.getInstance(args[0]) ;
+		food.eat() ;// 吃面包
+	}
+} 
+
+
+12、
+
+interface IEat {
+	public void get() ;
+}
+class EatReal implements IEat {
+	public void get() {
+		System.out.println("【真实主题】得到一份食物，而后开始品尝美味。") ;
+	}
+}
+class EatProxy implements IEat {	// 服务代理
+	private IEat eat ; // 为吃而服务
+	public EatProxy(IEat eat) {	// 一定要有一个代理项
+		this.eat = eat ;
+	}
+	public void get() {
+		this.prepare() ;
+		this.eat.get() ;
+		this.clear() ;
+	}
+	public void prepare() {	// 准备过程
+		System.out.println("【代理主题】1、精心购买食材。") ;
+		System.out.println("【代理主题】2、小心的处理食材。") ;
+	}
+	public void clear() {
+		System.out.println("【代理主题】3、收拾碗筷。");
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		IEat eat = new EatProxy(new EatReal()) ;
+		eat.get() ;
+	}
+} 
+
+

@@ -1,0 +1,11 @@
+package cn.mldn.demo;
+
+import java.util.UUID;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		UUID uid = UUID.randomUUID() ;
+		System.out.println(uid.toString());
+	}
+
+}

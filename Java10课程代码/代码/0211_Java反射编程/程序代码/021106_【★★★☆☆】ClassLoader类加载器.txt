@@ -1,0 +1,94 @@
+1、
+
+package cn.mldn.demo;
+class Message {}
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Class<?> clazz = Message.class ; 
+		System.out.println(clazz.getClassLoader());	// 获取当前类的加载器
+		System.out.println(clazz.getClassLoader().getParent());	// 获取父类加载器
+		System.out.println(clazz.getClassLoader().getParent().getParent());	// null
+	} 
+}
+
+
+2、
+
+package cn.mldn.util;
+public class Message {
+	public void send() {
+		System.out.println("www.mldn.cn");
+	}
+}
+
+
+3、
+
+package cn.mldn.util;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+
+public class MLDNClassLoader extends ClassLoader { 
+	private static final String MESSAGE_CLASS_PATH = "D:" + File.separator + "Message.class" ;
+	/**
+	 * 进行指定类的加载
+	 * @param className 类的完整名称“包.类”
+	 * @return 返回一个指定类的Class对象
+	 * @throws Exception 如果类文件不存在则无法加载
+	 */
+	public Class<?> loadData(String className) throws Exception {
+		byte [] data = this.loadClassData() ; // 读取二进制数据文件
+		if (data != null) {	// 读取到了
+			return super.defineClass(className, data, 0, data.length) ; 
+		}
+		return null ;
+	}
+	private byte [] loadClassData() throws Exception {	// 通过文件进行类的加载
+		InputStream input = null ;
+		ByteArrayOutputStream bos = null ; // 将数据加载到内存之中
+		byte data [] = null ;
+		try {
+			bos = new ByteArrayOutputStream() ;	// 实例化内存流
+			input = new FileInputStream(new File(MESSAGE_CLASS_PATH)) ; // 文件流加载
+			input.transferTo(bos) ; // 读取数据
+			data = bos.toByteArray() ; // 将所有读取到的字节数据取出
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (input != null) {
+				input.close(); 
+			}
+			if (bos != null) {
+				bos.close();
+			}
+		}
+		return data ;
+	}
+}
+
+
+4、
+package cn.mldn.demo;
+
+import java.lang.reflect.Method;
+
+import cn.mldn.util.MLDNClassLoader;
+
+class Message {}
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		MLDNClassLoader classLoader = new MLDNClassLoader() ;	// 实例化自定义类加载器
+		Class<?> cls = classLoader.loadData("cn.mldn.util.Message") ; // 进行类的加载
+		Object obj = cls.getDeclaredConstructor().newInstance() ;
+		Method method = cls.getDeclaredMethod("send") ;
+		method.invoke(obj) ;
+	} 
+}
+
+
+5、
+
+

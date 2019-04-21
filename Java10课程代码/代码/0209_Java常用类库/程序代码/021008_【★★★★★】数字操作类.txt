@@ -1,0 +1,186 @@
+1、
+package cn.mldn.demo;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		System.out.println(Math.abs(-10.1));	// 10.1
+		System.out.println(Math.max(10.2, 20.3)); // 获取最大值
+		System.out.println(Math.log(5)); 	// 1.6094379124341003
+		System.out.println(Math.round(15.1));	// 15
+		System.out.println(Math.round(-15.5));	// -15
+		System.out.println(Math.round(-15.51));	// -16
+		System.out.println(Math.pow(10.2, 20.2));	// 2.364413713591828E20
+	}
+}
+
+
+2、
+package cn.mldn.demo;
+class MathUtil {
+	private MathUtil() {}
+	/**
+	 * 实现数据的四舍五入操作
+	 * @param num 要进行四舍五入操作的数字
+	 * @param scale 四舍五入保留的小数位数
+	 * @return 四舍五入处理后的结果
+	 */
+	public static double round(double num,int scale) {
+		return Math.round(num * Math.pow(10, scale)) / Math.pow(10, scale) ;
+	}
+}
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		System.out.println(MathUtil.round(19.86273, 2));
+	}
+}
+
+
+3、
+
+package cn.mldn.demo;
+
+import java.util.Random;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Random rand = new Random() ; 
+		for (int x = 0 ; x < 10 ; x ++) {
+			System.out.print(rand.nextInt(100) + "、");
+		}
+	}
+}
+
+
+4、
+package cn.mldn.demo;
+
+import java.util.Arrays;
+import java.util.Random;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		int data [] = new int [7] ; // 开辟7个大小的空间
+		Random rand = new Random() ;
+		int foot = 0 ; // 操作data脚标
+		while(foot < 7) {	// 选择7个数字
+			int num = rand.nextInt(37) ; // 生成一个数字
+			if (isUse(num,data)) {	// 该数字现在可以使用
+				data[foot ++] = num ; // 保存数据
+			}
+		}
+		java.util.Arrays.sort(data);
+		for (int x = 0 ; x < data.length ; x ++) {
+			System.out.print(data[x] + "、");
+		}
+	}
+	/**
+	 * 判断传入的数字是否为0以及是否在数组之中存在
+	 * @param num 要判断的数字
+	 * @param temp 已经存在的数据
+	 * @return 如果该数字不是0并且可以使用返回true，否则返回false
+	 */
+	public static boolean isUse(int num,int temp[]) {
+		if (num == 0) {
+			return false ;
+		}
+		for (int x = 0 ; x < temp.length ; x ++) {
+			if (num == temp[x]) {
+				return false ;
+			}
+		}
+		return true ;
+	}
+	
+}
+
+
+5、
+
+package cn.mldn.demo;
+
+import java.math.BigInteger;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		BigInteger bigA = new BigInteger("234234234234234234") ;
+		BigInteger bigB = new BigInteger("23423423") ;
+		System.out.println("加法操作：" + bigA.add(bigB));
+		System.out.println("减法操作：" + bigA.subtract(bigB));
+		System.out.println("乘法操作：" + bigA.multiply(bigB));
+		System.out.println("除法操作：" + bigA.divide(bigB));
+	}
+	
+}
+
+
+6、
+
+package cn.mldn.demo;
+
+import java.math.BigInteger;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		BigInteger bigA = new BigInteger("234234234234234234") ;
+		System.out.println(bigA.pow(Integer.MAX_VALUE)); 
+	}
+	
+}
+
+
+7、
+
+package cn.mldn.demo;
+import java.math.BigInteger;
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		BigInteger bigA = new BigInteger("234234234234234234") ;
+		BigInteger bigB = new BigInteger("23423423") ;
+		BigInteger result [] = bigA.divideAndRemainder(bigB) ;
+		System.out.println("商：" + result[0] + "、余数：" + result[1]);
+	}
+}
+
+
+8、
+package cn.mldn.demo;
+
+import java.math.BigDecimal;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		BigDecimal bigA = new BigDecimal("32890234890") ;
+		BigDecimal bigB = new BigDecimal("1892039") ;
+		System.out.println("加法计算：" + bigA.add(bigB));
+		BigDecimal result [] = bigA.divideAndRemainder(bigB) ;
+		System.out.println("除法计算，商：" + result[0] + "、余数：" + result[1]);
+	}
+	
+}
+
+
+9、
+
+package cn.mldn.demo;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+class MathUtil {
+	private MathUtil() {}
+	/**
+	 * 实现数据的四舍五入操作
+	 * @param num 要进行四舍五入操作的数字
+	 * @param scale 四舍五入保留的小数位数
+	 * @return 四舍五入处理后的结果
+	 */
+	public static double round(double num,int scale) {
+		return new BigDecimal(num).divide(new BigDecimal(1.0), scale, RoundingMode.HALF_UP).doubleValue();
+	} 
+}
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		System.out.println(MathUtil.round(19.6352, 2));
+	}
+}
+
+

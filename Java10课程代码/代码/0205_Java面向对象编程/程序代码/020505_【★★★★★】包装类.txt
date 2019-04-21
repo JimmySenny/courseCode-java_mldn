@@ -1,0 +1,116 @@
+1、
+
+class Int {
+	private int data ; // 包装了一个基本数据类型
+	public Int(int data) {
+		this.data = data ;
+	}
+	public int intValue() {
+		return this.data ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Object obj = new Int(10) ;	// 装箱：将基本数据类型保存在包装类之中
+		int x = ((Int)obj).intValue() ; // 拆箱：从包装类对象中获取基本数据类型
+		System.out.println(x * 2) ;
+	}
+} 
+
+
+2、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		Integer obj = new Integer(10) ;	// 装箱
+		int num = obj.intValue() ; // 拆箱
+		System.out.println(num * num) ;
+	}
+} 
+
+
+3、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		Double obj = new Double(10.1) ;	// 装箱
+		double num = obj.doubleValue() ; // 拆箱
+		System.out.println(num * num) ;
+	}
+} 
+
+
+4、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		Integer obj = 10 ; // 自动装箱，此时不再关心构造方法了
+		int num = obj ; // 自动拆箱
+		obj ++ ; // 包装类对象可以直接参与数学运算
+		System.out.println(num * obj) ;	// 直接参与数学运算
+	}
+} 
+
+
+
+5、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		Object obj = 19.2 ; // double自动装箱为Double，向上转型为Object
+		double num = (Double) obj ; // 向下转型为包装类，再自动拆箱
+		System.out.println(num * 2) ;
+	}
+} 
+
+
+6、
+public class JavaDemo {
+	public static void main(String args[]) {
+		Integer x = 127 ;
+		Integer y = 127 ;
+		System.out.println(x == y) ;	// false
+		System.out.println(x.equals(y)) ;	// true
+	}
+} 
+
+
+7、
+public class JavaDemo {
+	public static void main(String args[]) {
+		String str = "123" ; // 字符串由数字所组成
+		int num = Integer.parseInt(str) ;	// 字符串转为int
+		System.out.println(num * num) ;
+	}
+} 
+
+
+8、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		String str = "abc" ; // 字符串由数字所组成
+		boolean flag = Boolean.parseBoolean(str) ;
+		System.out.println(flag) ;
+	}
+} 
+
+
+9、
+public class JavaDemo {
+	public static void main(String args[]) {
+		int num = 100 ;
+		String str = num + "" ;// 字符串连接
+		System.out.println(str.length()) ;	// 计算长度
+	}
+} 
+
+
+10、
+public class JavaDemo {
+	public static void main(String args[]) {
+		int num = 100 ;
+		String str = String.valueOf(num) ;// 字符串转换
+		System.out.println(str.length()) ;	// 计算长度
+	}
+} 

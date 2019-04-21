@@ -1,0 +1,314 @@
+1、
+
+class Point {
+	private Object x ;
+	private Object y ;
+	public void setX(Object x) {
+		this.x = x ;
+	}
+	public void setY(Object y) {
+		this.y = y ;
+	}
+	public Object getX() {
+		return this.x ;
+	}
+	public Object getY() {
+		return this.y ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Point point = new Point() ;
+		// 第一步：根据需求进行内容的设置
+		point.setX(10) ;	// 自动装箱
+		point.setY(20) ;	// 自动装箱
+		// 第二步：从里面获取数据
+		int x = (Integer) point.getX() ;
+		int y = (Integer) point.getY() ;
+		System.out.println("x坐标：" + x + "、y坐标：" + y) ;
+	}
+} 
+
+
+
+2、
+class Point {
+	private Object x ;
+	private Object y ;
+	public void setX(Object x) {
+		this.x = x ;
+	}
+	public void setY(Object y) {
+		this.y = y ;
+	}
+	public Object getX() {
+		return this.x ;
+	}
+	public Object getY() {
+		return this.y ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Point point = new Point() ;
+		// 第一步：根据需求进行内容的设置
+		point.setX(10) ;	// 自动装箱
+		point.setY("北纬20度") ;	// 自动装箱
+		// 第二步：从里面获取数据
+		int x = (Integer) point.getX() ;
+		int y = (Integer) point.getY() ;
+		System.out.println("x坐标：" + x + "、y坐标：" + y) ;
+	}
+} 
+
+
+3、
+
+class Point <T> {	// T是Type的简写，可以定义多个泛型
+	private T x ;
+	private T y ;
+	public void setX(T x) {
+		this.x = x ;
+	}
+	public void setY(T y) {
+		this.y = y ;
+	}
+	public T getX() {
+		return this.x ;
+	}
+	public T getY() {
+		return this.y ;
+	}
+}
+
+4、
+
+class Point <T> {	// T是Type的简写，可以定义多个泛型
+	private T x ;
+	private T y ;
+	public void setX(T x) {
+		this.x = x ;
+	}
+	public void setY(T y) {
+		this.y = y ;
+	}
+	public T getX() {
+		return this.x ;
+	}
+	public T getY() {
+		return this.y ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Point<Integer> point = new Point<Integer>() ;
+		// 第一步：根据需求进行内容的设置
+		point.setX(10) ;	// 自动装箱
+		point.setY(20) ;	// 自动装箱
+		// 第二步：从里面获取数据
+		int x = point.getX() ;
+		int y = point.getY() ;
+		System.out.println("x坐标：" + x + "、y坐标：" + y) ;
+	}
+} 
+
+
+5、
+
+class Message <T> {
+	private T content ;
+	public void setContent(T content) {
+		this.content = content ;
+	}
+	public T getContent() {
+		return this.content ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Message<String> msg = new Message<String>() ;
+		msg.setContent("www.mldn.cn") ;
+		fun(msg) ;	// 引用传递
+	}
+	public static void fun(Message<String> temp){
+		System.out.println(temp.getContent()) ;
+	}
+} 
+
+
+6、
+
+class Message <T> {
+	private T content ;
+	public void setContent(T content) {
+		this.content = content ;
+	}
+	public T getContent() {
+		return this.content ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Message<Integer> msgA = new Message<Integer>() ;
+		Message<String> msgB = new Message<String>() ;
+		msgA.setContent(110) ;
+		fun(msgA) ;	// 引用传递
+		msgB.setContent("www.mldn.cn") ;
+		fun(msgB) ;
+	}
+	public static void fun(Message temp){
+		System.out.println(temp.getContent()) ;
+	}
+} 
+
+
+7、
+
+class Message <T> {
+	private T content ;
+	public void setContent(T content) {
+		this.content = content ;
+	}
+	public T getContent() {
+		return this.content ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Message<Integer> msgA = new Message<Integer>() ;
+		Message<String> msgB = new Message<String>() ;
+		msgA.setContent(110) ;
+		fun(msgA) ;	// 引用传递
+		msgB.setContent("www.mldn.cn") ;
+		fun(msgB) ;
+	}
+	public static void fun(Message temp){
+		temp.setContent(1.1) ;
+		System.out.println(temp.getContent()) ;
+	}
+} 
+
+
+8、
+
+class Message <T> {
+	private T content ;
+	public void setContent(T content) {
+		this.content = content ;
+	}
+	public T getContent() {
+		return this.content ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Message<Integer> msgA = new Message<Integer>() ;
+		Message<String> msgB = new Message<String>() ;
+		msgA.setContent(110) ;
+		fun(msgA) ;	// 引用传递
+		msgB.setContent("www.mldn.cn") ;
+		fun(msgB) ;
+	}
+	public static void fun(Message<?> temp){
+		System.out.println(temp.getContent()) ;
+	}
+} 
+
+
+9、
+class Message <T extends Number> {
+	private T content ;
+	public void setContent(T content) {
+		this.content = content ;
+	}
+	public T getContent() {
+		return this.content ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Message<Integer> msgA = new Message<Integer>() ;
+		msgA.setContent(110) ;
+		fun(msgA) ;	// 引用传递
+	}
+	public static void fun(Message<? extends Number> temp){
+		System.out.println(temp.getContent()) ;
+	}
+} 
+
+
+10、
+
+
+class Message <T> {
+	private T content ;
+	public void setContent(T content) {
+		this.content = content ;
+	}
+	public T getContent() {
+		return this.content ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Message<String> msgA = new Message<String>() ;
+		msgA.setContent("www.mldn.cn") ;
+		fun(msgA) ;	// 引用传递
+	}
+	public static void fun(Message<? super String> temp){
+		System.out.println(temp.getContent()) ;
+	}
+} 
+
+
+11、
+
+interface IMessage<T> {
+	public String echo(T t) ;
+}
+class MessageImpl<S> implements IMessage<S> {
+	public String echo(S t) {
+		return "【ECHO】" + t ; 
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		IMessage<String> msg = new MessageImpl<String>() ;
+		System.out.println(msg.echo("www.mldn.cn")) ;
+	}
+} 
+
+
+12、
+
+interface IMessage<T> {
+	public String echo(T t) ;
+}
+class MessageImpl implements IMessage<String> {
+	public String echo(String t) {
+		return "【ECHO】" + t ; 
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		IMessage<String> msg = new MessageImpl() ;
+		System.out.println(msg.echo("www.mldn.cn")) ;
+	}
+} 
+
+
+13、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		Integer num [] = fun(1,2,3) ;	// 传入了整数，泛型类型就是Integer
+		for (int temp : num) {
+			System.out.print(temp + "、") ;
+		}
+	}
+	public static <T> T[] fun(T ... args) {
+		return args ;
+	}
+}
+
+

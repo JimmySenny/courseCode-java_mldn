@@ -1,0 +1,424 @@
+1、
+package cn.mldn.service;
+
+public interface IMessageService {
+	public void send() ;
+}
+package cn.mldn.service;
+
+public interface IChannelService {
+	public boolean connect() ;
+}
+
+package cn.mldn.abs;
+
+public abstract class AbstractBase {
+
+}
+
+package cn.mldn.vo;
+
+import cn.mldn.abs.AbstractBase;
+import cn.mldn.service.IChannelService;
+import cn.mldn.service.IMessageService;
+
+public class Person extends AbstractBase implements IMessageService,IChannelService {
+	@Override 
+	public boolean connect() {
+		return true ;
+	}
+
+	@Override
+	public void send() {
+		if (this.connect()) {
+			System.out.println("【信息发送】www.mldn.cn");
+		}
+	}
+}
+
+
+2、
+package cn.mldn.demo;
+
+import cn.mldn.vo.Person;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Class<?> cls = Person.class ; // 获取指定类的Class对象
+		Package pack = cls.getPackage() ;	// 获取指定类的包定义
+		System.out.println(pack.getName());
+	}
+}
+
+
+
+3、
+package cn.mldn.demo;
+
+import cn.mldn.vo.Person;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Class<?> cls = Person.class ; // 获取指定类的Class对象
+		Class<?> parent = cls.getSuperclass() ;
+		System.out.println(parent.getName());
+		System.out.println(parent.getSuperclass().getName());
+	}
+}
+
+
+
+4、
+
+package cn.mldn.demo;
+
+import cn.mldn.vo.Person;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Class<?> cls = Person.class ; // 获取指定类的Class对象
+		Class<?> clazz[] = cls.getInterfaces() ;
+		for (Class<?> temp : clazz) {
+			System.out.println(temp.getName());
+		}
+	}
+}
+
+
+
+5、
+package cn.mldn.abs;
+
+public abstract class AbstractBase {
+	public AbstractBase() {}
+	public AbstractBase(String msg) {} 
+}
+
+
+6、
+package cn.mldn.vo;
+
+import cn.mldn.abs.AbstractBase;
+import cn.mldn.service.IChannelService;
+import cn.mldn.service.IMessageService;
+
+public class Person extends AbstractBase implements IMessageService,IChannelService {
+	public Person() {}
+	public Person(String name,int age) {}
+	@Override 
+	public boolean connect() {
+		return true ;
+	}
+
+	@Override
+	public void send() {
+		if (this.connect()) {
+			System.out.println("【信息发送】www.mldn.cn");
+		}
+	}
+}
+
+
+7、
+package cn.mldn.demo;
+
+import java.lang.reflect.Constructor;
+
+import cn.mldn.vo.Person;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Class<?> cls = Person.class ; // 获取指定类的Class对象
+		Constructor<?>[] constructors = cls.getDeclaredConstructors() ; // 获取全部构造
+		for (Constructor<?> cons : constructors) {
+			System.out.println(cons);
+		}
+	}
+}
+
+
+
+8、
+package cn.mldn.vo;
+
+import cn.mldn.abs.AbstractBase;
+import cn.mldn.service.IChannelService;
+import cn.mldn.service.IMessageService;
+
+public class Person extends AbstractBase implements IMessageService,IChannelService {
+	private String name ;
+	private int age ;
+	public Person() {}
+	public Person(String name,int age) {
+		this.name = name ;
+		this.age = age ;
+	}
+	@Override
+	public String toString() {
+		return "姓名：" + this.name + "、年龄：" + this.age ;
+	}
+	@Override 
+	public boolean connect() {
+		return true ;
+	}
+
+	@Override
+	public void send() {
+		if (this.connect()) {
+			System.out.println("【信息发送】www.mldn.cn");
+		}
+	}
+}
+
+
+9、
+package cn.mldn.demo;
+
+import java.lang.reflect.Constructor;
+
+import cn.mldn.vo.Person;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Class<?> cls = Person.class ; // 获取指定类的Class对象
+		Constructor<?> constructor = cls.getConstructor(String.class,int.class) ;
+		Object obj = constructor.newInstance("小强",78) ;	// 实例化对象
+		System.out.println(obj);
+	}
+}
+
+
+
+10、
+package cn.mldn.demo;
+
+import java.lang.reflect.Method;
+
+import cn.mldn.vo.Person;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Class<?> cls = Person.class ; // 获取指定类的Class对象
+		{	// 获取全部方法（包括父类中的方法）
+			Method methods [] = cls.getMethods() ; 
+			for (Method met : methods) {
+				System.out.println(met);
+			}
+		}
+		System.out.println("------------ 难以忘怀的愚人节的分割线 ---------------");
+		{	// 获取本类方法
+			Method methods [] = cls.getDeclaredMethods() ; 
+			for (Method met : methods) {
+				System.out.println(met);
+			}
+		}
+	}
+}
+
+
+
+11、
+package cn.mldn.demo;
+
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+
+import cn.mldn.vo.Person;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Class<?> cls = Person.class; // 获取指定类的Class对象
+		Method methods[] = cls.getMethods();
+		for (Method met : methods) {
+			int mod = met.getModifiers() ; // 修饰符
+			System.out.print(Modifier.toString(mod) + " ");
+			System.out.print(met.getReturnType().getName() + " ");
+			System.out.print(met.getName() + "(");
+			Class<?> params [] = met.getParameterTypes() ; // 获取参数类型
+			for (int x = 0 ; x < params.length ; x ++) {
+				System.out.print(params[x].getName() + " " + "arg-" + x);
+				if (x < params.length - 1) {
+					System.out.print(",");
+				}
+			}
+			System.out.print(")");
+			Class<?> exp [] = met.getExceptionTypes() ;
+			if (exp.length > 0) {
+				System.out.print(" throws ");
+			}
+			for (int x = 0 ; x < exp.length ; x ++) {
+				System.out.print(exp[x].getName());
+				if (x < exp.length - 1) {
+					System.out.println(",");
+				}
+			}
+			System.out.println(); // 换行
+		}
+	}
+}
+
+
+12、
+package cn.mldn.vo;
+
+import cn.mldn.abs.AbstractBase;
+import cn.mldn.service.IChannelService;
+import cn.mldn.service.IMessageService;
+
+public class Person extends AbstractBase implements IMessageService,IChannelService {
+	private String name ;
+	private int age ;
+	public Person() {}
+	public Person(String name,int age) {
+		this.name = name ;
+		this.age = age ;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getName() {
+		return name;
+	}
+	@Override
+	public String toString() {
+		return "姓名：" + this.name + "、年龄：" + this.age ;
+	}
+	@Override 
+	public boolean connect() {
+		return true ;
+	}
+
+	@Override
+	public void send() {
+		if (this.connect()) {
+			System.out.println("【信息发送】www.mldn.cn");
+		}
+	}
+}
+
+
+13、
+package cn.mldn.demo;
+
+import java.lang.reflect.Method;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Class<?> cls = Class.forName("cn.mldn.vo.Person") ; // 获取指定类的Class对象
+		String value = "小强子" ; // 要设置的属性内容
+		// 1、任何情况下如果要想保存类中的属性或者调用类中的方法都必须保证存在有实例化对象，既然不允许导入包，那么就反射实例化
+		Object obj = cls.getDeclaredConstructor().newInstance() ;// 调用无参构造实例化
+		// 2、如果要想进行方法的调用，那么一定要获取方法的名称
+		String setMethodName = "setName" ; // 方法名称 
+		Method setMethod = cls.getDeclaredMethod(setMethodName, String.class) ; // 获取指定的方法
+		setMethod.invoke(obj, value) ; // 等价于：Person对象.setName(value)；
+		String getMethodName = "getName" ;
+		Method getMethod = cls.getDeclaredMethod(getMethodName) ; // getter没有参数
+		System.out.println(getMethod.invoke(obj)); // 等价于：Person对象.getName()
+	}
+}
+
+
+14、
+package cn.mldn.abs;
+public abstract class AbstractBase {
+	protected static final String BASE = "www.mldn.cn" ;
+	private String info = "Hello MLDN" ;
+	public AbstractBase() {}
+	public AbstractBase(String msg) {} 
+}	package cn.mldn.service;
+public interface IChannelService {
+	public static final String NAME = "mldnjava" ;
+	public boolean connect() ;
+}
+
+
+
+15、
+package cn.mldn.demo;
+import java.lang.reflect.Field;
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Class<?> cls = Class.forName("cn.mldn.vo.Person") ; // 获取指定类的Class对象
+		{	// 获取父类之中的公共成员信息
+			Field fields [] = cls.getFields() ;	// 获取成员
+			for (Field fie : fields) {
+				System.out.println(fie);
+			}
+		}
+		System.out.println("-------- 番茄酱与辣椒酱的分割线 --------------");
+		{	// 获取子类中的定义的成员
+			Field fields [] = cls.getDeclaredFields() ;	// 获取成员
+			for (Field fie : fields) {
+				System.out.println(fie);
+			}
+		}
+	}
+}
+
+
+
+16、
+package cn.mldn.demo;
+
+import java.lang.reflect.Field;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Class<?> cls = Class.forName("cn.mldn.vo.Person") ; // 获取指定类的Class对象
+		Object obj = cls.getConstructor().newInstance() ; // 实例化对象（分配成员空间）
+		Field nameField = cls.getDeclaredField("name") ; // 获取成员对象
+		nameField.setAccessible(true); // 没有封装了
+		nameField.set(obj, "番茄强");	// 等价于：Person对象.name = "番茄强" ;
+		System.out.println(nameField.get(obj));	// 等价于：Person对象.name
+	}
+}
+
+
+17、
+
+package cn.mldn.demo;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Singleton.getInstance().print();
+	} 
+}	
+class Singleton {
+	private static final Singleton INSTANCE = new Singleton() ;
+	public Singleton() {
+		System.out.println("****** Singleton类的构造方法 ******");
+	}
+	public static Singleton getInstance() {
+		return INSTANCE ;
+	}
+	public void print() {
+		System.out.println("www.mldn.cn");
+	}
+}
+
+18、
+
+package cn.mldn.demo;
+
+import java.lang.reflect.Field;
+
+import sun.misc.Unsafe;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Field field = Unsafe.class.getDeclaredField("theUnsafe") ; // 获取成员
+		field.setAccessible(true); // 解除封装
+		Unsafe unsafeObject = (Unsafe) field.get(null) ; // 原本的Field需要接收实例化对象，但是Unsafe不需要
+		Singleton instance = (Singleton) unsafeObject.allocateInstance(Singleton.class) ; // 获取对象，不受JVM控制
+		instance.print();// 调用类中的方法
+	} 
+}	
+class Singleton {
+	private Singleton() {
+		System.out.println("****** Singleton类的构造方法 ******");
+	}
+	public void print() {
+		System.out.println("www.mldn.cn");
+	}
+}

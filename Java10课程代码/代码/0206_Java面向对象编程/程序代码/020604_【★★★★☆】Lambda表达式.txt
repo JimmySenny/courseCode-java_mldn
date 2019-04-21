@@ -1,0 +1,87 @@
+1、
+
+interface IMessage {
+	public void send(String str) ;
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		IMessage msg = new IMessage() {
+			public void send(String str) {
+				System.out.println("消息发送：" + str) ;
+			}
+		} ;
+		msg.send("www.mldn.cn") ;
+	}
+} 
+
+2、
+interface IMessage {
+	public void send(String str) ;
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		IMessage msg = (str)->{
+			System.out.println("发送消息：" + str) ;
+		} ;
+		msg.send("www.mldn.cn") ;
+	}
+} 
+
+3、
+
+
+@FunctionalInterface	// 函数式接口
+interface IMessage {
+	public void send(String str) ;
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		IMessage msg = (str)->{
+			System.out.println("发送消息：" + str) ;
+		} ;
+		msg.send("www.mldn.cn") ;
+	}
+} 
+
+4、
+
+@FunctionalInterface	// 函数式接口
+interface IMessage {
+	public void send() ;
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		IMessage msg = ()->{
+			System.out.println("发送消息：www.mldn.cn") ;
+		} ;
+		msg.send() ;
+	}
+} 
+
+5、
+
+@FunctionalInterface	// 函数式接口
+interface IMath {
+	public int add(int x,int y) ;
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		IMath math = (t1,t2)->{
+			return t1 + t2 ;
+		} ;
+		System.out.println(math.add(10,20)) ;
+	}
+} 
+
+6、
+
+@FunctionalInterface	// 函数式接口
+interface IMath {
+	public int add(int x,int y) ;
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		IMath math = (t1,t2)-> t1 + t2 ;
+		System.out.println(math.add(10,20)) ;
+	}
+} 

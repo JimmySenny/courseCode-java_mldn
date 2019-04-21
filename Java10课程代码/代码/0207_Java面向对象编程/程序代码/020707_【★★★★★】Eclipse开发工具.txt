@@ -1,0 +1,51 @@
+1、
+
+package cn.mldn.demo;
+
+public class Hello {
+
+	public static void main(String[] args) {
+		System.out.println("Hello World !");
+		System.out.println("www.mldn.cn");
+	}
+
+}
+
+2、
+package cn.mldn.util;
+
+public class Math {	
+	private Math() {}	// 构造方法私有化
+	public static int add(int x,int y) {
+		int result = 0 ;
+		result = x + y ;
+		return result ;
+	}
+}
+package cn.mldn.test;
+public class TestMath {
+	public static void main(String[] args) {
+		int numA = 10 ;
+		int numB = 20 ;
+		System.out.println(cn.mldn.util.Math.add(numA,numB));
+	}
+}
+
+
+3、
+
+package cn.mldn.test;
+
+import org.junit.jupiter.api.Test;
+
+import junit.framework.TestCase;
+
+class MathTest {
+
+	@Test
+	void testAdd() {
+		TestCase.assertEquals(cn.mldn.util.Math.add(10, 20), 30);
+	}
+
+}
+

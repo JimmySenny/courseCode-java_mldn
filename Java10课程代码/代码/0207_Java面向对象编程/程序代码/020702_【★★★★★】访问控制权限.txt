@@ -1,0 +1,33 @@
+1、、package cn.mldn.a ;
+public class Message {
+	protected String info = "www.mldn.cn" ;
+}
+
+2、
+package cn.mldn.b ;
+import cn.mldn.a.Message ;
+public class NetMessage extends Message {
+	public void print() {
+		System.out.println(super.info) ;
+	}
+}
+
+3、
+package cn.mldn.test ;
+import cn.mldn.b.* ;
+public class TestMessage {
+	public static void main(String args[]) {
+		new NetMessage().print() ;
+	}
+}
+
+4、
+
+package cn.mldn.test ;
+import cn.mldn.a.* ;
+public class TestMessage {
+	public static void main(String args[]) {
+		System.out.println(new Message().info) ;
+	}
+}
+

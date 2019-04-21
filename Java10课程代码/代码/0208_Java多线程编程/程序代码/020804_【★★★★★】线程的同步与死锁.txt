@@ -1,0 +1,161 @@
+1、
+
+package cn.mldn.demo;
+class MyThread implements Runnable {
+	private int ticket = 10 ; // 总票数为10张
+	@Override
+	public void run() {
+		while (true) {
+			if (this.ticket > 0) {
+				System.out.println(Thread.currentThread().getName() + "卖票，ticket = " + this.ticket --);
+			} else {
+				System.out.println("***** 票已经卖光了 *****");
+				break ;
+			}
+		}
+	}
+}
+public class ThreadDemo { 
+	public static void main(String[] args) throws Exception {
+		MyThread mt = new MyThread() ;
+		new Thread(mt,"票贩子A").start();
+		new Thread(mt,"票贩子B").start();
+		new Thread(mt,"票贩子C").start();
+	}
+}
+
+2、
+
+package cn.mldn.demo;
+class MyThread implements Runnable {
+	private int ticket = 10 ; // 总票数为10张
+	@Override
+	public void run() {
+		while (true) {
+			if (this.ticket > 0) {
+				try {
+					Thread.sleep(100);	// 模拟网络延迟
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				System.out.println(Thread.currentThread().getName() + "卖票，ticket = " + this.ticket --);
+			} else {
+				System.out.println("***** 票已经卖光了 *****");
+				break ;
+			}
+		}
+	}
+}
+public class ThreadDemo { 
+	public static void main(String[] args) throws Exception {
+		MyThread mt = new MyThread() ;
+		new Thread(mt,"票贩子A").start();
+		new Thread(mt,"票贩子B").start();
+		new Thread(mt,"票贩子C").start();
+	}
+}
+
+3、
+package cn.mldn.demo;
+class MyThread implements Runnable {
+	private int ticket = 10 ; // 总票数为10张
+	@Override
+	public void run() {
+		while (true) {
+			synchronized(this) {	// 每一次只允许一个线程进行访问
+				if (this.ticket > 0) {
+					try {
+						Thread.sleep(100);	// 模拟网络延迟
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					System.out.println(Thread.currentThread().getName() + "卖票，ticket = " + this.ticket --);
+				} else {
+					System.out.println("***** 票已经卖光了 *****");
+					break ;
+				}
+			}
+		}
+	}
+}
+public class ThreadDemo { 
+	public static void main(String[] args) throws Exception {
+		MyThread mt = new MyThread() ;
+		new Thread(mt,"票贩子A").start();
+		new Thread(mt,"票贩子B").start();
+		new Thread(mt,"票贩子C").start();
+	}
+}
+
+4、
+
+package cn.mldn.demo;
+class MyThread implements Runnable {
+	private int ticket = 10 ; // 总票数为10张
+	public synchronized boolean sale() {
+		if (this.ticket > 0) {
+			try {
+				Thread.sleep(100);	// 模拟网络延迟
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			System.out.println(Thread.currentThread().getName() + "卖票，ticket = " + this.ticket --);
+			return true ;
+		} else {
+			System.out.println("***** 票已经卖光了 *****");
+			return false ;
+		}
+	}
+	@Override
+	public void run() {
+		while (this.sale()) {
+			;
+		}
+	}
+}
+public class ThreadDemo { 
+	public static void main(String[] args) throws Exception {
+		MyThread mt = new MyThread() ;
+		new Thread(mt,"票贩子A").start();
+		new Thread(mt,"票贩子B").start();
+		new Thread(mt,"票贩子C").start();
+	}
+}
+
+5、
+
+package cn.mldn.demo;
+public class DeadLock implements Runnable {
+	private Jian jj = new Jian() ;
+	private XiaoQiang xq = new XiaoQiang() ;
+	@Override
+	public void run() {
+		jj.say(xq);
+	}
+	public DeadLock() {
+		new Thread(this).start();
+		xq.say(jj);
+	}
+	public static void main(String[] args) {
+		new DeadLock() ;
+	}
+}
+class Jian {
+	public synchronized void say(XiaoQiang xq) {
+		System.out.println("阿健说：此路是我开，要想从此过，留下10块钱。");
+		xq.get();
+	}
+	public synchronized void get() {
+		System.out.println("阿健说：得到了10块钱，可以买饭吃了，于是让出了路。");
+	}
+}
+class XiaoQiang {
+	public synchronized void say(Jian jj) {
+		System.out.println("小强说：让我先跑，我再给你钱。");
+		jj.get();
+	}
+	public synchronized void get() {
+		System.out.println("小强说：逃过了一劫，可以继续送快餐了。");
+	}
+}
+

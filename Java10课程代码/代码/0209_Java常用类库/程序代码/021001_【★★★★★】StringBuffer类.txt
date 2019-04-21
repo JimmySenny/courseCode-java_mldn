@@ -1,0 +1,82 @@
+1、
+
+package cn.mldn.demo;
+public class JavaAPIDemo {
+	public static void main(String[] args) {
+		String str = "Hello " ;
+		change(str) ;
+		System.out.println(str);
+	}
+	public static void change(String temp) {
+		temp += "World !" ;	// 内容并没有发生改变
+	}
+}
+
+
+2、
+package cn.mldn.demo;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) {
+		StringBuffer buf = new StringBuffer("Hello ") ;
+		change(buf) ;
+		System.out.println(buf.toString());
+	}
+	public static void change(StringBuffer temp) {
+		temp.append("World !") ;	// 内容并没有发生改变
+	}
+}
+
+
+3、
+
+package cn.mldn.demo;
+public class JavaAPIDemo {
+	public static void main(String[] args) {
+		String strA = "www.mldn.cn" ;
+		String strB = "www." + "mldn" + ".cn" ;
+		System.out.println(strA == strB);
+	}
+}
+
+
+4、
+
+package cn.mldn.demo;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) {
+		StringBuffer buf = new StringBuffer() ;
+		buf.append(".cn").insert(0, "www.").insert(4, "mldn") ;
+		System.out.println(buf);
+	}
+}
+
+
+5、
+
+package cn.mldn.demo;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) {
+		StringBuffer buf = new StringBuffer() ;
+		buf.append("Hello World !").delete(6, 12).insert(6, "MLDN") ;
+		System.out.println(buf);
+	}
+}
+
+
+6、
+package cn.mldn.demo;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) {
+		StringBuffer buf = new StringBuffer() ;
+		buf.append("Hello World !") ;
+		System.out.println(buf.reverse());
+	}
+}
+
+
+7、
+

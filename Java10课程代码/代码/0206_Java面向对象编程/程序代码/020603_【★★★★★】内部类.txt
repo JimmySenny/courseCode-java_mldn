@@ -1,0 +1,315 @@
+1、
+
+class Outer {	// 外部类
+	private String msg = "www.mldn.cn" ;	// 私有成员属性
+	public void fun() {	// 普通方法
+		Inner in = new Inner() ;	// 实例化内部类对象
+		in.print() ;	// 调用内部类方法
+	}
+	class Inner { // 在Outer类的内部定义了Inner类
+		public void print() {
+			System.out.println(Outer.this.msg) ;	// Outer类中的属性
+		}
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Outer out = new Outer() ;	// 实例化外部类对象
+		out.fun() ;	// 调用外部类中的方法
+	}
+} 
+
+
+2、
+
+class Outer {	// 外部类
+	private String msg = "www.mldn.cn" ;	// 私有成员属性
+	public void fun() {	// 普通方法
+		// 思考五：需要将当前对象Outer传递到Inner类之中
+		Inner in = new Inner(this) ;	// 实例化内部类对象
+		in.print() ;	// 调用内部类方法
+	}
+	// 思考一：msg属性如果要被外部访问需要提供有getter方法
+	public String getMsg() {
+		return this.msg ;
+	}
+}
+class Inner { // 在Outer类的内部定义了Inner类
+	// 思考三：Inner这个类对象实例化的时候需要Outer类的引用
+	private Outer out ;
+	// 思考四：应该通过Inner类的构造方法获取Outer类对象
+	public Inner(Outer out) {
+		this.out = out ;
+	}
+	public void print() {
+		// 思考二：如果要想调用外部类中的getter方法，那么一定需要有Outer类对象
+		System.out.println(this.out.getMsg()) ;	// Outer类中的属性
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Outer out = new Outer() ;	// 实例化外部类对象
+		out.fun() ;	// 调用外部类中的方法
+	}
+} 
+
+
+3、
+
+class Outer {	// 外部类
+	private String msg = "www.mldn.cn" ;	// 私有成员属性
+	public void fun() {	// 普通方法
+		Inner in = new Inner() ;	// 实例化内部类对象
+		in.print() ;	// 调用内部类方法
+		System.out.println(in.info) ;	// 访问内部类的私有属性
+	}
+	class Inner { // 在Outer类的内部定义了Inner类
+		private String info = "今天天气不好，收衣服啦！" ;
+		public void print() {
+			System.out.println(Outer.this.msg) ;	// Outer类中的属性
+		}
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Outer out = new Outer() ;	// 实例化外部类对象
+		out.fun() ;	// 调用外部类中的方法
+	}
+} 
+
+4、
+
+外部类.内部类 内部类对象 = new 外部类().new 内部类() ;
+
+
+5、
+class Outer {	// 外部类
+	private String msg = "www.mldn.cn" ;	// 私有成员属性
+	class Inner { // 在Outer类的内部定义了Inner类
+		public void print() {
+			System.out.println(Outer.this.msg) ;	// Outer类中的属性
+		}
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Outer.Inner in = new Outer().new Inner() ;
+		in.print() ;
+	}
+} 
+
+6、
+
+class Outer {	// 外部类
+	private String msg = "www.mldn.cn" ;	// 私有成员属性
+	private class Inner { // 在Outer类的内部定义了Inner类
+		public void print() {
+			System.out.println(Outer.this.msg) ;	// Outer类中的属性
+		}
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Outer.Inner in = new Outer().new Inner() ;
+		in.print() ;
+	}
+} 
+
+7、
+
+
+interface IChannel {	// 定义接口
+	public void send(IMessage msg) ;	// 发送消息
+	interface IMessage {	// 内部接口
+		public String getContent() ; // 获取消息内容
+	}
+}
+class ChannelImpl implements IChannel {
+	public void send(IMessage msg) {
+		System.out.println("发送消息：" + msg.getContent()) ;
+	}
+	class MessageImpl implements IMessage {
+		public String getContent() {
+			return "www.mldn.cn" ;
+		}
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		IChannel channel = new ChannelImpl() ;
+		channel.send(((ChannelImpl)channel).new MessageImpl()) ;
+	}
+} 
+
+8、
+
+interface IChannel {	// 定义接口
+	public void send() ;	// 发送消息
+	abstract class AbstractMessage {
+		public abstract String getContent() ;
+	}
+}
+class ChannelImpl implements IChannel {
+	public void send() {
+		AbstractMessage msg = new MessageImpl() ;
+		System.out.println(msg.getContent()) ;
+	}
+	class MessageImpl extends AbstractMessage {
+		public String getContent() {
+			return "www.mldn.cn" ;
+		}
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		IChannel channel = new ChannelImpl() ;
+		channel.send() ;
+	}
+} 
+
+9、
+interface IChannel {	// 定义接口
+	public void send() ;	// 发送消息
+	class ChannelImpl implements IChannel {
+		public void send() {
+			System.out.println("www.mldn.cn") ;
+		}
+	}
+	public static IChannel getInstance() {
+		return new ChannelImpl() ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		IChannel channel = IChannel.getInstance() ;
+		channel.send() ;
+	}
+} 
+
+10、
+
+interface IMessageWarp {	// 消息包装
+	static interface IMessage {
+		public String getContent() ;
+	}
+	static interface IChannel {
+		public boolean connect() ; // 消息的发送通道
+	}
+	public static void send(IMessage msg,IChannel channel) {
+		if (channel.connect()) {
+			System.out.println(msg.getContent()) ;
+		} else {
+			System.out.println("消息通道无法建立，消息发送失败！") ;
+		}
+	}
+}
+class DefaultMessage implements IMessageWarp.IMessage {
+	public String getContent() {
+		return "www.mldn.cn" ;
+	}
+}
+class NetChannel implements IMessageWarp.IChannel {
+	public boolean connect() {
+		return true ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		IMessageWarp.send(new DefaultMessage() , new NetChannel() ) ;
+	}
+} 
+
+11、
+
+class Outer {
+	private String msg = "www.mldn.cn" ;
+	public void fun(long time) {
+		class Inner { // 内部类
+			public void print() {
+				System.out.println(Outer.this.msg) ;
+				System.out.println(time) ;
+			}
+		}
+		new Inner().print() ;	// 方法中直接实例化内部类对象
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		new Outer().fun(2390239023L) ;
+	}
+} 
+
+12、
+class Outer {
+	private String msg = "www.mldn.cn" ;
+	public void fun(final long time) {
+		final String info = "我很好" ;
+		class Inner { // 内部类
+			public void print() {
+				System.out.println(Outer.this.msg) ;
+				System.out.println(time) ;
+				System.out.println(info) ;
+			}
+		}
+		new Inner().print() ;	// 方法中直接实例化内部类对象
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		new Outer().fun(2390239023L) ;
+	}
+} 
+
+13、
+
+interface IMessage {
+	public void send(String str) ;
+}
+class MessageImpl implements IMessage {
+	public void send(String str) {
+		System.out.println(str) ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		IMessage msg = new MessageImpl() ;
+		msg.send("www.mldn.cn") ;
+	}
+} 
+
+14、
+
+
+interface IMessage {
+	public void send(String str) ;
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		IMessage msg = new IMessage() {	// 匿名内部类
+			public void send(String str) {
+				System.out.println(str) ;
+			}
+		} ;
+		msg.send("www.mldn.cn") ;
+	}
+} 
+
+15、
+
+
+interface IMessage {
+	public void send(String str) ;
+	public static IMessage getInstance() {
+		return new IMessage() {
+			public void send(String str) {
+				System.out.println(str) ;
+			}
+		} ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		IMessage.getInstance().send("www.mldn.cn") ;
+	}
+} 
+

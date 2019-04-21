@@ -1,0 +1,69 @@
+1、
+
+class Channel {
+	public void connect() {
+		System.out.println("********** Channel ************") ;
+	}
+}
+class DatabaseChannel extends Channel {
+	public void connection() {
+		System.out.println("子类定义的通道连接操作。") ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		new DatabaseChannel().connect() ;
+	}
+}
+
+
+2、
+
+class Channel {
+	public void connect() {
+		System.out.println("********** Channel ************") ;
+	}
+}
+class DatabaseChannel extends Channel {
+	@Override	// 明确表示该方法是一个覆写来的方法
+	public void connect() {
+		System.out.println("子类定义的通道连接操作。") ;
+	}
+}
+
+
+3、
+
+class Channel {
+	@Deprecated	// 老系统继续用，如果是新的不要用了
+	public void connect() {
+		System.out.println("********** Channel ************") ;
+	}
+	public String connection() {
+		return "获取了Xxx通道连接信息。" ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		new Channel().connect() ;
+	}
+}
+
+
+4、
+
+class Channel {
+	@Deprecated	// 老系统继续用，如果是新的不要用了
+	public void connect() {
+		System.out.println("********** Channel ************") ;
+	}
+	public String connection() {
+		return "获取了Xxx通道连接信息。" ;
+	}
+}
+public class JavaDemo {
+	@SuppressWarnings({"deprecation" })
+	public static void main(String args[]) {
+		new Channel().connect() ;
+	}
+}

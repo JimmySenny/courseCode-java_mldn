@@ -1,0 +1,28 @@
+1、
+
+final class Channel {	// 这个类不能够有子类
+}
+class DatabaseChannel extends Channel {	// 错误的
+}
+
+2、
+class Channel {	// 这个类不能够有子类
+	public final void connect() {}
+}
+class DatabaseChannel extends Channel {	// 错误的
+	public void connect() {}
+}
+
+3、
+class Channel {	// 这个类不能够有子类
+	private final int ON = 1 ;	// ON就是常量
+	private final int OFF = 0 ;	// OFF就是常量
+	public final void connect() {
+		ON = 2 ;
+	}
+}
+
+4、
+
+	public static final int ON = 1 ;	// ON就是常量
+	public static final int OFF = 0 ;	// OFF就是常量

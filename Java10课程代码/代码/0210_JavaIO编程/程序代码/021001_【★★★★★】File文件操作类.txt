@@ -1,0 +1,192 @@
+1、
+package cn.mldn.demo;
+
+import java.io.File;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		File file = new File("d:\\mldn.txt");
+		if (file.exists()) {
+			file.delete();// 删除文件
+		} else { // 文件不存在
+			System.out.println(file.createNewFile()); // 创建新的文件
+		}
+	}
+}
+
+
+2、
+package cn.mldn.demo;
+
+import java.io.File;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		File file = new File("d:" + File.separator + "mldn.txt");
+		if (file.exists()) {
+			file.delete();// 删除文件
+		} else { // 文件不存在
+			System.out.println(file.createNewFile()); // 创建新的文件
+		}
+	}
+}
+
+
+3、
+
+package cn.mldn.demo;
+
+import java.io.File;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		File file = new File("d:" + File.separator + "hello" + File.separator + "demo" + File.separator + "message"
+				+ File.separator + "mldn.txt");
+		if (!file.getParentFile().exists()) {	// 父路径不存在
+			file.getParentFile().mkdirs() ; // 创建父路径
+		}
+		if (file.exists()) {
+			file.delete();// 删除文件
+		} else { // 文件不存在
+			System.out.println(file.createNewFile()); // 创建新的文件
+		}
+	}
+}
+
+4、
+
+package cn.mldn.demo;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+class MathUtil {
+	private MathUtil() {
+	}
+
+	public static double round(double num, int scale) {
+		return Math.round(Math.pow(10, scale) * num) / Math.pow(10, scale);
+	}
+}
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		File file = new File("d:" + File.separator + "my.jpg");
+		System.out.println("文件是否可读：" + file.canRead());
+		System.out.println("文件是否可写：" + file.canWrite());
+		System.out.println("文件大小：" + MathUtil.round(file.length() / (double) 1024 / 1024, 2));
+		System.out.println(
+				"最后的修改时间：" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(file.lastModified())));
+		System.out.println("是目录吗？" + file.isDirectory());
+		System.out.println("是文件吗？" + file.isFile());
+	}
+}
+
+
+5、
+package cn.mldn.demo;
+
+import java.io.File;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		File file = new File("d:" + File.separator);
+		if (file.isDirectory()) {	// 当前是一个目录
+			File result [] = file.listFiles() ; // 列出目录中的全部内容
+			for (int x = 0 ; x < result.length ; x ++) {
+				System.out.println(result[x]);
+			}
+		}
+	}
+}
+
+
+6、
+
+package cn.mldn.demo;
+
+import java.io.File;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		File file = new File("D:" + File.separator) ;	// 是一个目录
+		listDir(file) ;
+	}
+	public static void listDir(File file) {
+		if (file.isDirectory()) {	// 是一个目录
+			File results [] = file.listFiles() ; // 列出目录中的全部内容
+			if (results != null) {
+				for (int x = 0 ; x < results.length ; x ++) {
+					listDir(results[x]) ; // 继续依次判断
+				}
+			}
+		}
+		System.out.println(file);	// 获得完整路径
+	}
+}
+
+
+7、
+package cn.mldn.demo;
+
+import java.io.File;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		File file = new File("D:" + File.separator + "mldnjava") ;	// 是一个目录
+		listDir(file) ;
+	}
+	public static void listDir(File file) {
+		if (file.isDirectory()) {	// 是一个目录
+			File results [] = file.listFiles() ; // 列出目录中的全部内容
+			if (results != null) {
+				for (int x = 0 ; x < results.length ; x ++) {
+					listDir(results[x]) ; // 继续依次判断
+				}
+			}
+		}
+		file.delete() ;
+	}
+}
+
+
+8、
+
+
+
+
+
+
+package cn.mldn.demo;
+import java.io.File;
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		File file = new File("D:" + File.separator + "test") ;	// 是一个目录
+		long start = System.currentTimeMillis() ;
+		renameDir(file) ;
+		long end = System.currentTimeMillis() ;
+		System.out.println("本次操作所花费的时间：" + (end - start));
+	}
+	public static void renameDir(File file) {
+		if (file.isDirectory()) {	// 是一个目录
+			File results [] = file.listFiles() ; // 列出子目录中的内容
+			if (results != null) {
+				for (int x = 0 ; x < results.length ; x ++) {
+					renameDir(results[x]) ;
+				}
+			}
+		} else {
+			if (file.isFile()) {	// 如果是文件则必须进行重命名
+				String fileName = null ; 
+				if (file.getName().contains(".")) {
+					fileName = file.getName().substring(0,file.getName().lastIndexOf(".")) + ".txt" ;
+				} else {
+					fileName = file.getName() + ".txt" ;
+				}
+				File newFile = new File(file.getParentFile(),fileName) ; // 新的文件名称
+				file.renameTo(newFile) ; // 重命名
+			}
+		}
+	}
+}

@@ -1,0 +1,176 @@
+1、
+
+enum Color {	// 枚举类
+	RED,GREEN,BLUE ;	// 实例化对象
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Color c = Color.RED ; // 获取实例化对象
+		System.out.println(c) ;
+	}
+} 
+
+2、
+
+enum Color {	// 枚举类
+	红色,绿色,蓝色 ;	// 实例化对象
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Color c = Color.红色 ; // 获取实例化对象
+		System.out.println(c) ;
+	}
+} 
+
+3、
+
+enum Color {	// 枚举类
+	RED,GREEN,BLUE ;	// 实例化对象
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		for (Color c : Color.values()) {
+			System.out.println(c) ;
+		}
+	}
+} 
+
+4、
+enum Color {	// 枚举类
+	RED,GREEN,BLUE ;	// 实例化对象
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Color c = Color.RED ;
+		switch(c) {	// 直接支持枚举
+			case RED : 
+				System.out.println("红色") ;
+				break ;
+			case GREEN : 
+				System.out.println("绿色") ;
+				break ;
+			case BLUE : 
+				System.out.println("蓝色") ;
+				break ;
+		}
+	}
+} 
+
+5、
+
+enum Color {	// 枚举类
+	RED,GREEN,BLUE ;	// 实例化对象
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		for (Color c : Color.values()) {
+			System.out.println(c.ordinal() + " - " + c.name()) ;
+		}
+	}
+} 
+
+6、
+enum Color {	// 枚举类
+	RED("红色"),GREEN("绿色"),BLUE("蓝色") ;	// 枚举对象要写在首行
+	private String title ; // 定义属性
+	private Color(String title) {
+		this.title = title ;
+	}
+	public String toString() {
+		return this.title ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		for (Color c : Color.values()) {
+			System.out.println(c.ordinal() + " - " + c.name() + " - " + c) ;
+		}
+	}
+} 
+
+7、
+
+interface IMessage {
+	public String getMessage() ;
+}
+enum Color implements IMessage {	// 枚举类
+	RED("红色"),GREEN("绿色"),BLUE("蓝色") ;	// 枚举对象要写在首行
+	private String title ; // 定义属性
+	private Color(String title) {
+		this.title = title ;
+	}
+	public String toString() {
+		return this.title ;
+	}
+	public String getMessage() {
+		return this.title ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		IMessage msg = Color.RED ;
+		System.out.println(msg.getMessage()) ;
+	}
+} 
+
+8、
+
+enum Color {	// 枚举类
+	RED("红色") {
+		public String getMessage() {
+			return this.toString() ;
+		}
+	},GREEN("绿色") {
+		public String getMessage() {
+			return this.toString() ;
+		}
+	},BLUE("蓝色") {
+		public String getMessage() {
+			return this.toString() ;
+		}
+	} ;	// 枚举对象要写在首行
+	private String title ; // 定义属性
+	private Color(String title) {
+		this.title = title ;
+	}
+	public String toString() {
+		return this.title ;
+	}
+	public abstract String getMessage() ;
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		System.out.println(Color.RED.getMessage()) ;
+	}
+} 
+
+9、
+enum Sex {
+	MALE("男"),FEMALE("女") ;
+	private String title ;
+	private Sex(String title) {
+		this.title = title ;
+	}
+	public String toString() {
+		return this.title ;
+	}
+}
+class Person {
+	private String name ;
+	private int age ;
+	private Sex sex ;
+	public Person(String name,int age,Sex sex) {
+		this.name = name ;
+		this.age = age ;
+		this.sex = sex ;
+	}
+	public String toString() {
+		return "姓名：" + this.name + "、年龄：" + this.age + "、性别：" + this.sex ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		System.out.println(new Person("张三",20,Sex.MALE)) ;
+	}
+} 
+

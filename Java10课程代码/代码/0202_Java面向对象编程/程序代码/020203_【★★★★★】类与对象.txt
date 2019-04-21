@@ -1,0 +1,102 @@
+1、
+
+class Person {	// 定义一个类
+	String name ;	// 人员的姓名
+	int age ;		// 人的年龄
+	public void tell() {
+		System.out.println("姓名：" + name + "、年龄：" + age) ;
+	}
+}
+
+2、
+class Person {	// 定义一个类
+	String name ;	// 人员的姓名
+	int age ;		// 人的年龄
+	public void tell() {
+		System.out.println("姓名：" + name + "、年龄：" + age) ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Person per = new Person() ;	// 声明并实例化对象
+		per.name = "张三" ;
+		per.age = 18 ;
+		per.tell() ;	// 进行方法的调用
+	}
+} 
+
+3、
+class Person {	// 定义一个类
+	String name ;	// 人员的姓名
+	int age ;		// 人的年龄
+	public void tell() {
+		System.out.println("姓名：" + name + "、年龄：" + age) ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Person per = new Person() ;	// 声明并实例化对象
+		per.tell() ;	// 进行方法的调用
+	}
+} 
+
+
+4、
+public class JavaDemo {
+	public static void main(String args[]) {
+		Person per = new Person() ;	// 声明并实例化对象
+		per.name = "张三" ;
+		per.age = 18 ;
+		per.tell() ;	// 进行方法的调用
+	}
+} 
+
+5、
+public class JavaDemo {
+	public static void main(String args[]) {
+		Person per = null ;	// 声明对象
+		per = new Person() ;	// 实例化对象
+		per.name = "张三" ;
+		per.age = 18 ;
+		per.tell() ;	// 进行方法的调用
+	}
+} 
+
+6、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		Person per = null ;	// 声明对象
+		per.name = "张三" ;
+		per.age = 18 ;
+		per.tell() ;	// 进行方法的调用
+	}
+} 
+
+7、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		Person per1 = new Person() ;	// 声明并实例化对象
+		per1.name = "张三" ;
+		per1.age = 18 ;
+		Person per2 = per1 ; // 引用传递
+		per2.age = 80 ;
+		per1.tell() ;	// 进行方法的调用
+	}
+} 
+
+
+8、
+public class JavaDemo {
+	public static void main(String args[]) {
+		Person per = new Person() ;	// 声明并实例化对象
+		per.name = "张三" ;
+		per.age = 18 ;
+		change(per) ;
+		per.tell() ;	// 进行方法的调用
+	}
+	public static void change(Person temp) {
+		temp.age = 80 ;
+	}
+} 

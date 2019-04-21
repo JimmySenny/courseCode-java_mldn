@@ -1,0 +1,73 @@
+1、
+package cn.mldn.demo;
+
+import java.util.Date;	// 1、导入程序所在的包.类，知道对象的出处了
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Date date = new Date() ;	// 2、通过类产生实例化对象
+		System.out.println(date.getTime()); // 3、根据对象调用类中的方法
+	}
+}
+
+
+2、
+
+package cn.mldn.demo;
+
+import java.util.Date;	// 1、导入程序所在的包.类，知道对象的出处了
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Date date = new Date() ;	// 2、通过类产生实例化对象
+		System.out.println(date.getClass()); // 根据实例化对象找到对象的所属类型
+	}
+}
+
+3、
+package cn.mldn.demo;
+
+class Person {}	// 采用自定义的程序类
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Person per = new Person() ; // 已经存在有指定类的实例化对象
+		Class<? extends Person> cls = per.getClass() ; 
+		System.out.println(cls.getName());	// 获取的是类的完整名称
+	}
+}
+
+
+4、
+package cn.mldn.demo;
+
+class Person {} // 采用自定义的程序类
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Class<? extends Person> cls = Person.class;
+		System.out.println(cls.getName()); // 获取的是类的完整名称
+	}
+}
+
+
+5、
+package cn.mldn.vo;
+
+public class Person {
+
+}
+
+
+package cn.mldn.demo;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Class<?> cls = Class.forName("cn.mldn.vo.Person") ; 
+		System.out.println(cls.getName()); // 获取的是类的完整名称
+	}
+}
+
+
+6、
+
+
+

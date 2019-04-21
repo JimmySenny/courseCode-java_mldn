@@ -1,0 +1,65 @@
+1、
+
+@FunctionalInterface	// 函数式接口
+// P描述的是参数、R描述的是返回值
+interface IFunction<P,R> {
+	public R change(P p) ;
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		IFunction<Integer,String> fun = String :: valueOf ;
+		String str = fun.change(100) ;
+		System.out.println(str.length()) ;
+	}
+} 
+
+2、
+
+@FunctionalInterface	// 函数式接口
+// P描述的是参数、R描述的是返回值
+interface IFunction<R> {
+	public R upper() ;
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		IFunction<String> fun = "www.mldn.cn" :: toUpperCase ;
+		System.out.println(fun.upper()) ;
+	}
+} 
+
+3、
+@FunctionalInterface	// 函数式接口
+// P描述的是参数、R描述的是返回值
+interface IFunction<P> {
+	public int compare(P p1,P p2) ;
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		IFunction<String> fun = String :: compareTo ;
+		System.out.println(fun.compare("A","a")) ;
+	}
+} 
+
+4、
+class Person {
+	private String name ;
+	private int age ;
+	public Person(String name,int age) {
+		this.name = name ;
+		this.age = age ;
+	}
+	public String toString() {
+		return "姓名：" + this.name + "、年龄：" + this.age ;
+	}
+}
+@FunctionalInterface	// 函数式接口
+interface IFunction<R> {
+	public R create(String s,int a) ;
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		IFunction<Person> fun = Person :: new ;
+		System.out.println(fun.create("张三",20)) ;
+	}
+} 
+

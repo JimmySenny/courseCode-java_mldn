@@ -1,0 +1,51 @@
+1、
+
+package cn.mldn.demo;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		List<String> all = new ArrayList<String>();
+		Collections.addAll(all, "Hello", "World", "MLDN");
+		System.out.println(all);
+	}
+}
+
+2、
+
+package cn.mldn.demo;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		List<String> all = new ArrayList<String>();
+		Collections.addAll(all, "Hello", "World", "MLDN");
+		Collections.reverse(all);
+		System.out.println(all);
+	}
+}
+
+3、
+
+
+package cn.mldn.demo;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		List<String> all = new ArrayList<String>();
+		Collections.addAll(all, "Hello", "World", "MLDN");
+		Collections.sort(all) ; // 先进行排序处理
+		System.out.println(all);
+		System.out.println(Collections.binarySearch(all, "MLDN"));
+	} 
+}

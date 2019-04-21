@@ -1,0 +1,79 @@
+1、
+
+package cn.mldn.demo;
+class Member {
+	public Member() {
+		System.out.println("【构造】在一个雷电交加的日子里面，林强诞生了。");
+	}
+	@Override
+	protected void finalize() throws Throwable {
+		System.out.println("【回收】最终你一定要死的。");
+		throw new Exception("我还要再活500年...") ;
+	}
+}
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Member mem = new Member() ;	// 诞生
+		mem = null ; // 成为垃圾
+		System.gc(); 
+		System.out.println("太阳照常升起，地球照样转动。");
+	}
+}
+ 
+
+
+2、
+
+package cn.mldn.demo;
+
+import java.lang.ref.Cleaner;
+
+class Member implements Runnable {
+	public Member() {
+		System.out.println("【构造】在一个雷电交加的日子里面，林强诞生了。");
+	}
+	@Override
+	public void run() {	// 执行清除的时候执行的是此操作
+		System.out.println("【回收】最终你一定要死的。");
+	}
+} 
+class MemberCleaning implements AutoCloseable { // 实现清除的处理
+	private static final Cleaner cleaner = Cleaner.create() ; // 创建一个清除处理
+	private Member member ;
+    private Cleaner.Cleanable cleanable ;
+    public MemberCleaning() {
+    	this.member = new Member() ; // 创建新对象
+    	this.cleanable = this.cleaner.register(this, this.member) ;	// 注册使用的对象
+	}
+	@Override
+	public void close() throws Exception {
+		this.cleanable.clean(); // 启动多线程
+	}
+}
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		try (MemberCleaning mc = new MemberCleaning()){
+			// 中间可以执行一些相关的代码
+		} catch (Exception e) {}
+	}
+}
+ 
+
+3、
+
+package cn.mldn.demo;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		System.out.println(get());
+	}
+	public static int get() {
+		try {
+			return 100 ;
+		} finally {
+			System.out.println("****************");
+		}
+	}
+}
+ 
+ 

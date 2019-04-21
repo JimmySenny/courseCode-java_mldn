@@ -1,0 +1,68 @@
+1、
+
+package cn.mldn.demo;
+public class JavaAPIDemo {
+	public static void main(String[] args) {
+		NetMessage nm = new NetMessage("www.mldn.cn") ;	// 定义要发送的处理
+		nm.send(); 		// 消息发送
+		nm.close(); 	// 关闭连接
+	}
+}
+interface IMessage {
+	public void send() ;	// 消息发送
+}
+class NetMessage implements IMessage {	// 实现消息的处理机制
+	private String msg ;
+	public NetMessage(String msg) {
+		this.msg = msg ;
+	}
+	public boolean open() {	// 获取资源连接
+		System.out.println("【OPEN】获取消息发送连接资源。");
+		return true ;
+	}
+	@Override
+	public void send() {
+		if (this.open()) {
+			System.out.println("【*** 发送消息 ***】" + this.msg);
+		}
+	}
+	public void close() {
+		System.out.println("【CLOSE】关闭消息发送通道。");
+	}
+}
+
+
+
+2、
+
+package cn.mldn.demo;
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		try (IMessage nm = new NetMessage("www.mldn.cn")) {
+			nm.send();
+		} catch (Exception e) {}
+	}
+}
+interface IMessage extends AutoCloseable {
+	public void send() ;	// 消息发送
+}
+class NetMessage implements IMessage {	// 实现消息的处理机制
+	private String msg ;
+	public NetMessage(String msg) {
+		this.msg = msg ;
+	}
+	public boolean open() {	// 获取资源连接
+		System.out.println("【OPEN】获取消息发送连接资源。");
+		return true ;
+	}
+	@Override
+	public void send() {
+		if (this.open()) {
+			System.out.println("【*** 发送消息 ***】" + this.msg);
+		}
+	}
+	public void close() throws Exception {
+		System.out.println("【CLOSE】关闭消息发送通道。");
+	}
+}
+

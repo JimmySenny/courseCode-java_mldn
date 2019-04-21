@@ -1,0 +1,139 @@
+1、
+
+class Channel {
+	public void connect() {
+		System.out.println("【Channel父类】进行资源的连接。") ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Channel channel = new Channel() ;
+		channel.connect() ;
+	}
+} 
+
+2、
+
+class Channel {
+	public void connect() {
+		System.out.println("【Channel父类】进行资源的连接。") ;
+	}
+}
+class DatabaseChannel extends Channel {	// 要进行数据库连接
+	public void connect() {	// 保留已有的方法名称，而后进行覆写
+		System.out.println("【子类】进行数据库资源的连接。") ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		DatabaseChannel channel = new DatabaseChannel() ;
+		channel.connect() ;
+	}
+} 
+
+3、
+
+class Channel {
+	public void connect() {
+		System.out.println("【Channel父类】进行资源的连接。") ;
+	}
+}
+class DatabaseChannel extends Channel {	// 要进行数据库连接
+	public void connect() {	// 保留已有的方法名称，而后进行覆写
+		super.connect() ;	// 直接调用父类中的方法
+		System.out.println("【子类】进行数据库资源的连接。") ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		DatabaseChannel channel = new DatabaseChannel() ;
+		channel.connect() ;
+	}
+} 
+
+4、
+
+class Channel {
+	private void connect() {
+		System.out.println("【Channel父类】进行资源的连接。") ;
+	}
+	public void fun() {
+		this.connect() ;	// 调用本类方法
+	}
+}
+class DatabaseChannel extends Channel {	// 要进行数据库连接
+	// 此时并不是一个覆写，因为父类的connect()方法不可见，那么这个方法对于子类而言就相当于是一个新定义的方法
+	public void connect() {
+		System.out.println("【子类】进行数据库资源的连接。") ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		DatabaseChannel channel = new DatabaseChannel() ;
+		channel.fun() ;
+	}
+} 
+
+5、、
+
+
+class Channel {
+	private void connect() {
+		System.out.println("【Channel父类】进行资源的连接。") ;
+	}
+	public void fun() {
+		this.connect() ;	// 调用本类方法
+	}
+}
+class DatabaseChannel extends Channel {	// 要进行数据库连接
+	// 此时并不是一个覆写，因为父类的connect()方法不可见，那么这个方法对于子类而言就相当于是一个新定义的方法
+	public void connect() {
+		System.out.println("【子类】进行数据库资源的连接。") ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		DatabaseChannel channel = new DatabaseChannel() ;
+		channel.fun() ;
+	}
+} 
+
+6、
+
+class Channel {
+	String info = "www.mldn.cn" ;
+}
+class DatabaseChannel extends Channel {	// 要进行数据库连接
+	String info = "HelloMLDN" ;	// 名称相同
+	public void fun() {
+		System.out.println(super.info) ;
+		System.out.println(this.info) ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		DatabaseChannel channel = new DatabaseChannel() ;
+		channel.fun() ;
+	}
+} 
+
+7、
+class Channel {
+	private String info = "www.mldn.cn" ;
+	public String getInfo() {
+		return this.info ;
+	}
+}
+class DatabaseChannel extends Channel {	// 要进行数据库连接
+	String info = "HelloMLDN" ;	// 名称相同
+	public void fun() {
+		System.out.println(this.info) ;
+		System.out.println(super.getInfo()) ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		DatabaseChannel channel = new DatabaseChannel() ;
+		channel.fun() ;
+	}
+} 

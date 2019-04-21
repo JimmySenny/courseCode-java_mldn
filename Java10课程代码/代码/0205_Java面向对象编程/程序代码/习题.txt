@@ -1,0 +1,5 @@
+1．定义一个ClassName接口，接口中只有一个抽象方法getClassName()；设计一个类Company，该类实现接口ClassName中的方法getClassName()，功能是获取该类的类名称；编写应用程序使用Company类。
+
+2．考虑一个表示绘图的标准，并且可以根据不同的图形来进行绘制；
+
+3、定义类Shape，用来表示一般二维图形。Shape具有抽象方法area和perimeter，分别用来计算形状的面积和周长。试定义一些二维形状类（如矩形、三角形、圆形、椭圆形等），这些类均为Shape类的子类。

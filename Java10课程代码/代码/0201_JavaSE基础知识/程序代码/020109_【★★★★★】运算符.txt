@@ -1,0 +1,218 @@
+1、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		int x = 10 ;
+		int y = 20 ;
+		int result = x -- + y++ * -- y / x / y * ++ x - --y + y ++ ;
+		System.out.println(result) ;
+	}
+}
+
+2、
+public class JavaDemo {
+	public static void main(String args[]) {
+		int result = 890234890 * ( 2902390 + 100 ) * 2 ;
+		System.out.println(result) ;
+	}
+}
+
+3、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		int num = 10 ;
+		num += 20 ;
+		System.out.println(num) ;
+	}
+}
+
+4、
+public class JavaDemo {
+	public static void main(String args[]) {
+		int x = 10 ;
+		int y = 20 ;
+		// 1、++ x：首先x的内容要先自增1，为11；
+		// 2、y --：先进行计算，使用的内容是20，计算完成后自减
+		int result = ++ x - y -- ;
+		System.out.println("计算结果：" + result) ;	 // -9
+		System.out.println("x = " + x) ;	// 11
+		System.out.println("y = " + y) ;	// 19
+	}
+}
+
+5、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		int x = 10 ;
+		int y = 20 ;
+		++ x ;
+		int result = x - y;
+		y -- ;
+		System.out.println("计算结果：" + result) ;	 // -9
+		System.out.println("x = " + x) ;	// 11
+		System.out.println("y = " + y) ;	// 19
+	}
+}
+
+6、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		int x = 10 ;
+		int y = 20 ;
+		boolean flag = x > y ;	// false
+		System.out.println(flag) ;
+	}
+}
+
+7、
+public class JavaDemo {
+	public static void main(String args[]) {
+		int x = 10 ;
+		int y = 10 ;
+		boolean flag = x == y ;	// true
+		System.out.println(flag) ;
+	}
+}
+
+8、
+public class JavaDemo {
+	public static void main(String args[]) {
+		char c = '建' ;
+		boolean flag = 24314 == c ;	// true
+		System.out.println(flag) ;
+	}
+}
+
+9、
+public class JavaDemo {
+	public static void main(String args[]) {
+		int x = 10 ;
+		int y = 20 ;
+		// 判断x与y的大小关系来决定最终max变量的内容
+		int max = x > y ? x : y ;
+		System.out.println(max) ;
+	}
+}
+
+10、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		int x = 10 ;
+		int y = 20 ;
+		// 判断x与y的大小关系来决定最终max变量的内容
+		int max = 0 ;
+		if (x > y) {
+			max = x ;
+		} else {
+			max = y ;
+		}
+		System.out.println(max) ;
+	}
+}
+
+
+11、
+public class JavaDemo {
+	public static void main(String args[]) {
+		int x = 10 ;
+		int y = 20 ;
+		int z = 15 ;
+		int max = x > y ? (x > z ? x : z) : (y > z ? y : z) ;
+		System.out.println(max) ;
+	}
+}
+
+12、
+public class JavaDemo {
+	public static void main(String args[]) {
+		boolean flag = ! (1 > 2) ;
+		System.out.println(flag) ;
+	}
+}
+
+13、
+public class JavaDemo {
+	public static void main(String args[]) {
+		int x = 1 ; 
+		int y = 1 ;
+		if (x == y & 2 > 1) {
+			System.out.println("条件满足！") ;
+		}
+	}
+}
+
+14、
+public class JavaDemo {
+	public static void main(String args[]) {
+		if (1 > 2 & 10 / 0 == 0) {
+			System.out.println("**************") ;
+		}
+	}
+}
+
+15、
+public class JavaDemo {
+	public static void main(String args[]) {
+		if (1 > 2 && 10 / 0 == 0) {
+			System.out.println("**************") ;
+		}
+	}
+}
+
+16、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		if (1 != 2 | 10 / 0 == 0) {
+			System.out.println("**************") ;
+		}
+	}
+}
+
+17、
+public class JavaDemo {
+	public static void main(String args[]) {
+		if (1 != 2 || 10 / 0 == 0) {
+			System.out.println("**************") ;
+		}
+	}
+}
+
+18、
+public class JavaDemo {
+	public static void main(String args[]) {
+		int x = 13 ;
+		int y = 7 ;
+		System.out.println(x & y) ;
+	}
+}
+
+19、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		int x = 13 ;
+		int y = 7 ;
+		System.out.println(x | y) ;
+	}
+}
+
+20、
+public class JavaDemo {
+	public static void main(String args[]) {
+		int x = 2 ;
+		System.out.println(x << 2) ;
+		System.out.println(x) ;
+	}
+}
+
+21、
+
+
+
+
+

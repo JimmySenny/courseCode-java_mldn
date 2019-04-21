@@ -1,0 +1,106 @@
+1、
+
+class Singleton {
+	public void print() {
+		System.out.println("www.mldn.cn") ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Singleton instanceA = new Singleton() ;
+		Singleton instanceB = new Singleton() ;
+		Singleton instanceC = new Singleton() ;
+		instanceA.print() ;
+		instanceB.print() ;
+		instanceC.print() ;
+	}
+}
+
+
+2、
+
+class Singleton {
+	private Singleton() {}	// 构造方法私有化了
+	public void print() {
+		System.out.println("www.mldn.cn") ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Singleton instance = null ;	// 声明对象
+		instance = new Singleton() ;
+	}
+} 
+
+3、
+
+class Singleton {
+	private static final Singleton INSTANCE = new Singleton() ;
+	private Singleton() {}	// 构造方法私有化了
+	public static Singleton getInstance() {
+		return INSTANCE ;
+	}
+	public void print() {
+		System.out.println("www.mldn.cn") ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Singleton instance = null ;	// 声明对象
+		instance = Singleton.getInstance();
+		instance.print() ;
+	}
+} 
+
+
+4、
+
+class Singleton {
+	private static Singleton instance ;
+	private Singleton() {}	// 构造方法私有化了
+	public static Singleton getInstance() {
+		if (instance == null) {	// 第一次使用
+			instance = new Singleton() ; // 实例化对象
+		}
+		return instance ;
+	}
+	public void print() {
+		System.out.println("www.mldn.cn") ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Singleton instance = null ;	// 声明对象
+		instance = Singleton.getInstance();
+		instance.print() ;
+	}
+} 
+
+5、
+class Color { // 定义描述颜色的类
+	private static final Color RED = new Color("红色") ;
+	private static final Color GREEN = new Color("绿色") ;
+	private static final Color BLUE = new Color("蓝色") ;
+	private String title ;
+	private Color(String title) {	// 构造方法私有化
+		this.title = title ;
+	}
+	public static Color getInstance(String color) {
+		switch(color) {
+			case "red": return RED ;
+			case "green": return GREEN ;
+			case "blue": return BLUE ;
+			default: return null ;
+		}
+	}
+	public String toString() {
+		return this.title ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Color c = Color.getInstance("green") ;
+		System.out.println(c) ;
+	}
+} 
+

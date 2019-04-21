@@ -1,0 +1,220 @@
+1、编写并测试一个代表地址的Address类，地址信息由国家、省份、城市、街道、邮编组成，并可以返回完整的地址信息。
+
+class Address {
+	private String country ;
+	private String province ;
+	private String city ;
+	private String street ;
+	private String zipcode ;
+	public Address() {}
+	public Address(String country,String province,String city,String street,String zipcode) {
+		this.country = country ;
+		this.province = province ;
+		this.city = city ;
+		this.street = street ;
+		this.zipcode = zipcode ;
+	}
+	public String getInfo() {
+		return "国家：" + this.country + "、省份：" + this.province + "、城市：" + this.city + "、街道：" + this.street + "、邮编：" + this.zipcode ;
+	}
+	public void setCountry(String country) {
+		this.country = country ;
+	}
+	public void setProvince(String province) {
+		this.province = province ;
+	}
+	public void setCity(String city) {
+		this.city = city ;
+	}
+	public void setStreet(String street) {
+		this.street = street ;
+	}
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode ;
+	}
+	public String getCountry() {
+		return this.country ;
+	}
+	public String getProvince() {
+		return this.province ;
+	}
+	public String getCity() {
+		return this.city ;
+	}
+	public String getStreet() {
+		return this.street ;
+	}
+	public String getZipcode() {
+		return this.zipcode ;
+	}
+}
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		System.out.println(new Address("中华人民共和国","北京","北京","天安门街道","10001").getInfo()) ;
+	}
+} 
+
+2、定义并测试一个代表员工的Employee类。员工属性包括“编号”、“姓名”、“基本薪水”、“薪水增长额”，还包括计算薪水增长额及计算增长后的工资总额的操作方法。
+
+class Employee {
+	private long empno ;
+	private String ename ;
+	private double salary ;
+	private double rate ;
+	public Employee() {}
+	public Employee(long empno,String ename,double salary,double rate) {
+		this.empno = empno ;
+		this.ename = ename ;
+		this.salary = salary ;
+		this.rate = rate ;
+	}
+	public double salaryIncValue() {	// 得到薪水增长额度
+		return this.salary * this.rate ;
+	}
+	public double salaryIncResult() {
+		this.salary = this.salary * (1 + this.rate) ;
+		return this.salary ;
+	}
+	// setter、getter略
+	public String getInfo() {
+		return "雇员编号：" + this.empno + "、雇员姓名：" + this.ename + "、基本工资：" + this.salary + "、工资增长率：" + this.rate ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Employee emp = new Employee(7369L,"史密斯",3000.0,0.3) ;
+		System.out.println(emp.getInfo()) ;
+		System.out.println("工资调整额度：" + emp.salaryIncValue()) ;
+		System.out.println("上调后的工资：" + emp.salaryIncResult()) ;
+		System.out.println(emp.getInfo()) ;
+	}
+} 
+
+3、设计一个Dog类，有名字、颜色、年龄等属性，定义构造方法来初始化类的这些属性，定义方法输出Dog信息，编写应用程序使用Dog类。
+
+class Dog {
+	private String name ;
+	private String color ;
+	private int age ;
+	public Dog() {}
+	public Dog(String name,String color,int age) {
+		this.name = name ;
+		this.color = color ;
+		this.age = age ;
+	}
+	// setter、getter略
+	public String getInfo() {
+		return "狗的名字：" + this.name + "、狗的颜色：" + this.color + "、狗的年龄：" + this.age ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Dog dog = new Dog("高高","黑色",1) ;
+		System.out.println(dog.getInfo()) ;
+	}
+} 
+
+4、构造一个银行账户类，类的构成包括如下内容：
+（1）数据成员用户的账户名称、用户的账户余额（private数据类型）。
+（2）方法包括开户（设置账户名称及余额），利用构造方法完成。
+（3）查询余额。
+
+
+class Account {
+	private String name ;
+	private double balance ;
+	public Account() {}
+	public Account(String name) {
+		this(name,0.0) ;	// 调用双参构造
+	}
+	public Account(String name,double balance) {
+		this.name = name ;
+		this.balance = balance ;
+	}
+	// setter、getter略
+	public double getBalance() {
+		return this.balance ;
+	}
+	public String getInfo() {
+		return "账户名称：" + this.name + "、余额：" + this.balance ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Account account = new Account("啊嘟嘟",9000000.00) ;
+		System.out.println(account.getInfo()) ;
+		System.out.println(account.getBalance()) ;
+	}
+} 
+
+5、	设计一个表示用户的User类，类中的变量有用户名、口令和记录用户个数的变量，定义类的3个构造方法（无参、为用户名赋值、为用户名和口令赋值）、获取和设置口令的方法和返回类信息的方法。
+
+class User {
+	private String uid ;
+	private String password ;
+	private static int count = 0 ;
+	public User() {
+		this("NOID","mldn") ;
+	}
+	public User(String uid) {
+		this(uid,"mldnjava") ;
+	}
+	public User(String uid,String password) {
+		this.uid = uid ;
+		this.password = password ;
+		count ++ ;	// 个数追加
+	}
+	public static int getCount() {	// 获取用户个数
+		return count ; 
+	}
+	// setter、getter略
+	public String getInfo() {
+		return "用户名：" + this.uid + "、密码：" + this.password ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		User userA = new User() ;
+		User userB = new User("小强") ;
+		User userC = new User("大强","我不行") ;
+		System.out.println(userA.getInfo()) ;
+		System.out.println(userB.getInfo()) ;
+		System.out.println(userC.getInfo()) ;
+		System.out.println("用户个数：" + User.getCount()) ;
+	}
+} 
+
+
+6、声明一个图书类，其数据成员为书名、编号（利用静态变量实现自动编号）、书价，并拥有静态数据成员册数、记录图书的总册数，在构造方法中利用此静态变量为对象的编号赋值，在主方法中定义多个对象，并求出总册数。
+
+class Book {
+	private int bid ;	// 编号
+	private String title ;	// 书名
+	private double price ;	// 价格
+	private static int count = 0 ; 
+	public Book(String title,double price) {
+		this.bid = count + 1 ;	// 先赋值再进行count的自增
+		this.title = title ;
+		this.price = price ;
+		count ++ ;
+	}
+	// setter、getter略
+	public String getInfo() {
+		return "图书编号：" + this.bid + "、名称：" + this.title + "、价格：" + this.price ;
+	}
+	public static int getCount() {
+		return count ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Book b1 = new Book("Java",89.2) ;
+		Book b2 = new Book("Oracle",79.2) ;
+		System.out.println(b1.getInfo()) ;
+		System.out.println(b2.getInfo()) ;
+		System.out.println("图书总册书：" + Book.getCount()) ;
+	}
+} 
+
+

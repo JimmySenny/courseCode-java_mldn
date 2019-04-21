@@ -1,0 +1,131 @@
+1、
+
+package cn.mldn.demo ; // 定义包，其中.表示分割子目录（子包）
+public class Hello {
+	public static void main(String args[]) {
+		System.out.println("Hello World !") ;
+	}
+}
+
+2、
+package cn.mldn.util ;
+public class Message {
+	public String getContent() {
+		return "www.mldn.cn" ;
+	}
+}
+
+3、
+
+package cn.mldn.test ;
+import cn.mldn.util.Message ; // 导入其它包的类
+public class TestMessage {
+	public static void main(String args[]) {
+		Message msg = new Message() ; // 实例化类对象
+		System.out.println(msg.getContent()) ;
+	}
+}
+
+4、
+
+package cn.mldn.test ;
+import cn.mldn.util.* ; // 导入其它包的类
+public class TestMessage {
+	public static void main(String args[]) {
+		Message msg = new Message() ; // 实例化类对象
+		System.out.println(msg.getContent()) ;
+	}
+}
+
+5、
+
+package org.demo ;
+public class Message {
+	public String getInfo() {
+		return "人民万岁！" ;
+	}
+}
+
+6
+
+package cn.mldn.test ;
+import cn.mldn.util.* ; // 导入其它包的类
+import org.demo.* ; // 导入其它包的类
+public class TestMessage {
+	public static void main(String args[]) {
+		Message msg = new Message() ; // 实例化类对象
+		System.out.println(msg.getContent()) ;
+	}
+}
+
+7、
+package cn.mldn.test ;
+import cn.mldn.util.* ; // 导入其它包的类
+import org.demo.* ; // 导入其它包的类
+public class TestMessage {
+	public static void main(String args[]) {
+		cn.mldn.util.Message msg = new cn.mldn.util.Message() ; // 实例化类对象
+		System.out.println(msg.getContent()) ;
+	}
+}
+
+8、
+
+package cn.mldn.util ;
+public class MyMath {
+	public static int add(int ... args) {
+		int sum = 0 ;
+		for (int temp : args) {
+			sum += temp ;
+		}
+		return sum ;
+	}
+	public static int sub(int x,int y) {
+		return x - y ;
+	}
+}
+
+9、
+
+package cn.mldn.test ;
+import cn.mldn.util.MyMath ; 
+public class TestMath {
+	public static void main(String args[]) {
+		System.out.println(MyMath.add(10,20,30)) ;
+		System.out.println(MyMath.sub(30,20)) ;
+	}
+}
+
+10、
+package cn.mldn.test ;
+import static cn.mldn.util.MyMath.* ; 
+public class TestMath {
+	public static void main(String args[]) {
+		System.out.println(add(10,20,30)) ;
+		System.out.println(sub(30,20)) ;
+	}
+}
+
+11、
+
+package cn.mldn.util ;
+public class Message {
+	public String getContent() {
+		return "www.mldn.cn" ;
+	}
+}
+
+
+12、
+SET CLASSPATH=.;d:\mldndemo\mldn.jar
+
+13、
+
+package cn.mldn.test ;
+public class TestMessage {
+	public static void main(String args[]) {
+		cn.mldn.util.Message msg = new cn.mldn.util.Message() ; // 实例化类对象
+		System.out.println(msg.getContent()) ;
+	}
+}
+

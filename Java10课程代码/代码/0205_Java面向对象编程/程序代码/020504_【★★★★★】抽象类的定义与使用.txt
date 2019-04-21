@@ -1,0 +1,232 @@
+1、
+
+abstract class Message {	// 定义抽象类
+	private String type ; // 消息类型
+	public abstract String getConnectInfo() ;	// 抽象方法
+	public void setType(String type) {	// 普通方法
+		this.type = type ;
+	}
+	public String getType() {	// 普通方法
+		return this.type ; 
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Message msg = new Message() ;
+		System.out.println(msg.getConnectInfo()) ;
+	}
+} 
+
+
+2、
+abstract class Message {	// 定义抽象类
+	private String type ; // 消息类型
+	public abstract String getConnectInfo() ;	// 抽象方法
+	public void setType(String type) {	// 普通方法
+		this.type = type ;
+	}
+	public String getType() {	// 普通方法
+		return this.type ; 
+	}
+}
+class DatabaseMessage extends Message {	// 类的继承关系
+	public String getConnectInfo() {	// 方法覆写
+		return "Oracle数据库连接信息。" ;	
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Message msg = new DatabaseMessage() ;
+		msg.setType("客户消息") ;
+		System.out.println(msg.getConnectInfo()) ;
+		System.out.println(msg.getType()) ;
+	}
+} 
+
+
+3、
+
+abstract class Message {	// 定义抽象类
+	private String type ; // 消息类型
+	public Message(String type) {	// 类中没有提供有无参构造
+		this.type = type ;
+	}
+	public abstract String getConnectInfo() ;	// 抽象方法
+	public void setType(String type) {	// 普通方法
+		this.type = type ;
+	}
+	public String getType() {	// 普通方法
+		return this.type ; 
+	}
+}
+class DatabaseMessage extends Message {	// 类的继承关系
+	public DatabaseMessage(String str) {
+		super(str) ;
+	}
+	public String getConnectInfo() {	// 方法覆写
+		return "Oracle数据库连接信息。" ;	
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Message msg = new DatabaseMessage("客户消息") ;
+		System.out.println(msg.getConnectInfo()) ;
+		System.out.println(msg.getType()) ;
+	}
+} 
+
+
+4、
+
+abstract class Message {	// 定义抽象类
+	public abstract String getInfo() ;	// 抽象方法
+	public static Message getInstance() {
+		return new DatabaseMessage() ;
+	}
+}
+class DatabaseMessage extends Message {	// 类的继承关系
+	public String getInfo() {
+		return "数据库连接信息。" ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Message msg = Message.getInstance() ;
+		System.out.println(msg.getInfo()) ;
+	}
+} 
+
+
+
+5、
+
+abstract class Action {
+	public static final int EAT = 1 ;
+	public static final int SLEEP = 5 ;
+	public static final int WORK = 10 ;
+	public void command(int code) {
+		switch(code) {
+			case EAT : {
+				this.eat() ;
+				break ;
+			}
+			case SLEEP : {
+				this.sleep() ;
+				break ;
+			}
+			case WORK : {
+				this.work() ;
+				break ;
+			}
+			case EAT + SLEEP + WORK : {
+				this.eat() ;
+				this.sleep() ;
+				this.work() ;
+				break ;
+			}
+		}
+	}
+	public abstract void eat() ;
+	public abstract void sleep() ;
+	public abstract void work() ;
+}
+class Robot extends Action {
+	public void eat() {
+		System.out.println("机器人需要接通电源充电。") ;
+	}
+	public void sleep() {}
+	public void work() {
+		System.out.println("机器人按照固定的套路进行工作。") ;
+	}
+}
+class Person extends Action {
+	public void eat() {
+		System.out.println("饿的时候安静的坐下吃饭。") ;
+	}
+	public void sleep() {
+		System.out.println("安静的躺下，慢慢的睡着，而后做着美丽的春梦。") ;
+	}
+	public void work() {
+		System.out.println("人类是高级脑类动物，所有要有想法的工作。") ;
+	}
+}
+class Pig extends Action {
+	public void eat() {
+		System.out.println("吃食槽中的人类的剩饭。") ;
+	}
+	public void sleep() {
+		System.out.println("倒地就睡。") ;
+	}
+	public void work() {}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Action robotAction = new Robot() ;
+		Action personAction = new Person() ;
+		Action pigAction = new Pig() ;
+		System.out.println("------------ 机器人行为 -------------") ;
+		robotAction.command(Action.SLEEP) ;
+		robotAction.command(Action.WORK) ;
+		System.out.println("------------ 人类的行为 -------------") ;
+		personAction.command(Action.SLEEP + Action.EAT + Action.WORK) ;
+		System.out.println("------------ 猪类的行为 -------------") ;
+		pigAction.work() ;
+		pigAction.eat() ;
+	}
+} 
+
+
+6、
+abstract class Action {
+	public static final int EAT = 1 ;
+	public static final int SLEEP = 5 ;
+	public static final int WORK = 10 ;
+	public void command(int code) {
+		switch(code) {
+			case EAT : {
+				this.eat() ;
+				break ;
+			}
+			case SLEEP : {
+				this.sleep() ;
+				break ;
+			}
+			case WORK : {
+				this.work() ;
+				break ;
+			}
+			case EAT + SLEEP + WORK : {
+				this.eat() ;
+				this.sleep() ;
+				this.work() ;
+				break ;
+			}
+		}
+	}
+	public abstract void eat() ;
+	public abstract void sleep() ;
+	public abstract void work() ;
+}
+class Robot extends Action {
+	public void eat() {
+		System.out.println("机器人需要接通电源充电。") ;
+	}
+	public void add(){ // 这个方法父类不知道
+	
+	}
+	public void sleep() {}
+	public void work() {
+		System.out.println("机器人按照固定的套路进行工作。") ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Action robotAction = new Robot() ;
+		System.out.println("------------ 机器人行为 -------------") ;
+		robotAction.command(Action.SLEEP) ;
+		robotAction.command(Action.WORK) ;
+	}
+} 
+
+
+7、

@@ -1,0 +1,226 @@
+1、
+
+class Message {
+	public void print() {
+		System.out.println("www.mldn.cn") ;
+	}
+}
+class DataBaseMessage extends Message {
+	public void print() {
+		System.out.println("Oracle数据库连接信息....") ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		DataBaseMessage msg = new DataBaseMessage() ;
+		msg.print() ;
+	}
+} 
+
+
+2、
+
+class Message {
+	public void print() {
+		System.out.println("www.mldn.cn") ;
+	}
+}
+class DataBaseMessage extends Message {
+	public void print() {
+		System.out.println("Oracle数据库连接信息....") ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Message msg = new DataBaseMessage() ;	// 向上转型
+		msg.print() ;
+	}
+} 
+
+
+3、
+
+class Message {
+	public void print() {
+		System.out.println("www.mldn.cn") ;
+	}
+}
+class DataBaseMessage extends Message {
+	public void print() {
+		System.out.println("Oracle数据库连接信息....") ;
+	}
+}
+class WebServerMessage extends Message {
+	public void print() {
+		System.out.println("WEB服务器连接信息....") ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		fun(new DataBaseMessage()) ;	// Message msg = new DataBaseMessage()
+		fun(new WebServerMessage()) ;	// Message msg = new WebServerMessage()
+	}
+	public static void fun(Message msg) {	// 不管现在传递是那一个子类都可以接收
+		msg.print() ;
+	}
+} 
+
+
+4、
+
+class Message {
+	public void print() {
+		System.out.println("www.mldn.cn") ;
+	}
+}
+class DataBaseMessage extends Message {
+	public void print() {
+		System.out.println("Oracle数据库连接信息....") ;
+	}
+}
+class WebServerMessage extends Message {
+	public void print() {
+		System.out.println("WEB服务器连接信息....") ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		fun(new DataBaseMessage()) ;	// Message msg = new DataBaseMessage()
+		fun(new WebServerMessage()) ;	// Message msg = new WebServerMessage()
+	}
+	public static void fun(DataBaseMessage msg) {	// 不管现在传递是那一个子类都可以接收
+		msg.print() ;
+	}
+	public static void fun(WebServerMessage msg) {	// 不管现在传递是那一个子类都可以接收
+		msg.print() ;
+	}
+} 
+
+
+5、
+
+class Person {
+	public void print() {
+		System.out.println("一个正常的人类行为，吃饭、睡觉、繁衍。") ;
+	}
+}
+class SuperMan extends Person {
+	public String fly() {
+		return "我可以飞。。。" ;
+	}
+	public String fire() {
+		return "我可以喷火。。。" ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		System.out.println("---------- 正常状态下的超人应该是一个普通人的状态 --------------") ;
+		Person per = new SuperMan() ; // 向上转型
+		per.print() ;
+		System.out.println("---------- 外星怪兽狗骚扰地球，准备消灭人类 --------------") ;
+		SuperMan man = (SuperMan) per ;		// 向下转型
+		System.out.println(man.fly()) ;
+		System.out.println(man.fire()) ;
+	}
+} 
+
+
+6、
+
+class Person {
+	public void print() {
+		System.out.println("一个正常的人类行为，吃饭、睡觉、繁衍。") ;
+	}
+}
+class SuperMan extends Person {
+	public String fly() {
+		return "我可以飞。。。" ;
+	}
+	public String fire() {
+		return "我可以喷火。。。" ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		System.out.println("---------- 正常状态下的人应该是一个普通人的状态 --------------") ;
+		Person per = new Person() ; // 不转型
+		per.print() ;
+		System.out.println("---------- 外星怪兽狗骚扰地球，准备消灭人类 --------------") ;
+		SuperMan man = (SuperMan) per ;	// SuperMan类与Person类
+	}
+} 
+7、
+
+class Person {
+	public void print() {
+		System.out.println("一个正常的人类行为，吃饭、睡觉、繁衍。") ;
+	}
+}
+class SuperMan extends Person {
+	public String fly() {
+		return "我可以飞。。。" ;
+	}
+	public String fire() {
+		return "我可以喷火。。。" ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Person per = new Person() ; // 不转型
+		System.out.println(per instanceof Person) ;	// true
+		System.out.println(per instanceof SuperMan) ;	// false
+	}
+} 
+
+
+8、
+
+class Person {
+	public void print() {
+		System.out.println("一个正常的人类行为，吃饭、睡觉、繁衍。") ;
+	}
+}
+class SuperMan extends Person {
+	public String fly() {
+		return "我可以飞。。。" ;
+	}
+	public String fire() {
+		return "我可以喷火。。。" ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Person per = new SuperMan() ; // 向上转型
+		System.out.println(per instanceof Person) ;	// true
+		System.out.println(per instanceof SuperMan) ;	// false
+	}
+} 
+
+
+9、
+class Person {
+	public void print() {
+		System.out.println("一个正常的人类行为，吃饭、睡觉、繁衍。") ;
+	}
+}
+class SuperMan extends Person {
+	public String fly() {
+		return "我可以飞。。。" ;
+	}
+	public String fire() {
+		return "我可以喷火。。。" ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Person per = new SuperMan() ; // 向上转型
+		if (per instanceof SuperMan) {
+			SuperMan man = (SuperMan) per ;
+			System.out.println(man.fly()) ;
+			System.out.println(man.fire()) ;
+		}
+	}
+} 
+
+
+

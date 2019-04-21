@@ -1,0 +1,139 @@
+ 1、
+
+ class MyThread extends Thread {	// 线程的主体类
+	private String title ;
+	public MyThread(String title) {
+		this.title = title ;
+	}
+	@Override
+	public void run() {	// 线程的主体方法
+		for (int x = 0 ; x < 10 ; x ++) {
+			System.out.println(this.title + "运行，x = " + x);
+		}
+	}
+} 
+
+2、
+
+public class ThreadDemo {
+	public static void main(String[] args) {
+		MyThread mt = new MyThread("线程A") ;
+		mt.start() ;
+		mt.start() ;  // 重复进行了线程的启动
+	}
+}
+
+
+3、
+
+class MyThread implements Runnable {	// 线程的主体类
+	private String title ;
+	public MyThread(String title) {
+		this.title = title ;
+	}
+	@Override
+	public void run() {	// 线程的主体方法
+		for (int x = 0 ; x < 10 ; x ++) {
+			System.out.println(this.title + "运行，x = " + x);
+		}
+	}
+}  
+
+4、
+public class ThreadDemo {
+	public static void main(String[] args) {
+		Thread threadA = new Thread(new MyThread("线程对象A")) ;
+		Thread threadB = new Thread(new MyThread("线程对象B")) ;
+		Thread threadC = new Thread(new MyThread("线程对象C")) ;
+		threadA.start(); // 启动多线程
+		threadB.start(); // 启动多线程
+		threadC.start(); // 启动多线程
+	}
+}
+
+5、
+public class ThreadDemo {
+	public static void main(String[] args) {
+		for (int x = 0 ; x < 3 ; x ++) {
+			String title = "线程对象-" + x ;
+			Runnable run = ()->{
+				for (int y = 0 ; y < 10 ; y ++) {
+					System.out.println(title + "运行，y = " + y);
+				}
+			} ;
+			new Thread(run).start(); 
+		}
+	}
+}
+
+
+6、
+public class ThreadDemo {
+	public static void main(String[] args) {
+		for (int x = 0 ; x < 3 ; x ++) {
+			String title = "线程对象-" + x ;
+			new Thread(()-> { 
+				for (int y = 0 ; y < 10 ; y ++) {
+					System.out.println(title + "运行，y = " + y);
+				}
+			}).start(); 
+		}
+	}
+}
+
+
+7、
+package cn.mldn.demo;
+
+
+class MyThread implements Runnable {	// 线程的主体类
+	private int ticket = 5 ;
+	@Override
+	public void run() {	// 线程的主体方法
+		for (int x = 0 ; x < 100 ; x ++) {
+			if (this.ticket > 0) { 
+				System.out.println("卖票，ticket = " + this.ticket --);
+			}
+		}
+	}
+}  
+public class ThreadDemo {
+	public static void main(String[] args) {
+		MyThread mt = new MyThread() ;
+		new Thread(mt).start(); 	// 第一个线程启动	
+		new Thread(mt).start(); 	// 第二个线程启动	
+		new Thread(mt).start(); 	// 第三个线程启动	
+	}
+}
+
+
+
+8、
+package cn.mldn.demo;
+
+import java.util.concurrent.Callable;
+import java.util.concurrent.FutureTask;
+
+class MyThread implements Callable<String> {
+	@Override
+	public String call() throws Exception {
+		for (int x = 0 ; x < 10 ; x ++) {
+			System.out.println("********* 线程执行、x = " + x);
+		}
+		return "线程执行完毕。";
+	}
+}
+public class ThreadDemo {
+	public static void main(String[] args) throws Exception {
+		FutureTask<String> task = new FutureTask<>(new MyThread()) ;
+		new Thread(task).start(); 
+		System.out.println("【线程返回数据】" + task.get());
+	}
+}
+
+
+
+
+
+
+

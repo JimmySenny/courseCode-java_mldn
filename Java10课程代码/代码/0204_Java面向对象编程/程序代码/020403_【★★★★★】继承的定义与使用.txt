@@ -1,0 +1,220 @@
+1、
+
+class Person {
+	private String name ;
+	private int age ;
+	public void setName(String name) {
+		this.name = name ;
+	}
+	public void setAge(int age) {
+		this.age = age ;
+	}
+	public String getName() {
+		return this.name ;
+	}
+	public int getAge() {
+		return this.age ;
+	}
+}
+class Student {
+	private String name ;
+	private int age ;
+	private String school ;
+	public void setName(String name) {
+		this.name = name ;
+	}
+	public void setSchool(String school) {
+		this.school = school; 
+	}
+	public void setAge(int age) {
+		this.age = age ;
+	}
+	public String getSchool() {
+		return this.school ;
+	}
+	public String getName() {
+		return this.name ;
+	}
+	public int getAge() {
+		return this.age ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+
+	}
+} 
+
+2、
+
+class Person {
+	private String name ;
+	private int age ;
+	public void setName(String name) {
+		this.name = name ;
+	}
+	public void setAge(int age) {
+		this.age = age ;
+	}
+	public String getName() {
+		return this.name ;
+	}
+	public int getAge() {
+		return this.age ;
+	}
+}
+class Student extends Person {	// Student是子类
+	// 在子类之中不定义任何的功能
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Student stu = new Student() ;
+		stu.setName("林大强") ;	 // 父类定义
+		stu.setAge(38) ; // 父类定义
+		System.out.println("姓名：" + stu.getName() + "、年龄：" + stu.getAge()) ;
+	}
+} 
+
+
+3、
+
+class Person {
+	private String name ;
+	private int age ;
+	public void setName(String name) {
+		this.name = name ;
+	}
+	public void setAge(int age) {
+		this.age = age ;
+	}
+	public String getName() {
+		return this.name ;
+	}
+	public int getAge() {
+		return this.age ;
+	}
+}
+class Student extends Person {	// Student是子类
+	private String school ; // 子类扩充的属性
+	public void setSchool(String school) {
+		this.school = school ;
+	}
+	public String getSchool() {
+		return this.school ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Student stu = new Student() ;
+		stu.setName("林大强") ;	 // 父类定义
+		stu.setAge(38) ; // 父类定义
+		stu.setSchool("家里蹲大学") ;
+		System.out.println("姓名：" + stu.getName() + "、年龄：" + stu.getAge() + "、学校：" + stu.getSchool()) ;
+	}
+} 
+
+4、
+
+class Person {
+	public Person() {
+		System.out.println("【Person父类】一个新的Person父类实例化对象产生了。") ;
+	}
+}
+class Student extends Person {	// Student是子类
+	public Student() {	// 构造方法
+		System.out.println("【Student子类】一个新的Student实例化对象产生了。") ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		new Student() ; // 实例化子类对象
+	}
+} 
+
+5、
+
+class Person {
+	private String name ;
+	private int age ;
+	public Person(String name,int age) {
+		this.name = name ;
+		this.age = age ;
+	}
+}
+class Student extends Person {	// Student是子类
+	private String school ;
+	public Student(String name,int age,String school) {	// 构造方法
+		super(name,age) ;	// 明确调父类构造
+		this.school = school ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		new Student("林小强",48,"北京大学") ; // 实例化子类对象
+	}
+} 
+
+6、
+
+class Person {
+	private String name ;
+	private int age ;
+	public Person(String name,int age) {
+		this.name = name ;
+		this.age = age ;
+	}
+}
+class Student extends Person {	// Student是子类
+	private String school ;
+	public Student(String name,int age,String school) {	// 构造方法
+		this(name,age) ;	// 明确调父类构造
+		this.school = school ;
+	}
+	public Student(String name,int age) {
+		this(name,age,"家里蹲大学") ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		new Student("林小强",48,"北京大学") ; // 实例化子类对象
+	}
+} 
+
+7、
+
+
+class A {}
+class B {}
+class C extends A,B { } // 多重继承
+
+8、
+
+class Person {
+	private String name ;
+	public void setName(String name) {
+		this.name = name ;
+	}
+	public String getName() {
+		return this.name ;
+	}
+}
+class Student extends Person {
+	public Student(String name) {
+		setName(name) ;	// 设置name属性内容
+	}
+	public void fun() {
+		// System.out.println(name) ;	// 直接访问不可能，因为私有的
+		System.out.println(getName()) ;	// 间接访问
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Student stu = new Student("林中强") ;	
+		stu.fun() ;
+	}
+} 
+
+
+
+
+

@@ -1,0 +1,221 @@
+1、
+
+class Person {	// 创建所有同一个国家的类
+	private String name ;
+	private int age ;
+	String country = "中华民国" ;	// 国家，暂时不封装
+	public Person(String name,int age) {
+		this.name = name ;
+		this.age = age ;
+	}
+	// setter、getter略
+	public String getInfo() {
+		return "姓名：" + this.name + "、年龄：" + this.age + "、国家：" + this.country ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Person perA = new Person("张三",10) ;
+		Person perB = new Person("李四",10) ;
+		Person perC = new Person("王五",11) ;
+		System.out.println(perA.getInfo()) ;
+		System.out.println(perB.getInfo()) ;
+		System.out.println(perC.getInfo()) ;
+	}
+} 
+
+
+2、
+
+class Person {	// 创建所有同一个国家的类
+	private String name ;
+	private int age ;
+	String country = "中华民国" ;	// 国家，暂时不封装
+	public Person(String name,int age) {
+		this.name = name ;
+		this.age = age ;
+	}
+	// setter、getter略
+	public String getInfo() {
+		return "姓名：" + this.name + "、年龄：" + this.age + "、国家：" + this.country ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Person perA = new Person("张三",10) ;
+		Person perB = new Person("李四",10) ;
+		Person perC = new Person("王五",11) ;
+		perA.country = "中华人民共和国" ;
+		System.out.println(perA.getInfo()) ;
+		System.out.println(perB.getInfo()) ;
+		System.out.println(perC.getInfo()) ;
+	}
+} 
+
+3、
+class Person {	// 创建所有同一个国家的类
+	private String name ;
+	private int age ;
+	static String country = "中华民国" ;	// 国家，暂时不封装
+	public Person(String name,int age) {
+		this.name = name ;
+		this.age = age ;
+	}
+	// setter、getter略
+	public String getInfo() {
+		return "姓名：" + this.name + "、年龄：" + this.age + "、国家：" + this.country ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Person perA = new Person("张三",10) ;
+		Person perB = new Person("李四",10) ;
+		Person perC = new Person("王五",11) ;
+		perA.country = "中华人民共和国" ;
+		System.out.println(perA.getInfo()) ;
+		System.out.println(perB.getInfo()) ;
+		System.out.println(perC.getInfo()) ;
+	}
+} 
+
+4、
+class Person {	// 创建所有同一个国家的类
+	private String name ;
+	private int age ;
+	static String country = "中华民国" ;	// 国家，暂时不封装
+	public Person(String name,int age) {
+		this.name = name ;
+		this.age = age ;
+	}
+	// setter、getter略
+	public String getInfo() {
+		return "姓名：" + this.name + "、年龄：" + this.age + "、国家：" + this.country ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Person perA = new Person("张三",10) ;
+		Person perB = new Person("李四",10) ;
+		Person perC = new Person("王五",11) ;
+		Person.country = "中华人民共和国" ;
+		System.out.println(perA.getInfo()) ;
+		System.out.println(perB.getInfo()) ;
+		System.out.println(perC.getInfo()) ;
+	}
+} 
+
+5、
+class Person {	// 创建所有同一个国家的类
+	private String name ;
+	private int age ;
+	static String country = "中华民国" ;	// 国家，暂时不封装
+	public Person(String name,int age) {
+		this.name = name ;
+		this.age = age ;
+	}
+	// setter、getter略
+	public String getInfo() {
+		return "姓名：" + this.name + "、年龄：" + this.age + "、国家：" + this.country ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		System.out.println(Person.country) ;
+		Person.country = "中华人民共和国" ;
+		Person per = new Person("张三",10) ;
+		System.out.println(per.getInfo()) ;
+	}
+} 
+
+6、
+
+
+class Person {	// 创建所有同一个国家的类
+	private String name ;
+	private int age ;
+	private static String country = "中华民国" ;	// 国家
+	public Person(String name,int age) {
+		this.name = name ;
+		this.age = age ;
+	}
+	public static void setCountry(String c) {	// static方法
+		country = c ;
+	}
+	// setter、getter略
+	public String getInfo() {
+		return "姓名：" + this.name + "、年龄：" + this.age + "、国家：" + this.country ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		Person.setCountry("中华人民共和国") ;
+		Person per = new Person("张三",10) ;
+		System.out.println(per.getInfo()) ;
+	}
+} 
+
+
+7、
+
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		print() ;
+	}
+	public static void print() {
+		System.out.println("www.mldn.cn") ;
+	}
+} 
+
+8、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		new JavaDemo().print() ;
+	}
+	public void print() {
+		System.out.println("www.mldn.cn") ;
+	}
+} 
+
+9、
+class Book {
+	private String title ;
+	private static int count = 0 ;
+	public Book(String title) {
+		this.title = title ;
+		count ++ ;
+		System.out.println("第" + count + "本图书创建出来。") ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		new Book("Java") ;	new Book("JSP") ;	new Book("Spring") ;
+	}
+} 
+
+10、
+
+class Book {
+	private String title ;
+	private static int count = 0 ;
+	public Book() {
+		this("NOTITLE - " + count ++) ;
+	}
+	public Book(String title) {
+		this.title = title ;
+	}
+	public String getTitle() {
+		return this.title ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		System.out.println(new Book("Java").getTitle()) ;
+		System.out.println(new Book("JSP").getTitle()) ;
+		System.out.println(new Book("Spring").getTitle()) ;
+		System.out.println(new Book().getTitle()) ;
+		System.out.println(new Book().getTitle()) ;
+	}
+} 
+

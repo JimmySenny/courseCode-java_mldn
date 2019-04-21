@@ -1,0 +1,267 @@
+1、
+
+package cn.mldn.demo;
+
+class MyThread implements Runnable {
+	@Override
+	public void run() {
+		System.out.println(Thread.currentThread().getName());
+	}
+}
+public class ThreadDemo {
+	public static void main(String[] args) throws Exception {
+		MyThread mt = new MyThread() ;
+		new Thread(mt,"线程A").start() ;	// 设置了线程的名字
+		new Thread(mt).start() ;		// 未设置线程名字
+		new Thread(mt).start() ;		// 未设置线程名字
+		new Thread(mt).start() ;		// 未设置线程名字
+		new Thread(mt).start() ;		// 未设置线程名字
+		new Thread(mt,"线程B").start() ;	// 设置了线程的名字
+	}
+}
+
+
+
+2、
+
+package cn.mldn.demo;
+
+class MyThread implements Runnable {
+	@Override
+	public void run() {
+		System.out.println(Thread.currentThread().getName());
+	}
+}
+public class ThreadDemo {
+	public static void main(String[] args) throws Exception {
+		MyThread mt = new MyThread() ;
+		new Thread(mt,"线程对象").start() ;	// 设置了线程的名字
+		mt.run(); // 对象直接调用run()方法
+	}
+}
+
+
+
+
+3、
+package cn.mldn.demo;
+public class ThreadDemo {
+	public static void main(String[] args) throws Exception {
+		System.out.println("1、执行操作任务一。");
+		new Thread(()->{	// 子线程负责统计
+			int temp = 0 ;
+			for (int x = 0 ; x < Integer.MAX_VALUE ; x ++) {
+				temp += x ; 
+			}
+		}).start(); 
+		System.out.println("2、执行操作任务二。");
+		System.out.println("n、执行操作任务N。");
+	}
+}
+
+
+
+4、
+
+package cn.mldn.demo;
+public class ThreadDemo {
+	public static void main(String[] args) throws Exception {
+		new Thread(()->{
+			for (int x = 0 ; x < 10 ; x ++) {
+				System.out.println(Thread.currentThread().getName() + "、x = " + x);
+				try {
+					Thread.sleep(1000);	// 暂缓执行
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		},"线程对象").start(); 
+	}
+}
+
+
+
+5、
+
+package cn.mldn.demo;
+
+public class ThreadDemo {
+	public static void main(String[] args) throws Exception {
+		for (int num = 0; num < 5; num++) {
+			new Thread(() -> {
+				for (int x = 0; x < 10; x++) {
+					System.out.println(Thread.currentThread().getName() + "、x = " + x);
+					try {
+						Thread.sleep(1000); // 暂缓执行
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}, "线程对象 - " + num).start(); 
+		}
+	}
+}
+
+
+6、
+package cn.mldn.demo;
+
+public class ThreadDemo {
+	public static void main(String[] args) throws Exception {
+		Runnable run = () -> {
+			for (int x = 0; x < 10; x++) {
+				System.out.println(Thread.currentThread().getName() + "、x = " + x);
+				try {
+					Thread.sleep(1000); // 暂缓执行
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		} ;
+		for (int num = 0; num < 5; num++) {
+			new Thread(run, "线程对象 - " + num).start(); 
+		}
+	}
+}
+
+
+7、
+package cn.mldn.demo;
+
+public class ThreadDemo { 
+	public static void main(String[] args) throws Exception {
+		Thread thread = new Thread(()->{
+			System.out.println("*** 72个小时的疯狂我需要睡觉补充精力。");
+			try {
+				Thread.sleep(10000);	// 预计准备休眠10秒
+				System.out.println("*** 睡足了，可以出去继续祸害别人了。");
+			} catch (InterruptedException e) {
+				System.out.println("敢打扰我睡觉，老子宰了你。");
+			} 
+		})  ;
+		thread.start(); // 开始睡
+		Thread.sleep(1000);
+		if (!thread.isInterrupted()) {	// 该线程中断了吗？
+			System.out.println("我偷偷的打扰一下你的睡眠。");
+			thread.interrupt();  // 中断执行
+		}
+	}
+}
+
+
+8、
+
+package cn.mldn.demo;
+
+public class ThreadDemo { 
+	public static void main(String[] args) throws Exception {
+		Thread thread = new Thread(() -> {
+			for (int x = 0 ; x < 100 ; x ++) {
+				System.out.println(Thread.currentThread().getName() + "执行、x = " + x);
+			}
+		},"玩耍的线程") ;
+		thread.start();
+		for (int x = 0 ; x < 100 ; x ++) {
+			System.out.println("【霸道的main线程】number = " + x);
+		}
+	}
+}
+
+
+9、
+package cn.mldn.demo;
+
+public class ThreadDemo { 
+	public static void main(String[] args) throws Exception {
+		Thread mainThread = Thread.currentThread() ; // 获得主线程
+		Thread thread = new Thread(() -> {
+			for (int x = 0 ; x < 100 ; x ++) {
+				if (x == 3) {	// 现在霸道的线程来了
+					try {
+						mainThread.join();// 霸道线程要先执行
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					} 
+				}
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				System.out.println(Thread.currentThread().getName() + "执行、x = " + x);
+			}
+		},"玩耍的线程") ;
+		thread.start();
+		for (int x = 0 ; x < 100 ; x ++) {
+			Thread.sleep(100);
+			System.out.println("【霸道的main线程】number = " + x);
+		}
+	}
+}
+
+
+10、
+package cn.mldn.demo;
+public class ThreadDemo { 
+	public static void main(String[] args) throws Exception {
+		Thread thread = new Thread(() -> {
+			for (int x = 0 ; x < 100 ; x ++) {
+				if (x % 3 == 0) {
+					Thread.yield();  // 线程礼让
+					System.out.println("### 玩耍的线程礼让执行 ###");
+				}
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				System.out.println(Thread.currentThread().getName() + "执行、x = " + x);
+			}
+		},"玩耍的线程") ;
+		thread.start();
+		for (int x = 0 ; x < 100 ; x ++) {
+			Thread.sleep(100);
+			System.out.println("【霸道的main线程】number = " + x);
+		}
+	}
+}
+
+
+11、
+
+package cn.mldn.demo;
+
+public class ThreadDemo { 
+	public static void main(String[] args) throws Exception {
+		Runnable run = ()->{
+			for (int x = 0 ; x < 10 ; x ++) {
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				System.out.println(Thread.currentThread().getName() + "执行。");
+			}
+		} ;
+		Thread threadA = new Thread(run,"线程对象A") ;
+		Thread threadB = new Thread(run,"线程对象B") ;
+		Thread threadC = new Thread(run,"线程对象C") ;
+		threadA.setPriority(Thread.MIN_PRIORITY);
+		threadB.setPriority(Thread.MIN_PRIORITY);
+		threadC.setPriority(Thread.MAX_PRIORITY);
+		threadA.start(); 
+		threadB.start(); 
+		threadC.start(); 
+	}
+}
+
+
+12、
+package cn.mldn.demo;
+
+public class ThreadDemo { 
+	public static void main(String[] args) throws Exception {
+		System.out.println(new Thread().getPriority());
+		System.out.println(Thread.currentThread().getPriority());
+	}
+}

@@ -1,0 +1,302 @@
+1、
+
+package cn.mldn.demo;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		String str = "123" ;
+		if (isNumber(str)) {
+			int num = Integer.parseInt(str) ;
+			System.out.println(num * 2);
+		}
+	}
+	public static boolean isNumber(String str) {
+		char data [] = str.toCharArray() ;
+		for (int x = 0 ; x < data.length ; x ++) {
+			if (data[x] > '9' || data[x] < '0') {
+				return false ;
+			}
+		}
+		return true ;
+	}
+}
+
+
+
+
+2、、
+package cn.mldn.demo;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		String str = "123" ;
+		if (str.matches("\\d+")) {
+			int num = Integer.parseInt(str) ;
+			System.out.println(num * 2);
+		}
+	}
+}
+
+
+
+3、
+
+package cn.mldn.demo;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		String str = "a" ;	// 要判断的数据
+		String regex = "a" ;	// 正则表达式
+		System.out.println(str.matches(regex));
+	}
+}
+
+4、
+
+package cn.mldn.demo;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		String str = "c" ;	// 要判断的数据
+		String regex = "[abc]" ;	// 正则表达式
+		System.out.println(str.matches(regex));
+	}
+}
+
+5、
+package cn.mldn.demo;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		String str = "1" ;	// 要判断的数据
+		String regex = "[a-zA-Z]" ;	// 正则表达式
+		System.out.println(str.matches(regex));
+	}
+}
+
+6、
+package cn.mldn.demo;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		String str = "1" ;	// 要判断的数据
+		String regex = "[0-9]" ;	// 正则表达式
+		System.out.println(str.matches(regex));
+	}
+}
+
+7、
+package cn.mldn.demo;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		String str = "#" ;	// 要判断的数据
+		String regex = "." ;	// 正则表达式
+		System.out.println(str.matches(regex));
+	}
+}
+
+8、
+package cn.mldn.demo;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		String str = "a\t" ;	// 要判断的数据
+		String regex = "\\D\\s" ;	// 正则表达式
+		System.out.println(str.matches(regex));
+	}
+}
+
+9、
+package cn.mldn.demo;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		String str = "" ;	// 要判断的数据
+		String regex = "\\w*" ;	// 正则表达式
+		System.out.println(str.matches(regex));
+	}
+}
+
+10、
+package cn.mldn.demo;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		String str = "ax" ;	// 要判断的数据
+		String regex = "\\w{3,}" ;	// 正则表达式
+		System.out.println(str.matches(regex));
+	}
+}
+
+11、
+package cn.mldn.demo;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		String str = "JILO&*()@#$UISD&*(#$HUK34rwyhui*()@#$*()@#$" ;	// 要判断的数据
+		String regex = "[^a-zA-Z0-9]+" ;	// 正则表达式
+		System.out.println(str.replaceAll(regex, ""));
+	}
+}
+
+12、
+
+package cn.mldn.demo;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		String str = "a1b22c333d4444e55555f666666g" ;	// 要判断的数据
+		String regex = "\\d+" ;	// 正则表达式
+		String result [] = str.split(regex) ;
+		for (int x = 0 ; x < result.length ; x ++) {
+			System.out.print(result[x] + "、");
+		}
+	}
+}
+
+13、
+package cn.mldn.demo;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		String str = "100.1" ;	// 要判断的数据
+		String regex = "\\d+(\\.\\d+)?" ;	// 正则表达式
+		System.out.println(str.matches(regex));
+	}
+}
+
+14、
+package cn.mldn.demo;
+
+import java.text.SimpleDateFormat;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		String str = "1981-20-15" ;	// 要判断的数据
+		String regex = "\\d{4}-\\d{2}-\\d{2}" ;	// 正则表达式
+		if (str.matches(regex)) {
+			System.out.println(new SimpleDateFormat("yyyy-MM-dd").parse(str));
+		}
+	}
+}
+
+15、
+package cn.mldn.demo;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		String str = "51283346" ;	// 要判断的数据
+		String regex = "\\d{7,8}" ;	// 正则表达式
+		System.out.println(str.matches(regex));
+	}
+}
+
+16、
+package cn.mldn.demo;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		String str = "01051283346" ;	// 要判断的数据
+		String regex = "(\\d{3,4})?\\d{7,8}" ;	// 正则表达式
+		System.out.println(str.matches(regex));
+	}
+}
+
+17、
+package cn.mldn.demo;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		String str = "(010)-51283346" ;	// 要判断的数据
+		String regex = "((\\d{3,4})|(\\(\\d{3,4}\\)-))?\\d{7,8}" ;	// 正则表达式
+		System.out.println(str.matches(regex));
+	}
+}
+
+18、
+
+package cn.mldn.demo;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		String str = "mldnjava888@mldn.cn" ;	// 要判断的数据
+		String regex = "[a-zA-Z0-9]\\w+@\\w+\\.(cn|com|com.cn|net|gov)" ;	// 正则表达式
+		System.out.println(str.matches(regex));
+	}
+}
+
+19
+
+package cn.mldn.demo;
+
+import java.util.regex.Pattern;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		String str = "JKL()UI$()QR@#JKLSD()QW#EIO$RJKLOSDF" ;
+		String regex = "[^a-zA-Z]+" ;
+		Pattern pat = Pattern.compile(regex) ; // 编译正则表达式
+		String result [] = pat.split(str) ; // 拆分
+		for (int x = 0 ; x < result.length ; x ++) {
+			System.out.println(result[x]);
+		}
+	}
+}
+
+20、
+
+package cn.mldn.demo;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		String str = "101" ;
+		String regex = "\\d+" ;
+		Pattern pat = Pattern.compile(regex) ; // 编译正则表达式
+		Matcher mat = pat.matcher(str) ;
+		System.out.println(mat.matches());
+	}
+}
+
+21、
+
+package cn.mldn.demo;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		String str = "1KLKLKL()8908923892389123890JKLJKHJKL&*()&*()U" ;
+		String regex = "\\D+" ;
+		Pattern pat = Pattern.compile(regex) ; // 编译正则表达式
+		Matcher mat = pat.matcher(str) ;
+		System.out.println(mat.replaceAll(""));
+	}
+}
+
+22、
+package cn.mldn.demo;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		// 要求取出“#{内容}”标记中的所有内容
+		String str = "INSERT INTO dept(deptno,dname,loc) VALUES (#{deptno},#{dname},#{loc})" ;
+		String regex = "#\\{\\w+\\}" ;
+		Pattern pat = Pattern.compile(regex) ; // 编译正则表达式
+		Matcher mat = pat.matcher(str) ;
+		while(mat.find()) {	// 是否有匹配成功的内容
+			System.out.println(mat.group(0).replaceAll("#|\\{|\\}", ""));
+		}
+	}
+}
+
+
+
+

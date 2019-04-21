@@ -1,0 +1,18 @@
+1、
+
+package cn.mldn.demo;
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		long start = System.currentTimeMillis() ;
+		Runtime run = Runtime.getRuntime() ; // 获取实例化对象
+		String str = "" ;
+		for (int x = 0 ; x < 30000; x ++) {
+			str += x ; // 产生大量的垃圾空间
+		}
+		long end = System.currentTimeMillis() ;
+		System.out.println("操作耗时：" + (end - start));
+	}
+}
+ 
+
+

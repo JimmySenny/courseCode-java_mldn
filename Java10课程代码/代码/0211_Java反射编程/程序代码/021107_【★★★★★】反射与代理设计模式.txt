@@ -1,0 +1,176 @@
+1、
+
+package cn.mldn.demo;
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		IMessage msg = new MessageProxy(new MessageReal()) ;
+		msg.send(); 
+	} 
+}
+interface IMessage {	// 传统代理设计必须有接口
+	public void send() ; // 业务方法
+}
+class MessageReal implements IMessage {
+	@Override
+	public void send() {
+		System.out.println("【发送消息】www.mldn.cn");
+	}
+}
+class MessageProxy implements IMessage {	// 代理类
+	private IMessage message ; // 代理对象，一定是业务接口实例
+	public MessageProxy(IMessage message) {
+		this.message = message ;
+	}
+	@Override
+	public void send() {
+		if (this.connect()) {
+			this.message.send();  // 消息的发送处理
+			this.close() ;
+		}
+	}
+	public boolean connect() {
+		System.out.println("【消息代理】进行消息发送通道的连接。");
+		return true ;
+	}
+	public void close() {
+		System.out.println("【消息代理】关闭消息通道。");
+	}
+}
+
+
+
+2、
+package cn.mldn.demo;
+
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		IMessage msg = (IMessage) new MLDNProxy().bind(new MessageReal()) ;
+		msg.send(); 
+	} 
+}
+class MLDNProxy implements InvocationHandler {
+	private Object target ; // 保存真实业务对象
+	/**
+	 * 进行真实业务对象与代理业务对象之间的绑定处理
+	 * @param target 真实业务对象
+	 * @return Proxy生成的代理业务对象
+	 */
+	public Object bind(Object target) {
+		this.target = target ;
+		return Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(), this);
+	}
+	public boolean connect() {
+		System.out.println("【消息代理】进行消息发送通道的连接。");
+		return true ;
+	}
+	public void close() {
+		System.out.println("【消息代理】关闭消息通道。");
+	}
+	@Override
+	public Object invoke(Object pro, Method method, Object[] args) throws Throwable {
+		System.out.println("****** 【执行方法：】" + method);
+		Object returnData = null ;
+		if (this.connect()) {
+			returnData = method.invoke(this.target, args) ;
+			this.close() ;
+		}
+		return returnData; 
+	}
+}
+interface IMessage {	// 传统代理设计必须有接口
+	public void send() ; // 业务方法
+}
+class MessageReal implements IMessage {
+	@Override
+	public void send() {
+		System.out.println("【发送消息】www.mldn.cn");
+	}
+}
+
+
+
+3、
+class Message {
+	public void send() {
+		System.out.println("【发送消息】www.mldn.cn");
+	}
+}
+
+
+4、
+class MLDNProxy implements MethodInterceptor {	// 拦截器配置
+	private Object target ; // 保存真实主题对象
+	public MLDNProxy(Object target) {
+		this.target = target ;	// 保存真实主体对象
+	}
+	@Override
+	public Object intercept(Object proxy, Method method, Object[] args, MethodProxy methodProxy) throws Throwable {
+		Object returnData = null ;
+		if (this.connect()) {
+			returnData = method.invoke(this.target, args) ;
+			this.close() ;
+		}
+		return returnData;
+	}
+	public boolean connect() {
+		System.out.println("【消息代理】进行消息发送通道的连接。");
+		return true ;
+	}
+	public void close() {
+		System.out.println("【消息代理】关闭消息通道。");
+	}
+}
+
+5、
+
+package cn.mldn.demo;
+
+import java.lang.reflect.Method;
+
+import net.sf.cglib.proxy.Enhancer;
+import net.sf.cglib.proxy.MethodInterceptor;
+import net.sf.cglib.proxy.MethodProxy;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Message realObject = new Message() ; // 真实主体对象
+		Enhancer enhancer = new Enhancer() ; // 负责代理操作的程序类
+		enhancer.setSuperclass(realObject.getClass()); // 假定一个父类
+		enhancer.setCallback(new MLDNProxy(realObject)); // 设置代理类
+		Message proxyObject = (Message) enhancer.create() ;// 创建代理对象
+		proxyObject.send(); 
+	} 
+}
+class MLDNProxy implements MethodInterceptor {	// 拦截器配置
+	private Object target ; // 保存真实主题对象
+	public MLDNProxy(Object target) {
+		this.target = target ;	// 保存真实主体对象
+	}
+	@Override
+	public Object intercept(Object proxy, Method method, Object[] args, MethodProxy methodProxy) throws Throwable {
+		Object returnData = null ;
+		if (this.connect()) {
+			returnData = method.invoke(this.target, args) ;
+			this.close() ;
+		}
+		return returnData;
+	}
+	public boolean connect() {
+		System.out.println("【消息代理】进行消息发送通道的连接。");
+		return true ;
+	}
+	public void close() {
+		System.out.println("【消息代理】关闭消息通道。");
+	}
+}
+
+class Message {
+	public void send() {
+		System.out.println("【发送消息】www.mldn.cn");
+	}
+}
+

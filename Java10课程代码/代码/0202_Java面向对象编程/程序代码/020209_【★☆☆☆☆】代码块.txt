@@ -1,0 +1,84 @@
+1、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		if (true) {	// 条件一定满足
+			int x = 10 ;	// 局部变量
+			System.out.println("x = " + x)  ;
+		}
+		int x = 100 ;	// 全局变量
+		System.out.println("x = " + x) ;
+	}
+} 
+
+2、
+public class JavaDemo {
+	public static void main(String args[]) {
+		{	// 普通代码块
+			int x = 10 ;	// 局部变量
+			System.out.println("x = " + x)  ;
+		}
+		int x = 100 ;	// 全局变量
+		System.out.println("x = " + x) ;
+	}
+} 
+
+3、
+class Person {
+	public Person() {
+		System.out.println("【构造方法】Person类构造方法执行") ;
+	}
+	{
+		System.out.println("【构造块】Person构造块执行") ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		new Person() ;
+		new Person() ;
+		new Person() ;
+	}
+}
+
+
+4、
+class Person {
+	public Person() {
+		System.out.println("【构造方法】Person类构造方法执行") ;
+	}
+	static {
+		System.out.println("【静态块】静态块执行。") ;
+	}
+	{
+		System.out.println("【构造块】Person构造块执行") ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		new Person() ;
+		new Person() ;
+		new Person() ;
+	}
+} 
+
+5、
+class Message {
+	public static String getCountry() {
+		// 该消息的内容可能来自于网络或其它服务器
+		return "中华人民共和国" ;
+	}
+}
+class Person {
+	private static String country ;
+	static {
+		country = Message.getCountry() ;	// 编写一部分的代码
+		System.out.println(country) ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		new Person() ;
+	}
+} 
+
+6、

@@ -1,0 +1,128 @@
+1、
+
+package cn.mldn.demo;
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		MessageUtil.useMessage(MessageUtil.getMessage());
+	}
+}
+class MessageUtil {
+	private MessageUtil() {}
+	public static IMessage getMessage() {
+		return null ; 
+	}
+	public static void useMessage(IMessage msg) {
+		if (msg != null) {
+			System.out.println(msg.getContent()); // 有可能因为出现null，而导致空指向
+		}
+	}
+}
+interface IMessage {
+	public String getContent() ;
+}
+class MessageImpl implements IMessage {
+	@Override
+	public String getContent() {
+		return "www.mldn.cn";
+	}
+}
+
+
+2、
+package cn.mldn.demo;
+
+import java.util.Optional;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		IMessage temp = MessageUtil.getMessage().get() ; // 获取数据
+		MessageUtil.useMessage(temp);
+	}
+}
+class MessageUtil {
+	private MessageUtil() {}
+	public static Optional<IMessage> getMessage() {
+		return Optional.of(new MessageImpl()) ;	// 有对象 
+	}
+	public static void useMessage(IMessage msg) {
+		if (msg != null) {
+			System.out.println(msg.getContent()); // 有可能因为出现null，而导致空指向
+		}
+	}
+}
+interface IMessage {
+	public String getContent() ;
+}
+class MessageImpl implements IMessage {
+	@Override
+	public String getContent() {
+		return "www.mldn.cn";
+	}
+}
+
+
+3、
+package cn.mldn.demo;
+
+import java.util.Optional;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		IMessage temp = MessageUtil.getMessage().get() ; // 获取数据
+		MessageUtil.useMessage(temp);
+	}
+}
+class MessageUtil {
+	private MessageUtil() {}
+	public static Optional<IMessage> getMessage() {
+		return Optional.of(null) ;	// 有对象 
+	}
+	public static void useMessage(IMessage msg) {
+		if (msg != null) {
+			System.out.println(msg.getContent()); // 有可能因为出现null，而导致空指向
+		}
+	}
+}
+interface IMessage {
+	public String getContent() ;
+}
+class MessageImpl implements IMessage {
+	@Override
+	public String getContent() {
+		return "www.mldn.cn";
+	}
+}
+
+
+4、
+
+package cn.mldn.demo;
+
+import java.util.Optional;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		IMessage temp = MessageUtil.getMessage().orElse(new MessageImpl()) ; // 获取数据 
+		MessageUtil.useMessage(temp);
+	}
+}
+class MessageUtil {
+	private MessageUtil() {}
+	public static Optional<IMessage> getMessage() {
+		return Optional.ofNullable(null) ;	// 有对象 
+	}
+	public static void useMessage(IMessage msg) {
+		if (msg != null) {
+			System.out.println(msg.getContent()); // 有可能因为出现null，而导致空指向
+		}
+	}
+}
+interface IMessage {
+	public String getContent() ;
+}
+class MessageImpl implements IMessage {
+	@Override
+	public String getContent() {
+		return "www.mldn.cn";
+	}
+}

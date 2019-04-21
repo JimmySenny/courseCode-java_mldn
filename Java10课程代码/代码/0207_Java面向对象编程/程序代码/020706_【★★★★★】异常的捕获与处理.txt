@@ -1,0 +1,260 @@
+1、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		System.out.println("【1】****** 程序开始执行 ******") ;
+		System.out.println("【2】****** 数学计算：" + (10 / 2)) ;
+		System.out.println("【3】****** 程序执行完毕 ******") ;
+	}
+} 
+
+2、
+public class JavaDemo {
+	public static void main(String args[]) {
+		System.out.println("【1】****** 程序开始执行 ******") ;
+		System.out.println("【2】****** 数学计算：" + (10 / 0)) ;
+		System.out.println("【3】****** 程序执行完毕 ******") ;
+	}
+} 
+
+3、
+try {
+	// 可能出现异常的语句	
+} [catch (异常类型 异常对象) {
+	// 异常处理	
+} catch (异常类型 异常对象) {
+	// 异常处理	
+} catch (异常类型 异常对象) {
+	// 异常处理	
+} ... ] [finally {
+	不管异常是否处理都要执行 ;
+}]
+
+
+4、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		System.out.println("【1】****** 程序开始执行 ******") ;
+		try {
+			System.out.println("【2】****** 数学计算：" + (10 / 0)) ;
+		} catch (ArithmeticException e) {
+			System.out.println("【C】处理异常：" + e) ;	// 处理异常
+		}
+		System.out.println("【3】****** 程序执行完毕 ******") ;
+	}
+} 
+
+5、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		System.out.println("【1】****** 程序开始执行 ******") ;
+		try {
+			System.out.println("【2】****** 数学计算：" + (10 / 0)) ;
+		} catch (ArithmeticException e) {
+			e.printStackTrace() ;
+		}
+		System.out.println("【3】****** 程序执行完毕 ******") ;
+	}
+} 
+
+6、
+public class JavaDemo {
+	public static void main(String args[]) {
+		System.out.println("【1】****** 程序开始执行 ******") ;
+		try {
+			System.out.println("【2】****** 数学计算：" + (10 / 0)) ;
+		} catch (ArithmeticException e) {
+			e.printStackTrace() ;
+		} finally {
+			System.out.println("【F】不管是否出现异常，我都会执行。") ;
+		}
+		System.out.println("【3】****** 程序执行完毕 ******") ;
+	}
+} 
+
+7、
+public class JavaDemo {
+	public static void main(String args[]) {
+		System.out.println("【1】****** 程序开始执行 ******") ;
+		try {
+			int x = Integer.parseInt(args[0]) ;
+			int y = Integer.parseInt(args[1]) ;
+			System.out.println("【2】****** 数学计算：" + (x / y)) ;
+		} catch (ArithmeticException e) {
+			e.printStackTrace() ;
+		} finally {
+			System.out.println("【F】不管是否出现异常，我都会执行。") ;
+		}
+		System.out.println("【3】****** 程序执行完毕 ******") ;
+	}
+} 
+
+8、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		System.out.println("【1】****** 程序开始执行 ******") ;
+		try {
+			int x = Integer.parseInt(args[0]) ;
+			int y = Integer.parseInt(args[1]) ;
+			System.out.println("【2】****** 数学计算：" + (x / y)) ;
+		} catch (ArithmeticException e) {
+			e.printStackTrace() ;
+		} catch (NumberFormatException e) {
+			e.printStackTrace() ;
+		} catch (ArrayIndexOutOfBoundsException e) {
+			e.printStackTrace() ;
+		} finally {
+			System.out.println("【F】不管是否出现异常，我都会执行。") ;
+		}
+		System.out.println("【3】****** 程序执行完毕 ******") ;
+	}
+} 
+
+9、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		System.out.println("【1】****** 程序开始执行 ******") ;
+		try {
+			int x = Integer.parseInt(args[0]) ;
+			int y = Integer.parseInt(args[1]) ;
+			System.out.println("【2】****** 数学计算：" + (x / y)) ;
+		} catch (Exception e) {
+			e.printStackTrace() ;
+		} finally {
+			System.out.println("【F】不管是否出现异常，我都会执行。") ;
+		}
+		System.out.println("【3】****** 程序执行完毕 ******") ;
+	}
+} 
+
+
+10、
+
+class MyMath {
+	// 这个代码执行的时候可能会产生异常，如果产生异常调用处处理
+	public static int div(int x,int y) throws Exception {
+		return x / y ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		try {
+			System.out.println(MyMath.div(10,0)) ;
+		} catch (Exception e) {
+			e.printStackTrace() ;
+		}
+	}
+} 
+
+11、
+class MyMath {
+	// 这个代码执行的时候可能会产生异常，如果产生异常调用处处理
+	public static int div(int x,int y) throws Exception {
+		return x / y ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) throws Exception {
+		System.out.println(MyMath.div(10,0)) ;
+	}
+} 
+
+12、
+class MyMath {
+	// 异常交给被调用处处理则一定要在方法上使用throws
+	public static int div(int x,int y) throws Exception {
+		int temp = 0 ;
+		System.out.println("*** 【START】除法计算开始。") ;
+		try {
+			temp = x / y ;
+		} catch (Exception e) {
+			throw e ; // 向上抛异常对象
+		} finally {
+			System.out.println("*** 【END】除法计算结束。") ;
+		}
+		return temp ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		try {
+			System.out.println(MyMath.div(10,0)) ;
+		} catch (Exception e) {
+			e.printStackTrace() ;
+		}
+	}
+} 
+
+13、
+
+class MyMath {
+	// 异常交给被调用处处理则一定要在方法上使用throws
+	public static int div(int x,int y) throws Exception {
+		int temp = 0 ;
+		System.out.println("*** 【START】网络资源连接。") ;
+		try {
+			temp = x / y ;
+		} finally {
+			System.out.println("*** 【END】网络连接关闭。") ;
+		}
+		return temp ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		try {
+			System.out.println(MyMath.div(10,0)) ;
+		} catch (Exception e) {
+			e.printStackTrace() ;
+		}
+	}
+} 
+
+14、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		int num = Integer.parseInt("123") ;
+		System.out.println(num) ;
+	}
+}
+
+
+
+15、
+
+class BombException extends Exception {
+	public BombException(String msg) {
+		super(msg) ;
+	}
+}
+class Food {
+	public static void eat(int num) throws BombException {
+		if (num > 10) {
+			throw new BombException("吃太多了，肚子爆了。") ;
+		} else {
+			System.out.println("正常开始吃，不怕吃胖。") ;
+		}
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) throws Exception {
+		Food.eat(11) ;
+	}
+}
+
+16、
+
+public class JavaDemo {
+	public static void main(String args[]) throws Exception {
+		int x = 10 ;
+		// 中间会经过许多的x变量的操作步骤
+		assert x == 100 : "x的内容不是100" ;
+		System.out.println(x) ;
+	}
+}
+

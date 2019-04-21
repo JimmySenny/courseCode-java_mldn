@@ -1,0 +1,290 @@
+https://docs.oracle.com/javase/9/docs/api/overview-summary.html
+
+1、
+
+public class StringDemo {
+	public static void main(String args[]) {
+		String str = "www.mldn.cn" ;
+		char c = str.charAt(5) ;
+		System.out.println(c) ;
+	}
+}
+
+2、
+public class StringDemo {
+	public static void main(String args[]) {
+		String str = "helloworld" ;
+		char [] result = str.toCharArray() ; // 将字符串变为字符数组
+		for (int x = 0 ;x < result.length ; x ++) {
+			result[x] -= 32 ;	// 编码减少32
+		}
+		// 将处理后的字符数组交给String变为字符串
+		String newStr = new String(result) ;
+		System.out.println(newStr) ;
+		System.out.println(new String(result,0,5)) ;
+	}
+}
+
+3、
+
+public class StringDemo {
+	public static void main(String args[]) {
+		String str = "helloworld" ;
+		System.out.println(isNumber(str) ? "由数字所组成" : "不是由数字所组成") ;
+		System.out.println(isNumber("123") ? "由数字所组成" : "不是由数字所组成") ;
+	}
+	// 该方法主要是判断字符串是否由数字所组成
+	public static boolean isNumber(String str) {
+		char [] result = str.toCharArray() ; // 将字符串变为字符数组
+		for (int x = 0 ; x < result.length ; x ++) {	// 依次判断
+			if (result[x] < '0' || result[x] > '9') {
+				return false ;	// 后面不再判断
+			}
+		}
+		return true ;
+	}
+}
+
+
+4、
+public class StringDemo {
+	public static void main(String args[]) {
+		String str = "helloworld" ;
+		byte data[] = str.getBytes() ;	// 将字符串变为字节数组
+		for (int x = 0 ; x < data.length ; x ++) {
+			data[x] -= 32 ;
+		}
+		System.out.println(new String(data)) ;
+		System.out.println(new String(data,0,5)) ;
+	}
+}
+
+
+5、
+
+public class StringDemo {
+	public static void main(String args[]) {
+		String strA = "mldn" ;
+		String strB = "MLDN" ;
+		System.out.println(strA.equals(strB)) ;
+	}
+}
+
+6、
+
+public class StringDemo {
+	public static void main(String args[]) {
+		String strA = "mldn" ;
+		String strB = "MLDN" ;
+		System.out.println(strA.equalsIgnoreCase(strB)) ;
+	}
+}
+
+7、
+
+public class StringDemo {
+	public static void main(String args[]) {
+		String strA = "mldn" ;
+		String strB = "mldN" ;
+		System.out.println(strA.compareTo(strB)) ;	// 32
+		System.out.println(strB.compareTo(strA)) ;	// -32
+		System.out.println("Hello".compareTo("Hello")) ;	// 0
+	}
+}
+
+8、
+public class StringDemo {
+	public static void main(String args[]) {
+		String strA = "mldn" ;
+		String strB = "mldN" ;
+		System.out.println(strA.compareToIgnoreCase(strB)) ;	// 32
+	}
+}
+
+9、
+
+public class StringDemo {
+	public static void main(String args[]) {
+		String str = "www.mldn.cn" ;
+		System.out.println(str.contains("mldn")) ;	// true
+		System.out.println(str.contains("hello")) ;	// false
+	}
+}
+
+10、
+
+public class StringDemo {
+	public static void main(String args[]) {
+		String str = "www.mldn.cn" ;
+		System.out.println(str.indexOf("mldn")) ;
+		System.out.println(str.indexOf("hello")) ;	// -1
+		if (str.indexOf("mldn") != -1) {
+			System.out.println("数据存在。") ;
+		}
+	}
+}
+
+11、
+public class StringDemo {
+	public static void main(String args[]) {
+		String str = "www.mldn.cn" ;
+		System.out.println(str.lastIndexOf(".")) ;
+	}
+}
+
+12、
+
+public class StringDemo {
+	public static void main(String args[]) {
+		String str = "www.mldn.cn" ;
+		System.out.println(str.lastIndexOf(".")) ;
+		System.out.println(str.lastIndexOf(".",5)) ;
+	}
+}
+
+13、
+
+public class StringDemo {
+	public static void main(String args[]) {
+		String str = "helloworld" ;
+		System.out.println(str.replaceAll("l","X")) ;
+		System.out.println(str.replaceFirst("l","X")) ;
+	}
+}
+
+14、
+
+public class StringDemo {
+	public static void main(String args[]) {
+		String str = "hello world hello mldn" ;
+		String result [] = str.split(" ") ; // 空格拆分
+		for (int x = 0 ; x < result.length ; x ++) {
+			System.out.println(result[x]) ;
+		}
+	}
+}
+
+15、
+
+public class StringDemo {
+	public static void main(String args[]) {
+		String str = "hello world hello mldn" ;
+		String result [] = str.split(" ",2) ; // 空格拆分
+		for (int x = 0 ; x < result.length ; x ++) {
+			System.out.println(result[x]) ;
+		}
+	}
+}
+
+16、
+
+public class StringDemo {
+	public static void main(String args[]) {
+		String str = "192.168.1.2" ;
+		String result [] = str.split("\\.") ; // 空格拆分
+		for (int x = 0 ; x < result.length ; x ++) {
+			System.out.println(result[x]) ;
+		}
+	}
+}
+
+17、
+public class StringDemo {
+	public static void main(String args[]) {
+		String str = "www.mldn.cn" ;
+		System.out.println(str.substring(4)) ;
+		System.out.println(str.substring(4,8)) ;
+	}
+}
+
+18、
+
+public class StringDemo {
+	public static void main(String args[]) {
+		// 字符串结构：“用户id-photo-姓名.后缀”
+		String str = "mldn-photo-张三.jpg" ;
+		int beginIndex = str.indexOf("-",str.indexOf("photo")) + 1;
+		int endIndex = str.lastIndexOf(".") ;
+		System.out.println(str.substring(beginIndex,endIndex)) ;
+	}
+}
+
+19、
+
+public class StringDemo {
+	public static void main(String args[]) {
+		String name = "张三" ;
+		int age = 18 ;
+		double score = 98.765321 ;
+		String str = String.format("姓名：%s、年龄：%d、成绩：%5.2f。",name,age,score) ;
+		System.out.println(str) ;
+	}
+}
+
+
+20、
+
+public class StringDemo {
+	public static void main(String args[]) {
+		String strA = "www.mldn.cn" ;
+		String strB = "www.".concat("mldn").concat(".cn") ;
+		System.out.println(strB) ;
+		System.out.println(strA == strB) ;	// false
+	}
+}
+
+21、
+
+public class StringDemo {
+	public static void main(String args[]) {
+		String str = "" ;
+		System.out.println(str.isEmpty()) ;	// true
+		System.out.println("mldn".isEmpty()) ;	// false
+	}
+}
+
+22、
+
+public class StringDemo {
+	public static void main(String args[]) {
+		String str = "   Hello World   " ;
+		System.out.println(str.length()) ;	// 长度
+		String trimStr = str.trim() ;
+		System.out.println(str) ;
+		System.out.println(trimStr) ;
+		System.out.println(trimStr.length()) ;
+	}
+}
+
+23、
+
+public class StringDemo {
+	public static void main(String args[]) {
+		String str = "Hello World !!!" ;
+		System.out.println(str.toUpperCase()) ;
+		System.out.println(str.toLowerCase()) ;
+	}
+}
+
+24、
+
+class StringUtil {
+	public static String initcap(String str) {
+		if (str == null || "".equals(str)) {
+			return str ;	// 原样返回
+		}
+		if (str.length() == 1) {
+			return str.toUpperCase() ;
+		}
+		return str.substring(0,1).toUpperCase() + str.substring(1) ;
+	}
+}
+public class StringDemo {
+	public static void main(String args[]) {
+		System.out.println(StringUtil.initcap("hello")) ;
+		System.out.println(StringUtil.initcap("m")) ;
+	}
+}
+
+
+

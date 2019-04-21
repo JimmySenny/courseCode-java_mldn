@@ -1,0 +1,146 @@
+1、
+
+DROP TABLE news PURGE ;
+DROP SEQUENCE news_seq ;
+CREATE SEQUENCE news_seq ;
+CREATE TABLE news(
+	nid		NUMBER ,
+	title	VARCHAR2(30) ,
+	read	NUMBER ,
+	price	NUMBER ,
+	content	CLOB ,
+	pubdate	DATE ,
+	CONSTRAINT pk_nid PRIMARY KEY(nid)
+) ;
+
+2、
+INSERT INTO news(nid,title,read,price,content,pubdate) VALUES (news_seq.nextval,'MLDN-News',10,9.9,'这个春天很美丽，有雾霾，有沙尘暴，有大雨，有大风，还下大雪',TO_DATE('1988-04-05','yyyy-mm-dd')) ;
+
+3、
+
+package cn.mldn.demo;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+
+public class JDBCDemo {
+	private static final String DATABASE_DRVIER = "oracle.jdbc.driver.OracleDriver" ;
+	private static final String DATABASE_URL = "jdbc:oracle:thin:@localhost:1521:mldn" ;
+	private static final String DATABASE_USER = "scott" ;
+	private static final String DATABASE_PASSWORD = "tiger" ;
+	public static void main(String[] args) throws Exception {
+		String sql = " INSERT INTO news(nid,title,read,price,content,pubdate) VALUES "
+				+ " (news_seq.nextval,'MLDN-News',10,9.9, "
+				+ " '这个春天很美丽，有雾霾，有沙尘暴，有大雨，有大风，还下大雪', "
+				+ " TO_DATE('1988-04-05','yyyy-mm-dd'))" ;
+		Connection conn = null ;  // 每一个Connection接口对象描述的就是一个用户连接
+		Class.forName(DATABASE_DRVIER) ; // 向容器之中加载数据库驱动程序
+		conn = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD) ;
+		Statement stmt = conn.createStatement() ; // 创建数据库的操作对象
+		int count = stmt.executeUpdate(sql) ; // 返回影响的行数
+		System.out.println("更新操作影响的数据行数：" + count);
+		conn.close();  // 数据库的连接资源有限一定要关闭
+	}
+}
+
+
+4、
+UPDATE 表名称 SET 字段=值,... WHERE 更新条件 ;
+
+
+UPDATE news SET title='MLDN重大新闻',content='据说四月的最低温度为1度',read=99998 WHERE nid=5 ;
+
+5、
+
+package cn.mldn.demo;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+
+public class JDBCDemo {
+	private static final String DATABASE_DRVIER = "oracle.jdbc.driver.OracleDriver" ;
+	private static final String DATABASE_URL = "jdbc:oracle:thin:@localhost:1521:mldn" ;
+	private static final String DATABASE_USER = "scott" ;
+	private static final String DATABASE_PASSWORD = "tiger" ;
+	public static void main(String[] args) throws Exception {
+		String sql = "UPDATE news SET title='MLDN重大新闻', "
+				+ " content='据说四月的最低温度为1度',read=99998 WHERE nid=5 " ;
+		Connection conn = null ;  // 每一个Connection接口对象描述的就是一个用户连接
+		Class.forName(DATABASE_DRVIER) ; // 向容器之中加载数据库驱动程序
+		conn = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD) ;
+		Statement stmt = conn.createStatement() ; // 创建数据库的操作对象
+		int count = stmt.executeUpdate(sql) ; // 返回影响的行数
+		System.out.println("更新操作影响的数据行数：" + count);
+		conn.close();  // 数据库的连接资源有限一定要关闭
+	}
+}
+
+
+6、
+
+DELETE FROM news WHERE nid IN (11,13,15,17,19) ;
+
+
+7、
+
+package cn.mldn.demo;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+
+public class JDBCDemo {
+	private static final String DATABASE_DRVIER = "oracle.jdbc.driver.OracleDriver" ;
+	private static final String DATABASE_URL = "jdbc:oracle:thin:@localhost:1521:mldn" ;
+	private static final String DATABASE_USER = "scott" ;
+	private static final String DATABASE_PASSWORD = "tiger" ;
+	public static void main(String[] args) throws Exception {
+		String sql = "DELETE FROM news WHERE nid IN (11,13,15,17,19) " ;
+		Connection conn = null ;  // 每一个Connection接口对象描述的就是一个用户连接
+		Class.forName(DATABASE_DRVIER) ; // 向容器之中加载数据库驱动程序
+		conn = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD) ;
+		Statement stmt = conn.createStatement() ; // 创建数据库的操作对象
+		int count = stmt.executeUpdate(sql) ; // 返回影响的行数
+		System.out.println("更新操作影响的数据行数：" + count);
+		conn.close();  // 数据库的连接资源有限一定要关闭
+	}
+}
+
+
+8、
+
+package cn.mldn.demo;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.Date;
+
+public class JDBCDemo {
+	private static final String DATABASE_DRVIER = "oracle.jdbc.driver.OracleDriver" ;
+	private static final String DATABASE_URL = "jdbc:oracle:thin:@localhost:1521:mldn" ;
+	private static final String DATABASE_USER = "scott" ;
+	private static final String DATABASE_PASSWORD = "tiger" ;
+	public static void main(String[] args) throws Exception {
+		// 在程序开发之中SELECT子句后面必须跟上具体的字段名称，写“*”的都叫垃圾代码
+		String sql = "SELECT nid,title,read,price,content,pubdate FROM news " ;
+		Connection conn = null ;  // 每一个Connection接口对象描述的就是一个用户连接
+		Class.forName(DATABASE_DRVIER) ; // 向容器之中加载数据库驱动程序
+		conn = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD) ;
+		Statement stmt = conn.createStatement() ; // 创建数据库的操作对象
+		ResultSet rs = stmt.executeQuery(sql) ;  // 执行查询
+		while (rs.next()) {	// 现在如果发现还有数据行未输出
+			int nid = rs.getInt(1) ;
+			String title = rs.getString(2) ;
+			int read = rs.getInt(3) ;
+			double price = rs.getDouble(4) ;
+			String content = rs.getString(5) ;
+			Date pubdate = rs.getDate(6) ;
+			System.out.println(nid + "、" + title + "、" + read + "、" + price + "、" + content + "、" + pubdate);
+		}
+		conn.close();  // 数据库的连接资源有限一定要关闭
+	}
+}

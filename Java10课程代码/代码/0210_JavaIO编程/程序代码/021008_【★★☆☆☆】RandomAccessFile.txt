@@ -1,0 +1,53 @@
+1、
+
+package cn.mldn.demo;
+
+import java.io.File;
+import java.io.RandomAccessFile;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		File file = new File("d:" + File.separator + "mldn.txt"); // 定义操作文件
+		RandomAccessFile raf = new RandomAccessFile(file, "rw"); // 读写模式
+		String names[] = new String[] { "zhangsan", "wangwu  ", "lisi    " };
+		int ages[] = new int[] { 30, 20, 16 };
+		for (int x = 0; x < names.length; x++) {
+			raf.write(names[x].getBytes()); // 写入字符串
+			raf.writeInt(ages[x]);
+		}
+		raf.close();
+	}
+}
+
+
+2、
+package cn.mldn.demo;
+
+import java.io.File;
+import java.io.RandomAccessFile;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		File file = new File("d:" + File.separator + "mldn.txt"); // 定义操作文件
+		RandomAccessFile raf = new RandomAccessFile(file, "rw"); // 读写模式
+		{	// 读取“李四”的数据，跳过24位
+			raf.skipBytes(24) ;
+			byte[] data = new byte[8];
+			int len = raf.read(data) ;
+			System.out.println("姓名：" + new String(data,0,len).trim() + "、年龄：" + raf.readInt());
+		}
+		{	// 读取“王五”的数据，回跳12位
+			raf.seek(12);
+			byte[] data = new byte[8];
+			int len = raf.read(data) ;
+			System.out.println("姓名：" + new String(data,0,len).trim() + "、年龄：" + raf.readInt());
+		}
+		{	// 读取“张三”的数据，回跳头
+			raf.seek(0);	// 回到顶点
+			byte[] data = new byte[8];
+			int len = raf.read(data) ;
+			System.out.println("姓名：" + new String(data,0,len).trim() + "、年龄：" + raf.readInt());
+		}
+		raf.close();
+	}
+}

@@ -1,0 +1,21 @@
+1、
+
+package cn.mldn.demo;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) {
+		CharSequence str = "www.mldn.cn" ;	// 子类实例向父接口转型
+	}
+}
+
+
+2、
+package cn.mldn.demo;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) {
+		CharSequence str = "www.mldn.cn" ;	// 子类实例向父接口转型
+		CharSequence sub = str.subSequence(4, 8) ;
+		System.out.println(sub);
+	}
+}

@@ -1,0 +1,10 @@
+Hello World !
+
+1 + 1
+
+System.out.println("Hello MLDN!") ;
+System.out.println("www.mldn.cn") ;
+
+/open d:/mldn.txt
+
+/exit

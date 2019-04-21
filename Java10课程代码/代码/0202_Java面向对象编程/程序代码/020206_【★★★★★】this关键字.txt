@@ -1,0 +1,279 @@
+1、
+
+class Person {
+	private String name ;
+	private int age ;
+	public Person(String n,int a) {
+		name = n ;
+		age = a ;
+	}
+	public void tell() {
+		System.out.println("姓名：" + name + "、年龄：" + age) ;
+	}
+	// setter、getter略
+}
+public class JavaDemo {	// 主类
+	public static void main(String args[]) {
+		Person per = new Person("王五",38) ;
+		per.tell() ;
+	}
+} 
+
+2、
+class Person {
+	private String name ;
+	private int age ;
+	public Person(String name,int age) {
+		this.name = name ;
+		this.age = age ;
+	}
+	public void tell() {
+		System.out.println("姓名：" + this.name + "、年龄：" + this.age) ;
+	}
+	// setter、getter略
+}
+public class JavaDemo {	// 主类
+	public static void main(String args[]) {
+		Person per = new Person("王五",38) ;
+		per.tell() ;
+	}
+} 
+
+3、
+class Person {
+	private String name ;
+	private int age ;
+	public Person(String name,int age) {
+		this.setName(name) ;
+		setAge(age) ;	// 加与不加都表示本类方法
+	}
+	public void tell() {
+		System.out.println("姓名：" + this.name + "、年龄：" + this.age) ;
+	}
+	public void setName(String name) {
+		this.name = name ;
+	}
+	public void setAge(int age) {
+		this.age = age ;
+	}
+	public String getName() {
+		return this.name ;
+	}
+	public int getAge() {
+		return this.age ;
+	}
+}
+public class JavaDemo {	// 主类
+	public static void main(String args[]) {
+		Person per = new Person("王五",38) ;
+		per.tell() ;
+	}
+} 
+
+4、
+class Person {
+	private String name ;
+	private int age ;
+	public Person() {
+		System.out.println("*** 一个新的Person类对象实例化了。") ;
+	}
+	public Person(String name) {
+		System.out.println("*** 一个新的Person类对象实例化了。") ;
+		this.name = name ;
+	}
+	public Person(String name,int age) {
+		System.out.println("*** 一个新的Person类对象实例化了。") ;
+		this.name = name ;
+		this.age = age ;
+	}
+	public void tell() {
+		System.out.println("姓名：" + this.name + "、年龄：" + this.age) ;
+	}
+	// setter、getter略
+}
+public class JavaDemo {	// 主类
+	public static void main(String args[]) {
+		Person per = new Person("王五") ;
+		per.tell() ;
+	}
+} 
+
+5、
+
+class Person {
+	private String name ;
+	private int age ;
+	public Person() {
+		System.out.println("*** 一个新的Person类对象实例化了。") ;
+	}
+	public Person(String name) {
+		this() ;	// 调用本类无参构造
+		this.name = name ;
+	}
+	public Person(String name,int age) {
+		this(name) ;	// 调用单参构造
+		this.age = age ;
+	}
+	public void tell() {
+		System.out.println("姓名：" + this.name + "、年龄：" + this.age) ;
+	}
+	// setter、getter略
+}
+public class JavaDemo {	// 主类
+	public static void main(String args[]) {
+		Person per = new Person("王五",10) ;
+		per.tell() ;
+	}
+} 
+
+6、
+
+class Person {
+	private String name ;
+	private int age ;
+	public Person() {
+		this("HAHA",11) ;
+		System.out.println("*** 一个新的Person类对象实例化了。") ;
+	}
+	public Person(String name) {
+		this() ;	// 调用本类无参构造
+		this.name = name ;
+	}
+	public Person(String name,int age) {
+		this(name) ;	// 调用单参构造
+		this.age = age ;
+	}
+	public void tell() {
+		System.out.println("姓名：" + this.name + "、年龄：" + this.age) ;
+	}
+	// setter、getter略
+}
+public class JavaDemo {	// 主类
+	public static void main(String args[]) {
+		Person per = new Person("王五",10) ;
+		per.tell() ;
+	}
+} 
+
+7、
+
+class Emp {
+	private long empno ;	// 员工编号
+	private String ename ;	// 员工姓名
+	private String dept ;	// 部门名称
+	private double salary ;	// 基本工资
+	public Emp() {
+		this.empno = 1000 ;
+		this.ename = "无名氏" ;
+	}
+	public Emp(long empno) {
+		this.empno = empno ;
+		this.ename = "新员工" ;
+		this.dept = "未定" ;
+	}
+	public Emp(long empno,String ename,String dept) {
+		this.empno = empno ;
+		this.ename = ename ;
+		this.dept = dept ;
+	}
+	public Emp(long empno,String ename,String dept,double salary) {
+		this.empno = empno ;
+		this.ename = ename ;
+		this.dept = dept ;
+		this.salary = salary ;
+	}
+	// setter、getter略
+	public String getInfo() {
+		return	"雇员编号：" + this.empno + 
+				"、雇员姓名：" + this.ename + 
+				"、所在部门：" + this.dept + 
+				"、基本工资：" + this.salary ;
+	}
+}
+public class JavaDemo {	// 主类
+	public static void main(String args[]) {
+		Emp emp = new Emp(7369L,"史密斯","财务部",6500.00) ;
+		System.out.println(emp.getInfo()) ;
+	}
+} 
+
+8、
+
+class Emp {
+	private long empno ;	// 员工编号
+	private String ename ;	// 员工姓名
+	private String dept ;	// 部门名称
+	private double salary ;	// 基本工资
+	public Emp() {
+		this(1000,"无名氏",null,0.0) ;
+	}
+	public Emp(long empno) {
+		this(empno,"新员工","未定",0.0) ;
+	}
+	public Emp(long empno,String ename,String dept) {
+		this(empno,ename,dept,2500.00) ;
+	}
+	public Emp(long empno,String ename,String dept,double salary) {
+		this.empno = empno ;
+		this.ename = ename ;
+		this.dept = dept ;
+		this.salary = salary ;
+	}
+	// setter、getter略
+	public String getInfo() {
+		return	"雇员编号：" + this.empno + 
+				"、雇员姓名：" + this.ename + 
+				"、所在部门：" + this.dept + 
+				"、基本工资：" + this.salary ;
+	}
+}
+public class JavaDemo {	// 主类
+	public static void main(String args[]) {
+		Emp emp = new Emp(7369L,"史密斯","财务部") ;
+		System.out.println(emp.getInfo()) ;
+	}
+} 
+
+
+9、
+class Message {
+	private Channel channel ; // 保存消息发送通道
+	private String title ;	// 消息标题
+	private String content ;	// 消息内容
+	// 4、调用此构造实例化，此时的channel = 主类ch
+	public Message(Channel channel,String title,String content) {
+		this.channel = channel ; // 保存消息通道
+		this.title = title ;
+		this.content = content ;
+	}
+	public void send() {
+		// 6、判断当前通道是否可用，那么此时的this.channel就是主类中的ch
+		if (this.channel.isConnect()) {	// 如果连接成功
+			System.out.println("【消息发送】title = " + this.title + "、content = " + this.content) ;
+		} else {	// 没有连接
+			System.out.println("【ERROR】没有可用的连接通道，无法进行消息发送。") ;
+		}
+	}
+}
+class Channel {
+	private Message message ;	// 消息发送由Message负责
+	// 2、实例化Channel类对象，调用构造
+	public Channel(String title,String content) {
+		// 3、实例化Message，但是需要将主类中的ch传递到Message中、this = ch
+		this.message = new Message(this,title,content) ;
+		// 5、消息发送
+		this.message.send() ;	// 发送消息
+	}
+	// 以后在进行方法创建的时候如果某一个方法的名称以is开头一般都返回boolean值
+	public boolean isConnect() {	// 判断连接是否创建，如果创建可以发送
+		return true ;
+	}
+}
+public class JavaDemo {
+	public static void main(String args[]) {
+		// 1、实例化一个Channel对象
+		Channel ch = new Channel("MLDN运动会","大家一起跑步30公里。") ; // 实例化Channel对象就表示要发送消息
+	}
+} 
+
+

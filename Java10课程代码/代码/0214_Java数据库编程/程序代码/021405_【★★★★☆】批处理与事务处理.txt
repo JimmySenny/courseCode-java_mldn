@@ -1,0 +1,65 @@
+1、
+
+package cn.mldn.demo;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+import java.util.Arrays;
+
+public class JDBCDemo {
+	private static final String DATABASE_DRVIER = "oracle.jdbc.driver.OracleDriver" ;
+	private static final String DATABASE_URL = "jdbc:oracle:thin:@localhost:1521:mldn" ;
+	private static final String DATABASE_USER = "scott" ;
+	private static final String DATABASE_PASSWORD = "tiger" ;
+	public static void main(String[] args) throws Exception {
+		Connection conn = null ;  // 每一个Connection接口对象描述的就是一个用户连接
+		Class.forName(DATABASE_DRVIER) ; // 向容器之中加载数据库驱动程序
+		conn = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD) ;
+		Statement stmt = conn.createStatement() ; // 创建数据库的操作对象
+		stmt.addBatch("INSERT INTO news (nid,title) VALUES (news_seq.nextval,'MLDN-A')");
+		stmt.addBatch("INSERT INTO news (nid,title) VALUES (news_seq.nextval,'MLDN-B')");
+		stmt.addBatch("INSERT INTO news (nid,title) VALUES (news_seq.nextval,'MLDN-C')");
+		stmt.addBatch("INSERT INTO news (nid,title) VALUES (news_seq.nextval,'MLDN-D')");
+		stmt.addBatch("INSERT INTO news (nid,title) VALUES (news_seq.nextval,'MLDN-E')");
+		int result [] = stmt.executeBatch() ; // 执行批处理
+		System.out.println(Arrays.toString(result));
+		conn.close();  // 数据库的连接资源有限一定要关闭
+	}
+}
+
+2、
+package cn.mldn.demo;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+import java.util.Arrays;
+
+public class JDBCDemo {
+	private static final String DATABASE_DRVIER = "oracle.jdbc.driver.OracleDriver" ;
+	private static final String DATABASE_URL = "jdbc:oracle:thin:@localhost:1521:mldn" ;
+	private static final String DATABASE_USER = "scott" ;
+	private static final String DATABASE_PASSWORD = "tiger" ;
+	public static void main(String[] args) throws Exception {
+		Connection conn = null ;  // 每一个Connection接口对象描述的就是一个用户连接
+		Class.forName(DATABASE_DRVIER) ; // 向容器之中加载数据库驱动程序
+		conn = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD) ;
+		conn.setAutoCommit(false); // 取消自动提交
+		Statement stmt = conn.createStatement() ; // 创建数据库的操作对象
+		try {
+		stmt.addBatch("INSERT INTO news (nid,title) VALUES (news_seq.nextval,'MLDN-A')");
+		stmt.addBatch("INSERT INTO news (nid,title) VALUES (news_seq.nextval,'MLDN-B')");
+		stmt.addBatch("INSERT INTO news (nid,title) VALUES (news_seq.nextval,'MLDN-'C')");
+		stmt.addBatch("INSERT INTO news (nid,title) VALUES (news_seq.nextval,'MLDN-D')");
+		stmt.addBatch("INSERT INTO news (nid,title) VALUES (news_seq.nextval,'MLDN-E')");
+		int result [] = stmt.executeBatch() ; // 执行批处理
+		System.out.println(Arrays.toString(result));
+		conn.commit(); 
+		} catch (Exception e) {
+			e.printStackTrace();
+			conn.rollback(); // 回滚事务
+		}
+		conn.close();  // 数据库的连接资源有限一定要关闭
+	}
+}

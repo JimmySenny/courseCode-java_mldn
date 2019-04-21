@@ -1,0 +1,85 @@
+1、
+
+package cn.mldn.demo;
+
+import java.util.Date;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Date date = new Date() ;
+		System.out.println(date);
+	}
+}
+
+
+2、
+
+package cn.mldn.demo;
+import java.util.Date;
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Date date = new Date() ;
+		long current = date.getTime() ;
+		current += 864000 * 1000 ; // 10天的秒数
+		System.out.println(new Date(current));	// long转为Date
+	}
+}
+
+
+
+3、
+
+
+package cn.mldn.demo;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Date date = new Date() ;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS") ;
+		String str = sdf.format(date) ;
+		System.out.println(str);
+	}
+}
+
+
+
+
+4、
+
+package cn.mldn.demo;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		String birthday = "1846-11-11 11:11:11.111" ; // 字符串的日期 
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS") ;
+		Date date = sdf.parse(birthday) ;
+		System.out.println(date);
+	}
+}
+
+
+
+
+5、
+package cn.mldn.demo;
+
+import java.text.NumberFormat;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		double money = 23890238923.23 ; // 字符串的日期
+		String str = NumberFormat.getInstance().format(money) ;
+		System.out.println(str);
+	}
+}
+
+
+
+6、
+

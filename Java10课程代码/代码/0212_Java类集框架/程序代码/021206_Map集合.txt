@@ -1,0 +1,285 @@
+1、
+
+package cn.mldn.demo;
+
+import java.util.Map;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Map<String, Integer> map = Map.of("one", 1, "two", 2, "one", 101, null, 0);
+		System.out.println(map);
+	}
+
+}
+
+
+2、
+
+package cn.mldn.demo;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Map<String, Integer> map = new HashMap<String,Integer>() ;
+		map.put("one", 1) ;
+		map.put("two", 2) ;
+		map.put("one", 101) ;	// key重复
+		map.put(null, 0) ;		// key为null
+		map.put("zero", null) ; // value为null
+		System.out.println(map.get("one"));	// key存在
+		System.out.println(map.get(null));	// key存在
+		System.out.println(map.get("ten"));	// key不存在
+	}
+
+}
+
+
+3、
+package cn.mldn.demo;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Map<String, Integer> map = new HashMap<String,Integer>() ;
+		System.out.println(map.put("one", 1));	// key不重复，返回null
+		System.out.println(map.put("one", 101));	// key重复，返回旧数据
+	}
+
+}
+
+
+4、
+package cn.mldn.demo;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+public class JavaAPIDemo {
+
+	public static void main(String[] args) throws Exception {
+		Map<String, Integer> map = new LinkedHashMap<String,Integer>() ;
+		map.put("one", 1) ;
+		map.put("two", 2) ;
+		map.put("one", 101) ;	// key重复
+		map.put(null, 0) ;		// key为null
+		map.put("zero", null) ; // value为null
+		System.out.println(map);	// key不存在
+	}
+
+
+	
+}
+
+5、
+package cn.mldn.demo;
+
+import java.util.Hashtable;
+import java.util.Map;
+
+public class JavaAPIDemo {
+
+	public static void main(String[] args) throws Exception {
+		Map<String, Integer> map = new Hashtable<String,Integer>() ; 
+		map.put("one", 1) ;
+		map.put("two", 2) ;
+		map.put("one", 101) ;	// key重复
+		System.out.println(map);	// key不存在
+	}
+	
+}
+
+
+
+6、
+
+package cn.mldn.demo;
+
+import java.util.Map;
+import java.util.TreeMap;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Map<String, Integer> map = new TreeMap<String, Integer>();
+		map.put("C", 3);
+		map.put("B", 2);
+		map.put("A", 1);
+		System.out.println(map);
+	}
+
+}
+
+
+7、
+
+package cn.mldn.demo;
+
+import java.util.Map;
+
+public class JavaAPIDemo {
+
+	public static void main(String[] args) throws Exception {
+		Map.Entry<String, Integer> entry = Map.entry("one", 1) ;
+		System.out.println("获取Key：" + entry.getKey());
+		System.out.println("获取Value：" + entry.getValue());
+		System.out.println(entry.getClass().getName()); // 观察使用的子类
+	}
+
+}
+
+8、
+package cn.mldn.demo;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+
+public class JavaAPIDemo {
+
+	public static void main(String[] args) throws Exception {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("one", 1);
+		map.put("two", 2);
+		Set<Map.Entry<String,Integer>> set = map.entrySet() ;	// 将Map集合变为Set集合
+		Iterator<Map.Entry<String,Integer>> iter = set.iterator() ;
+		while (iter.hasNext()) {
+			Map.Entry<String, Integer> me = iter.next() ;
+			System.out.println(me.getKey() + " = " + me.getValue());
+		}
+	}
+
+}
+
+9、
+
+package cn.mldn.demo;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+public class JavaAPIDemo {
+
+	public static void main(String[] args) throws Exception {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("one", 1);
+		map.put("two", 2);
+		Set<Map.Entry<String,Integer>> set = map.entrySet() ;	// 将Map集合变为Set集合
+		for (Map.Entry<String, Integer> entry : set) {
+			System.out.println(entry.getKey() + " = " + entry.getValue());
+		}
+	}
+
+}
+
+10、
+package cn.mldn.demo;
+
+import java.util.HashMap;
+import java.util.Map;
+
+class Person {
+	private String name;
+	private int age;
+
+	public Person(String name, int age) {
+		this.name = name;
+		this.age = age;
+	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + age;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Person other = (Person) obj;
+		if (age != other.age)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
+}
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Map<Person, String> map = new HashMap<Person, String>();
+		map.put(new Person("小强", 78), "林弱"); // 使用自定义类作为Key
+		System.out.println(map.get(new Person("小强", 78))); // 通过key找到value
+	}
+
+
+
+}
+
+11、
+package cn.mldn.demo;
+
+import java.util.HashMap;
+import java.util.Map;
+
+class Person {
+	private String name;
+	private int age;
+
+	public Person(String name, int age) {
+		this.name = name;
+		this.age = age;
+	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + age;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Person other = (Person) obj;
+		if (age != other.age)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
+}
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Map<Person, String> map = new HashMap<Person, String>();
+		map.put(new Person("小强", 78), "林弱"); // 使用自定义类作为Key
+		System.out.println(map.get(new Person("小强", 78))); // 通过key找到value
+	}
+
+
+
+}
+
+

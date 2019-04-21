@@ -1,0 +1,205 @@
+1、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		// int 变量名称 = 常量（10是一个常量，整数类型为int） ;
+		int x = 10 ;	// 定义了一个整型变量x
+		// int型变量 * int型变量 = int型数据
+		System.out.println(x * x) ;
+	}
+}
+
+
+2、
+public class JavaDemo {
+	public static void main(String args[]) {
+		// int 变量名称 = 常量（10是一个常量，整数类型为int） ;
+		int x = 10 ;	// 定义了一个整型变量x
+		x = 20 ;		// 改变了x的已有内容
+		// int型变量 * int型变量 = int型数据
+		System.out.println(x * x) ;
+	}
+}
+
+3、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		int max = Integer.MAX_VALUE ; // 获取int的最大值
+		int min = Integer.MIN_VALUE ; // 获取int的最小值
+		System.out.println(max) ;	// 2147483647
+		System.out.println(min) ;	// -2147483648
+		System.out.println("------------- 无以言表的分割线 -----------") ;
+		// int型变量 + int型常量 = int型计算结果
+		System.out.println(max + 1) ;	// -2147483648，最大值 + 1 = 最小值
+		System.out.println(max + 2) ;	// -2147483647，最大值 + 1 = 次最小值
+		// int型变量 - int型常量 = int型计算结果
+		System.out.println(min - 1) ;	// 2147483647，最小值 - 1 = 最大值
+	}
+}
+
+4、
+public class JavaDemo {
+	public static void main(String args[]) {
+		// long long变量 = int的数值
+		long max = Integer.MAX_VALUE ; // 获取int的最大值
+		long min = Integer.MIN_VALUE ; // 获取int的最小值
+		System.out.println(max) ;	// 2147483647
+		System.out.println(min) ;	// -2147483648
+		System.out.println("------------- 无以言表的分割线 -----------") ;
+		// long型变量 + int型常量 = long型计算结果
+		System.out.println(max + 1) ;	// 2147483648
+		System.out.println(max + 2) ;	// 2147483649
+		// long型变量 - int型常量 = long型计算结果
+		System.out.println(min - 1) ;	// -2147483649
+	}
+}
+
+5、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		int max = Integer.MAX_VALUE ; // 获取int的最大值
+		int min = Integer.MIN_VALUE ; // 获取int的最小值
+		System.out.println(max) ;	// 2147483647
+		System.out.println(min) ;	// -2147483648
+		System.out.println("------------- 无以言表的分割线 -----------") ;
+		// int型变量 + long型常量 = long型计算结果
+		System.out.println(max + 1L) ;	// 2147483648
+		System.out.println(max + 2l) ;	// 2147483649
+		// long型变量 - int型常量 = long型计算结果
+		System.out.println((long)min - 1) ;	// -2147483649
+	}
+}
+
+6、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		long num = 2147483649L ; // 此数据已经超过了int范围
+		int temp = (int) num ; // long范围比int范围大，不能够直接转换
+		System.out.println(temp) ;
+	}
+}
+
+7、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		byte num = 20 ;
+		System.out.println(num) ;
+	}
+}
+
+8、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		byte num = (byte) 200 ;
+		System.out.println(num) ;
+	}
+}
+
+9、
+public class JavaDemo {
+	public static void main(String args[]) {
+		int x = 200 ;
+		byte num = (int) x ;
+		System.out.println(num) ;
+	}
+}
+
+10、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		// 10.2是一个小数其对应的类型为double
+		double x = 10.2 ;
+		int y = 10 ;
+		// double类型 * int类型 = double类型
+		double result = x * y ;
+		System.out.println(result) ;
+	}
+}
+
+11、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		float x = (float) 10.2 ;
+		float y = 10.1F ;
+		System.out.println(x * y) ;	// float型
+	}
+}
+
+12、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		char c = 'B' ; // 一个字符变量
+		System.out.println(c) ;
+	}
+}
+
+13、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		char c = 'A' ; // 一个字符变量
+		int num = c ;	// 可以获得字符的编码
+		System.out.println(num) ;
+	}
+}
+
+14、
+public class JavaDemo {
+	public static void main(String args[]) {
+		char c = '仁' ; // 一个字符变量
+		int num = c ;	// 可以获得字符的编码
+		System.out.println(num) ;
+	}
+}
+
+15、
+public class JavaDemo {
+	public static void main(String args[]) {
+		boolean flag = true ;
+		if (flag) {	// 判断flag的内容，如果是true就执行
+			System.out.println("我很帅，我很年轻！") ;
+		}
+	}
+}
+
+16、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		String str = "Hello World !" ;	// 使用“"”进行描述
+		System.out.println(str) ;
+	}
+}
+
+17、
+public class JavaDemo {
+	public static void main(String args[]) {
+		String str = "Hello" ;	// 使用“"”进行描述
+		str = str + " World" ; // 字符串连接
+		str += " !!!" ;		// 字符串连接
+		System.out.println(str) ;
+	}
+}
+
+18、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		double x = 10.1 ;
+		int y = 20 ;
+		String str = "计算结果：" + (x + y) ;
+		System.out.println(str) ;
+	}
+}
+
+19、
+
+

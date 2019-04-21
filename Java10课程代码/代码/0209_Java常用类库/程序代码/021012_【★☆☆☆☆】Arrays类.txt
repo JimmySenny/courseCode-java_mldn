@@ -1,0 +1,370 @@
+1、
+
+package cn.mldn.demo;
+
+import java.util.Arrays;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		int dataA [] = new int [] {1,2,3} ;
+		int dataB [] = new int [] {1,2,3} ;
+		System.out.println(Arrays.compare(dataA, dataB));	// 0
+		System.out.println(Arrays.equals(dataA, dataB));	// true
+	}
+
+}
+
+
+2、
+package cn.mldn.demo;
+
+import java.util.Arrays;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		int data[] = new int[10];
+		Arrays.fill(data, 3); // 对数组内容进行填充处理
+		System.out.println(Arrays.toString(data));
+	}
+
+}
+
+
+3、
+
+package cn.mldn.demo;
+
+import java.util.Arrays;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		int data[] = new int[] { 1, 5, 7, 2, 3, 6, 0 }; // 数组
+		Arrays.sort(data); // 数组必须采用升序排序（默认）
+		System.out.println(Arrays.binarySearch(data, 6));	// 二分查找
+	}
+
+}
+
+
+4、
+
+package cn.mldn.demo;
+
+import java.util.Arrays;
+
+class ArrayUtil {	// 定义数组操作类
+//	private static int count = 1 ;
+	/**
+	 * 实现数据的二分查找操作
+	 * @param data 要查找的原始数组
+	 * @param num 要比对的数据
+	 * @return 查询到了返回数据的索引，如果该数据不存在则返回-1
+	 */
+	public static int binarySearch(int data[],int num) {
+		return binarySearchImpl(data, 0,data.length, num) ;
+	}
+	/**
+	 * 进行二分查找的具体实现
+	 * @param data 要查找的数组数据
+	 * @param index 要进行操作的开始索引
+	 * @param num 要查询的数据
+	 * @return 查询到了返回数据的索引，如果该数据不存在则返回-1
+	 */
+	private static int binarySearchImpl(int data[],int start,int end,int num) {
+//		System.out.println("start = " + start + "、end = " + end);
+		if (start > end) {
+			return -1 ;
+		}
+		if (num > data[data.length - 1] || num < data[0]) {
+			return -1 ;
+		}
+		int center = (start + end) / 2 ; // 中间点
+		if (data[center] == num) {
+			return center ;
+		} else {
+			if (num > data[center]) {	// 向右边开始查
+				return binarySearchImpl(data,(start + end) % 2 == 0 ? center : center + 1,end,num) ;
+			} else {
+				return binarySearchImpl(data,start,(start + end) % 2 == 0 ? center : center - 1,num) ;
+			}
+		}
+	}
+
+	private static int binarySearch0(int[] a, int fromIndex, int toIndex, int key) {
+		int low = fromIndex;
+		int high = toIndex - 1;
+
+		while (low <= high) {
+			int mid = (low + high) >>> 1;
+			int midVal = a[mid];
+
+			if (midVal < key)
+				low = mid + 1;
+			else if (midVal > key)
+				high = mid - 1;
+			else
+				return mid; // key found
+		}
+		return -(low + 1); // key not found.
+	}
+}
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		int data[] = new int[] { 0,1,1,2,3,5,6,7,13,15,16,17,20,21,30 }; // 数组
+		Arrays.sort(data); // 数组必须采用升序排序（默认）
+		for (int x = 0 ; x < data.length ; x ++) {
+			System.out.println(data[x] + " -- " + ArrayUtil.binarySearch(data, data[x]));
+		}
+		System.out.println(ArrayUtil.binarySearch(data, 4));
+		System.out.println(ArrayUtil.binarySearch(data, 110));
+		System.out.println(ArrayUtil.binarySearch(data, 25));
+		System.out.println(ArrayUtil.binarySearch(data, -25));
+		System.out.println(ArrayUtil.binarySearch(data, 8));
+	}
+
+}
+
+
+3、
+
+package cn.mldn.demo;
+import java.util.Arrays;
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		int data[] = new int[] { 1, 5, 7, 2, 3, 6, 0, 11, 15, 17, 20 }; // 数组
+		Arrays.sort(data);	// [0, 1, 2, 3, 5, 6, 7, 11, 15, 17, 20]
+		for (int x = 0 ; x < data.length ; x ++) {
+			System.out.println(data[x] + "，执行查询，结果为：" + ArrayUtil.binarySearch(data, data[x]));
+		}
+		System.out.println(ArrayUtil.binarySearch(data, -10));
+		System.out.println(ArrayUtil.binarySearch(data, 200));
+		System.out.println(ArrayUtil.binarySearch(data, 4));
+		System.out.println(ArrayUtil.binarySearch(data, 8));
+		System.out.println(ArrayUtil.binarySearch(data, 9));
+	}
+}
+class ArrayUtil {
+	private ArrayUtil() {}
+	/**
+	 * 进行数据的二分查找操作
+	 * @param data 要查找的原始数组
+	 * @param key 要查找的数据内容
+	 * @return 如果查询到内容则返回内容所在的位置，如果没有查询到则返回-1
+	 */
+	public static int binarySearch(int data[], int key) {
+		if (data == null || data.length == 0) {
+			return -1 ;
+		}
+		return binarySearchImpl(data, 0, data.length, key) ;
+	}
+	/**
+	 * 实现具体的二分查找的处理操作
+	 * @param data 要进行操作的数组
+	 * @param start 开始索引
+	 * @param end 结束索引
+	 * @param key 要检索的数据
+	 * @return 如果查询到内容则返回内容所在的位置，如果没有查询到则返回-1
+	 */
+	private static int binarySearchImpl(int data[], int start, int end, int key) {
+		if (key < data[0] || key > data[data.length - 1]) {
+			return -1 ; // 该数据一定不存在
+		}
+		int center = (start + end) / 2 ; // 定义分割点
+		if (data[center] == key) {	// 数据相等
+			return center ; // 返回索引内容
+		} else {	// 现在查询内容还没有找到，这个时候就需要进行左或右的判断
+			if (start >= end) {	// 递归一定要设置结束条件
+				return -1 ;
+			}else if (key > data[center]) {	// 向右边去找
+				return binarySearchImpl(data, (start + end) % 2 == 0 ? center : center + 1, end, key);
+			} else {	// 向左边去找
+				return binarySearchImpl(data, start, (start + end) % 2 == 0 ? center : center - 1, key) ;
+			}
+		}
+	}
+}
+
+
+
+4、
+
+package cn.mldn.demo;
+
+import java.util.Arrays;
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		int data[] = new int[] { 1, 5, 7, 2, 3, 6, 0, 11, 15, 17, 20 }; // 数组
+		Arrays.sort(data);	// [0, 1, 2, 3, 5, 6, 7, 11, 15, 17, 20]
+		for (int x = 0 ; x < data.length ; x ++) {
+			System.out.println(data[x] + "，执行查询，结果为：" + ArrayUtil.binarySearch(data, data[x]));
+		}
+		System.out.println(ArrayUtil.binarySearch(data, -10));
+		System.out.println(ArrayUtil.binarySearch(data, 200));
+		System.out.println(ArrayUtil.binarySearch(data, 4));
+		System.out.println(ArrayUtil.binarySearch(data, 8));
+		System.out.println(ArrayUtil.binarySearch(data, 9));
+	}
+
+}
+class ArrayUtil {
+	private ArrayUtil() {}
+	/**
+	 * 进行数据的二分查找操作
+	 * @param data 要查找的原始数组
+	 * @param key 要查找的数据内容
+	 * @return 如果查询到内容则返回内容所在的位置，如果没有查询到则返回-1
+	 */
+	public static int binarySearch(int data[], int key) {
+		if (data == null || data.length == 0) {
+			return -1 ;
+		}
+		return binarySearchImpl(data, 0, data.length, key) ;
+	}
+	private static int binarySearch0(int[] a, int fromIndex, int toIndex, int key) {
+		int low = fromIndex;
+		int high = toIndex - 1;
+		while (low <= high) {
+			int mid = (low + high) >>> 1;	// 除2
+			@SuppressWarnings("rawtypes")
+			Comparable midVal = (Comparable) a[mid];
+			@SuppressWarnings("unchecked")
+			int cmp = midVal.compareTo(key); // String中的compareTo()操作
+			if (cmp < 0) {	// 判断当前的数据是否小于，向左折半
+				low = mid + 1;
+			} else if (cmp > 0) {	// 判断当前的数据是否大于，向右折半
+				high = mid - 1;
+			} else {	// 数据没有发现
+				return mid; // key found
+			}
+		}
+		return -(low + 1); // key not found.
+	}
+	/**
+	 * 实现具体的二分查找的处理操作
+	 * @param data 要进行操作的数组
+	 * @param start 开始索引
+	 * @param end 结束索引
+	 * @param key 要检索的数据
+	 * @return 如果查询到内容则返回内容所在的位置，如果没有查询到则返回-1
+	 */
+	private static int binarySearchImpl(int data[], int start, int end, int key) {
+		if (key < data[0] || key > data[data.length - 1]) {
+			return -1 ; // 该数据一定不存在
+		}
+		int center = (start + end) / 2 ; // 定义分割点
+		if (data[center] == key) {	// 数据相等
+			return center ; // 返回索引内容
+		} else {	// 现在查询内容还没有找到，这个时候就需要进行左或右的判断
+			if (start >= end) {	// 递归一定要设置结束条件
+				return -1 ;
+			}else if (key > data[center]) {	// 向右边去找
+				return binarySearchImpl(data, (start + end) % 2 == 0 ? center : center + 1, end, key);
+			} else {	// 向左边去找
+				return binarySearchImpl(data, start, (start + end) % 2 == 0 ? center : center - 1, key) ;
+			}
+		}
+	}
+}
+
+
+5、
+
+package cn.mldn.demo;
+
+class Banary {
+	public static int search(int[] data, int length, int index, int x, int count) {
+		if (x > data[length - 1] || x < data[0] || count < 0) {
+			return -1;
+		}
+		if (data[index] == x) {
+			return index;
+		}
+		if (data[index] > x) {
+			length = index;
+			index = index / 2;
+			count--;
+			return search(data, length, index, x, count);
+		} else {
+			index = (length - index) / 2 + index;
+			count--;
+			return search(data, length, index, x, count);
+		}
+	}
+}
+
+public class BinarySearchDemo {
+	public static void main(String args[]) {
+		int[] test = new int[] { 1, 2, 22, 5, 6, 7, 9, 10 };
+		int count = (int) (Math.log(test.length) / Math.log(2) + 1); // 时间复杂度加1
+		int length = test.length;
+		int index = length / 2;
+		java.util.Arrays.sort(test);
+		for (int x = 0; x < test.length; x++) {
+			System.out.println(Banary.search(test, length, index, test[x], count));
+		}
+		System.out.println(Banary.search(test, length, index, 3, count));
+		System.out.println(Banary.search(test, length, index, 8, count));
+		System.out.println(Banary.search(test, length, index, 22, count));
+		System.out.println(Banary.search(test, length, index, 0, count));
+	}
+}
+
+
+6、参考JDK
+package cn.mldn.demo;
+
+import java.util.Arrays;
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		int data[] = new int[] { 1, 5, 7, 2, 3, 6, 0, 11, 13, 16, 19 }; // 数组
+		Arrays.sort(data);	// [0, 1, 2, 3, 5, 6, 7, 11, 13, 16, 19]
+		for (int x = 0 ; x < data.length ; x ++) {
+			System.out.println(data[x] + "查找、结果：" + ArrayUtil.binarySearch(data, data[x]));
+		}
+		System.out.println(ArrayUtil.binarySearch(data, 4));
+		System.out.println(ArrayUtil.binarySearch(data, 9));
+		System.out.println(ArrayUtil.binarySearch(data, 99));
+		System.out.println(ArrayUtil.binarySearch(data, -99));
+	}
+
+}
+class ArrayUtil {
+	private ArrayUtil() {}
+	/**
+	 * 进行数组数据的二分查找操作
+	 * @param data 要进行查找的数组
+	 * @param key 要查找的数据
+	 * @return 如果找到数据返回数据索引，找不到返回负数（-1）
+	 */
+	public static int binarySearch(int data[],int key) {
+		if (data == null) {
+			return -1 ;
+		}
+		return binarySearchDefault(data, 0, data.length, key) ;
+	}
+	/**
+	 * 实现一个二分查找具体实现方法
+	 * @param data 要进行查找的原始数组 
+	 * @param fromIndex 开始索引
+	 * @param toIndex 结束索引，数组长度
+	 * @param key 要查询的数据
+	 * @return 查找到数据返回索引，找不到返回负数（-1）
+	 */
+	private static int binarySearchDefault(int[] data, int fromIndex, int toIndex,
+            int key) {
+		int low = fromIndex; // 左边的索引
+		int high = toIndex - 1; // 右边的索引
+		while (low <= high) {	// 结束条件
+			int middle = (low + high) / 2 ; // 计算中间的索引数据
+			if (data[middle] == key) {	// 查找到了
+				return middle ; // 返回索引
+			} else if (key < data[middle]) {	// 向左边开始查
+				high = middle - 1 ;
+			} else {
+				low = middle + 1 ; 
+			}
+		}
+		return -1 ;
+	}
+}

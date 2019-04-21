@@ -1,0 +1,190 @@
+1、
+
+class Person {	// 定义一个类
+	private String name ;	// 人员的姓名
+	private int age ;		// 人的年龄
+	public void tell() {
+		System.out.println("姓名：" + name + "、年龄：" + age) ;
+	}
+	public void setName(String n) {
+		name = n ;
+	}
+	public void setAge(int a) {
+		age = a ;
+	}
+	public String getName() {
+		return name ;
+	}
+	public int getAge() {
+		return age ;
+	}
+}
+public class JavaDemo {	// 主类
+	public static void main(String args[]) {
+		// 1、对象初始化准备
+		Person per = new Person() ;	// 声明并实例化对象
+		per.setName("张三") ;
+		per.setAge(-18) ;		// 在类外部修改属性
+		// 2、对象的使用
+		per.tell() ;	// 进行方法的调用
+	}
+} 
+
+2、
+
+class Person {	// 定义一个类
+	private String name ;	// 人员的姓名
+	private int age ;		// 人的年龄
+	// 方法名称与类名称相同，并且无返回值定义
+	public Person (String n,int a) {	// 定义有参构造
+		name = n ;	// 为类中的属性赋值（初始化）
+		age = a ;	// 为类中的属性赋值（初始化）
+	}
+	public void tell() {
+		System.out.println("姓名：" + name + "、年龄：" + age) ;
+	}
+}
+public class JavaDemo {	// 主类
+	public static void main(String args[]) {
+		// 1、对象初始化准备
+		Person per = new Person("张三",18) ;	// 声明并实例化对象
+		// 2、对象的使用
+		per.tell() ;	// 进行方法的调用
+	}
+} 
+
+3、
+class Person {	// 定义一个类
+	private String name ;	// 人员的姓名
+	private int age ;		// 人的年龄
+	public Person() {
+		name = "无名氏" ;
+		age = -1 ;
+	}
+	public Person(String n) {
+		name = n ;
+	}
+	public Person (String n,int a) {	// 定义有参构造
+		name = n ;	// 为类中的属性赋值（初始化）
+		age = a ;	// 为类中的属性赋值（初始化）
+	}
+	public void tell() {
+		System.out.println("姓名：" + name + "、年龄：" + age) ;
+	}
+}
+public class JavaDemo {	// 主类
+	public static void main(String args[]) {
+		// 1、对象初始化准备
+		Person per = new Person() ;	// 声明并实例化对象
+		// 2、对象的使用
+		per.tell() ;	// 进行方法的调用
+	}
+} 
+
+
+4、
+
+class Person {	// 定义一个类
+	private String name ;	// 人员的姓名
+	private int age ;		// 人的年龄
+	public Person (String n,int a) {	// 定义有参构造
+		name = n ;	// 为类中的属性赋值（初始化）
+		age = a ;	// 为类中的属性赋值（初始化）
+	}
+	public void tell() {
+		System.out.println("姓名：" + name + "、年龄：" + age) ;
+	}
+	public void setName(String n) {
+		name = n ;
+	}
+	public void setAge(int a) {
+		age = a ;
+	}
+	public String getName() {
+		return name ;
+	}
+	public int getAge() {
+		return age ;
+	}
+}
+public class JavaDemo {	// 主类
+	public static void main(String args[]) {
+		// 1、对象初始化准备
+		Person per = new Person("张三",10) ;	// 声明并实例化对象
+		// 2、对象的使用
+		per.setAge(18) ;	// 修改属性内容
+		per.tell() ;	// 进行方法的调用
+	}
+} 
+
+
+5、
+
+
+
+class Person {	// 定义一个类
+	private String name ;	// 人员的姓名
+	private int age ;		// 人的年龄
+	public Person (String n,int a) {	// 定义有参构造
+		name = n ;	// 为类中的属性赋值（初始化）
+		age = a ;	// 为类中的属性赋值（初始化）
+	}
+	public void tell() {
+		System.out.println("姓名：" + name + "、年龄：" + age) ;
+	}
+	public void setName(String n) {
+		name = n ;
+	}
+	public void setAge(int a) {
+		age = a ;
+	}
+	public String getName() {
+		return name ;
+	}
+	public int getAge() {
+		return age ;
+	}
+}
+public class JavaDemo {	// 主类
+	public static void main(String args[]) {
+		new Person("张三",10).tell() ;	// 进行方法的调用
+	}
+} 
+
+
+6、
+
+class Message {
+	private String title ;
+	public Message(String t) {
+		title = t ;
+	}
+	public String getTitle() {
+		return title ;
+	}
+	public void setTitle(String t) {	// 具有修改功能
+		title = t ;
+	}
+}
+class Person {	// 定义一个类
+	private String name ;	// 人员的姓名
+	private int age ;		// 人的年龄
+	public Person (Message msg,int a) {	// 定义有参构造
+		name = msg.getTitle() ;	// 为类中的属性赋值（初始化）
+		age = a ;	// 为类中的属性赋值（初始化）
+	}
+	public Message getInfo() {
+		return new Message(name + " : " + age) ;
+	}
+	public void tell() {
+		System.out.println("姓名：" + name + "、年龄：" + age) ;
+	}
+}
+public class JavaDemo {	// 主类
+	public static void main(String args[]) {
+		Message msg = new Message("mldn") ;
+		Person per = new Person(msg,20) ;
+		msg = per.getInfo() ;
+		System.out.println(msg.getTitle()) ;
+	}
+} 

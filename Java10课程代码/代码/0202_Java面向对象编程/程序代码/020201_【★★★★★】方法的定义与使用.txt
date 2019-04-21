@@ -1,0 +1,123 @@
+public static 返回值类型 方法名称([参数类型 变量,....]) {
+	// 该方法要执行的代码
+	[return [返回值] ;]
+}
+
+1、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		printMessage() ;	// 执行方法调用
+		printMessage() ;	// 执行方法调用
+	}
+	public static void printMessage() {	// 该方法包含了三行代码
+		System.out.println("**************************") ;
+		System.out.println("*     www.mldn.cn        *") ;
+		System.out.println("**************************") ;
+	}
+}
+ 
+
+
+2、
+public class JavaDemo {
+	public static void main(String args[]) {
+		String result = get(20.0) ;
+		System.out.println(result) ;
+		System.out.println(get(1.0)) ;	// 返回值可以直接输出
+	}
+	public static String get(double money) {
+		if (money >= 10.0) {
+			return "给你带一份快餐，找零：" + (money - 10.0) ;
+		} else {
+			return "对不起，您的余额不足，请先充值，或者捡漏。" ;
+		}
+	}
+}
+ 
+
+3、
+public class JavaDemo {
+	public static void main(String args[]) {
+		sale(3) ;
+		sale(-3) ;
+	}
+	public static void sale(int money) {
+		if (money <= 0) {	// 余额不足
+			return ;	// 后续代码不执行了
+		}
+		for (int x = 1 ; x <= money ; x ++) {
+			System.out.println("王健开笑，第" + x + "次") ;
+		}
+	}
+} 
+
+
+4、
+public class JavaDemo {
+	public static void main(String args[]) {
+		int resultA = sum(10,20) ;	 // 调用两个int参数的方法
+		int resultB = sum(10,20,30);	// 调用三个int参数的方法
+		double resultC = sum(10.2,20.3) ;
+		System.out.println("加法执行结果：" + resultA) ;
+		System.out.println("加法执行结果：" + resultB) ;
+		System.out.println("加法执行结果：" + resultC) ;
+	}
+	public static int sum(int x,int y) {
+		return x + y ;
+	}
+	public static int sum(int x,int y,int z) {
+		return x + y + z ;
+	}
+	public static double sum(double x,double y) {
+		return x + y ;
+	}
+} 
+
+5、
+public class JavaDemo {
+	public static void main(String args[]) {
+		int sum = 0 ;
+		int x = 1 ;
+		while (x <= 100) {	// 循环的结束条件
+			sum += x ;
+			x ++ ;		// 修改每一次循环的变量
+		}
+		System.out.println(sum) ;
+	}
+} 
+
+6、
+public class JavaDemo {
+	public static void main(String args[]) {
+		System.out.println(sum(100)) ;
+	}
+	public static int sum(int num) {	// 执行累加
+		if (num == 1) {	// 不累加了
+			return 1 ;
+		}
+		return num + sum(num - 1) ;	// 递归调用
+	}
+} 
+
+
+7、
+
+public class JavaDemo {
+	public static void main(String args[]) {
+		System.out.println(sum(90)) ;
+	}
+	public static double sum(int num) {
+		if (num == 1) {
+			return 1 ;
+		}
+		return fan(num) + sum(num - 1) ;
+	}
+	public static double fan(int num) {	// 执行累加
+		if (num == 1) {	// 不累加了
+			return 1 ;
+		}
+		return num * fan(num - 1) ;	// 递归调用
+	}
+} 
+

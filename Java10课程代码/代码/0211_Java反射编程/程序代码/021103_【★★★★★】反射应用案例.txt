@@ -1,0 +1,330 @@
+1、
+package cn.mldn.vo;
+
+public class Person {
+	// 任何情况下如果要实例化类对象则一定要调用类中的构造方法
+	public Person() {	// 无参构造方法
+		System.out.println("*********** Person类构造方法 **********");
+	}
+	@Override
+	public String toString() {
+		return "我是一个人，一个脱离了低级趣味的好人！";
+	}
+}
+
+
+2、
+package cn.mldn.demo;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Class<?> cls = Class.forName("cn.mldn.vo.Person") ; 
+		Object obj = cls.newInstance() ;	// 实例化对象，JDK 1.9后被废除了
+		System.out.println(obj); // 输出对象调用toString()方法
+	}
+}
+
+
+3、
+package cn.mldn.demo;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Class<?> cls = Class.forName("cn.mldn.vo.Person") ; 
+		Object obj = cls.getDeclaredConstructor().newInstance() ;
+		System.out.println(obj); // 输出对象调用toString()方法
+	}
+}
+
+
+4、
+
+package cn.mldn.demo;
+interface IMessage {
+	public void send() ; // 消息发送
+}
+class NetMessage implements IMessage {
+	public void send() {
+		System.out.println("【网络消息发送】www.mldn.cn");
+	}
+}
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		IMessage msg = new NetMessage() ;	// 如果直接实例化则一定会有耦合问题
+	}
+}
+
+
+5、
+package cn.mldn.demo;
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		IMessage msg = Factory.getInstance("netmessage") ;
+		msg.send(); 
+	}
+}
+interface IMessage {
+	public void send() ; // 消息发送
+}
+class NetMessage implements IMessage {
+	public void send() {
+		System.out.println("【网络消息发送】www.mldn.cn");
+	}
+}
+class Factory {
+	private Factory() {}  // 没有产生实例化对象的意义，所以构造方法私有化
+	public static IMessage getInstance(String className) {
+		if ("netmessage".equalsIgnoreCase(className)) {
+			return new NetMessage() ;
+		}
+		return null ;
+	}
+}
+
+
+
+6、
+package cn.mldn.demo;
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		IMessage msg = Factory.getInstance("cloudmessage") ;
+		msg.send(); 
+	}
+}
+interface IMessage {
+	public void send() ; // 消息发送
+}
+class CloudMessage implements IMessage {
+	@Override
+	public void send() {
+		System.out.println("【云消息】www.mldnjava.cn");
+	}
+}
+class NetMessage implements IMessage {
+	public void send() {
+		System.out.println("【网络消息发送】www.mldn.cn");
+	}
+}
+class Factory {
+	private Factory() {}  // 没有产生实例化对象的意义，所以构造方法私有化
+	public static IMessage getInstance(String className) {
+		if ("netmessage".equalsIgnoreCase(className)) {
+			return new NetMessage() ;
+		} else if ("cloudmessage".equalsIgnoreCase(className)) {
+			return new CloudMessage() ;
+		}
+		return null ;
+	}
+}
+
+
+
+7、
+
+package cn.mldn.demo;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		IMessage msg = Factory.getInstance("cn.mldn.demo.NetMessage") ;
+		msg.send(); 
+	}
+}
+class Factory {
+	private Factory() {}  // 没有产生实例化对象的意义，所以构造方法私有化
+	public static IMessage getInstance(String className) {
+		IMessage instance = null ;
+		try {
+			instance = (IMessage) Class.forName(className).getDeclaredConstructor().newInstance() ;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return instance ;
+	}
+}
+interface IMessage {
+	public void send() ; // 消息发送
+}
+class CloudMessage implements IMessage {
+	@Override
+	public void send() {
+		System.out.println("【云消息】www.mldnjava.cn");
+	}
+}
+class NetMessage implements IMessage {
+	public void send() {
+		System.out.println("【网络消息发送】www.mldn.cn");
+	}
+}
+
+
+
+8、
+package cn.mldn.demo;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		IMessage msg = Factory.getInstance("cn.mldn.demo.NetMessage",IMessage.class) ;
+		msg.send();
+		IService service = Factory.getInstance("cn.mldn.demo.HouseService",IService.class) ;
+		service.service(); 
+	}
+}
+class Factory {
+	private Factory() {}  // 没有产生实例化对象的意义，所以构造方法私有化
+	/**
+	 * 获取接口实例化对象
+	 * @param className 接口的子类
+	 * @param clazz 描述的是一个接口的类型
+	 * @return 如果子类存在则返回指定接口实例化对象
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> T getInstance(String className,Class<T> clazz) {
+		T instance = null ;
+		try { 
+			instance = (T) Class.forName(className).getDeclaredConstructor().newInstance() ;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return instance ;
+	} 
+}
+interface IService {
+	public void service() ;
+}
+class HouseService implements IService {
+	@Override
+	public void service() {
+		System.out.println("【服务】为您的住宿提供服务。");
+	}
+}
+interface IMessage {
+	public void send() ; // 消息发送
+}
+class NetMessage implements IMessage {
+	public void send() {
+		System.out.println("【网络消息发送】www.mldn.cn");
+	}
+}
+
+
+
+
+9、
+package cn.mldn.demo;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		Singleton sinA = Singleton.getInstance() ;
+		sinA.print(); 
+	}
+}
+class Singleton {
+	private static Singleton instance = null ;
+	private Singleton() {} 
+	public static Singleton getInstance() {
+		if (instance == null) {
+			instance = new Singleton() ;
+		}
+		return instance ;
+	}
+	public void print() {
+		System.out.println("www.mldn.cn");
+	}
+}
+
+
+10、
+package cn.mldn.demo;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		for (int x = 0 ; x < 3 ; x ++) {
+			new Thread(()->{
+				Singleton.getInstance().print();
+			},"单例消费端-" + x).start(); 
+		}
+	}
+}
+class Singleton {
+	private static Singleton instance = null ;
+	private Singleton() {
+		System.out.println("【" + Thread.currentThread().getName() + "】****** 实例化Singleton类对象 ******");
+	} 
+	public static Singleton getInstance() {
+		if (instance == null) {
+			instance = new Singleton() ;
+		}
+		return instance ;
+	}
+	public void print() {
+		System.out.println("www.mldn.cn");
+	}
+}
+
+
+
+11、
+
+package cn.mldn.demo;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		for (int x = 0 ; x < 3 ; x ++) {
+			new Thread(()->{
+				Singleton.getInstance().print();
+			},"单例消费端-" + x).start(); 
+		}
+	}
+}
+class Singleton {
+	private static Singleton instance = null ;
+	private Singleton() {
+		System.out.println("【" + Thread.currentThread().getName() + "】****** 实例化Singleton类对象 ******");
+	} 
+	public static synchronized Singleton getInstance() {
+		if (instance == null) {
+			instance = new Singleton() ;
+		}
+		return instance ;
+	}
+	public void print() {
+		System.out.println("www.mldn.cn");
+	}
+}
+
+
+
+12、
+package cn.mldn.demo;
+
+public class JavaAPIDemo {
+	public static void main(String[] args) throws Exception {
+		for (int x = 0 ; x < 3 ; x ++) {
+			new Thread(()->{
+				Singleton.getInstance().print();
+			},"单例消费端-" + x).start(); 
+		}
+	}
+}
+class Singleton {
+	private static volatile Singleton instance = null ;
+	private Singleton() {
+		System.out.println("【" + Thread.currentThread().getName() + "】****** 实例化Singleton类对象 ******");
+	} 
+	public static Singleton getInstance() {
+		if (instance == null) {
+			synchronized (Singleton.class) {
+				if (instance == null) {
+					instance = new Singleton() ;
+				}
+			}
+		}
+		return instance ;
+	}
+	public void print() {
+		System.out.println("www.mldn.cn");
+	}
+}
+
+
+
